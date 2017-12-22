@@ -1,0 +1,131 @@
+body {
+    display: flex;
+}
+
+.produit {
+    margin: 15px;
+    width: 512px;
+    height: 512px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.mdl-textfield {
+    margin:auto;
+}
+
+legend {
+    text-align: center;
+}
+
+h5 {
+    text-align: center;
+}
+
+.flex { display: flex;}
+
+.users{
+    margin: 15px auto;
+}
+
+.snackbar{
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    cursor: default;
+    background-color: #323232;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    border-radius: 2px;
+    animation-delay: 2s;
+    animation-duration: 1s;
+    animation-name:disapear;
+    animation-fill-mode:forwards;
+}
+
+@keyframes disapear {
+    from {
+        opacity: 100;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.snackbar__text {
+    padding: 14px 22px;
+    color: #fff;
+    float: left;
+    text-align: center;
+}
+.detail {
+    margin:auto;
+    margin-top: 15px;
+}
+
+.mdl-layout {
+    height:100%;
+}
+
+.mdl-layout__content {
+    min-height: fit-content;
+}
+
+button {
+    margin-bottom: 15px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.bouton {
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.achat {
+    margin:auto;
+    display: flex;
+    align-items:center;
+}
+
+.list-prod {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.save {
+    margin:auto;
+    margin-bottom:15px;
+}
+
+.taille {
+    width:300px;
+}
+
+.list {
+    margin:auto;
+    margin-top: 15px;
+    text-align: center;
+}
+
+a.titre {
+    color: white;
+    text-decoration: none;
+}
+

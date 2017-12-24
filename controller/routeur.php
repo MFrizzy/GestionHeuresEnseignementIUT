@@ -1,6 +1,7 @@
 <?php
 
 require_once File::build_path(array('controller', 'ControllerMain.php'));
+require_once File::build_path(array('controller', 'ControllerExtraction.php'));
 
 if (isset($_GET['controller'])) {
     $controller_class = 'Controller' . ucfirst($_GET['controller']);
@@ -20,9 +21,6 @@ if (class_exists($controller_class)) {
     } else {
         ControllerMain::erreur("Action inexistante");
     }
-}
-else {
-    $controller_class = 'ControllerProduct';
-    $action = 'readAll';
-    $controller_class::$action();
+} else {
+    ControllerMain::erreur("Controller inexistant");
 }

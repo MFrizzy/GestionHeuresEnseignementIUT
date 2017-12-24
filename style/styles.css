@@ -138,6 +138,7 @@ a {
 
 .import {
     margin: 15px auto;
+    min-height: auto;
 }
 
 /* Importation de fichier material design

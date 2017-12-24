@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?php echo $pagetitle; ?></title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="./style/material.min.css">
     <script src="./style/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -21,31 +22,41 @@
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
                 <li class="mdl-menu__item">Contact</li>
-                <a href="https://github.com/MFrizzy/GestionHeuresEnseignementIUT"><li class="mdl-menu__item">Github</li></a>
+                <a href="https://github.com/MFrizzy/GestionHeuresEnseignementIUT">
+                    <li class="mdl-menu__item">Github</li>
+                </a>
             </ul>
         </div>
     </header>
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
             <!--<i class="material-icons demo-avatar">person</i>-->
+            <?php if (isset($_SESSION['login'])) echo '
             <div class="demo-avatar-dropdown">
-                <span>hello@example.com</span>
+                <span>' . $_SESSION['login'] . '</span>
                 <div class="mdl-layout-spacer"></div>
                 <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
                     <i class="material-icons" role="presentation">arrow_drop_down</i>
                     <span class="visuallyhidden">Accounts</span>
                 </button>
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                    <li class="mdl-menu__item">hello@example.com</li>
-                    <li class="mdl-menu__item">info@example.com</li>
-                    <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
+                    <a href="index.php?controller=user&action=read"><li class="mdl-menu__item">Voir mon profil</li></a>
+                    <a href="index.php?controller=user&action=deconnect"><li class="mdl-menu__item">Se déconnecter</li></a>
+                    <!--<li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>-->
                 </ul>
-            </div>
+            </div>';
+            ?>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+            <a class="mdl-navigation__link" href="index.php"><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                                role="presentation">home</i>Accueil</a>
+            <?php if (isset($_SESSION['login']) && $_SESSION['is_admin']) {
+                echo '<a class="mdl-navigation__link" href="index.php?controller=user&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Utilisateurs</a>';
+            }
+            ?>
             <div class="mdl-layout-spacer"></div>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                       role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">

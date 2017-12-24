@@ -91,6 +91,7 @@ h1 {
 }
 
 .bouton {
+    display: block;
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -139,6 +140,21 @@ a {
 .import {
     margin: 15px auto;
     min-height: auto;
+}
+
+/* Formulaire */
+
+.text_input {
+    display: flex;
+}
+
+.text_input > i {
+    margin:auto;
+    margin-right: 10px;
+}
+
+.userupdate {
+    width: auto;
 }
 
 /* Importation de fichier material design

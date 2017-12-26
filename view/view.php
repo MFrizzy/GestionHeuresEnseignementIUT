@@ -48,15 +48,21 @@
             ?>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href="index.php"><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                                role="presentation">home</i>Accueil</a>
-            <?php if (isset($_SESSION['login']) && $_SESSION['is_admin']) {
+            <a class="mdl-navigation__link" href="index.php"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Accueil</a>
+            <?php
+            if (isset($_SESSION['login'])) {
+                echo '<a class="mdl-navigation__link" href="index.php?controller=batiment&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">business</i>Bâtiments</a>';
+                echo '<a class="mdl-navigation__link" href="index.php?controller=extraction&action=extract"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">file_upload</i>Extraction</a>';
+            }
+            ?>
+
+            <?php
+            if (isset($_SESSION['login']) && $_SESSION['is_admin']) {
                 echo '<a class="mdl-navigation__link" href="index.php?controller=user&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Utilisateurs</a>';
             }
             ?>
             <div class="mdl-layout-spacer"></div>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                       role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">

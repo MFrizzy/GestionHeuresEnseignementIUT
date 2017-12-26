@@ -37,6 +37,7 @@ h5 {
     margin: 15px auto;
 }
 
+
 .snackbar{
     position: fixed;
     bottom: 0;
@@ -91,6 +92,7 @@ h1 {
 }
 
 .bouton {
+    display: block;
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -129,3 +131,78 @@ a.titre {
     text-decoration: none;
 }
 
+/* Nouveau css */
+
+a {
+    text-decoration: none;
+}
+
+
+.import {
+    margin: 15px auto;
+    min-height: auto;
+}
+
+/* Formulaire */
+
+.text_input {
+    display: flex;
+    align-items: flex-start;
+}
+
+.text_input > i {
+    margin:auto;
+    margin-right: 10px;
+}
+
+.userupdate {
+    width: auto;
+}
+
+/* Detail Batiment */
+
+.detailBatiment1 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detailBatiment2 {
+    margin: 15px 0px;
+    margin-left: 15px;
+    min-height: auto;
+    height: 60px;
+}
+
+.detailBatiment3 {
+    margin: 0px;
+    margin-top: 15px;
+    margin-left: 15px
+}
+
+/* Importation de fichier material design
+   Source : https://codepen.io/alexandergaziev/pen/JdVQQm
+*/
+
+body {
+    display: flex;
+}
+
+.file_input_div {
+    margin: auto;
+    width: 250px;
+    height: 40px;
+}
+
+.file_input {
+    float: left;
+}
+
+#file_input_text_div {
+    width: 200px;
+    margin-top: -8px;
+    margin-left: 5px;
+}
+
+.none {
+    display: none;
+}

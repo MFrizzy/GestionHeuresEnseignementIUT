@@ -37,6 +37,7 @@ h5 {
     margin: 15px auto;
 }
 
+
 .snackbar{
     position: fixed;
     bottom: 0;
@@ -146,6 +147,7 @@ a {
 
 .text_input {
     display: flex;
+    align-items: flex-start;
 }
 
 .text_input > i {
@@ -155,6 +157,26 @@ a {
 
 .userupdate {
     width: auto;
+}
+
+/* Detail Batiment */
+
+.detailBatiment1 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detailBatiment2 {
+    margin: 15px 0px;
+    margin-left: 15px;
+    min-height: auto;
+    height: 60px;
+}
+
+.detailBatiment3 {
+    margin: 0px;
+    margin-top: 15px;
+    margin-left: 15px
 }
 
 /* Importation de fichier material design

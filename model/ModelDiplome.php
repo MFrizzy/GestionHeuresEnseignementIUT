@@ -1,5 +1,6 @@
 <?php
 require_once File::build_path(array('model','Model.php'));
+require_once File::build_path(array('model','ModelDepartement.php'));
 
 class ModelDiplome extends Model
 {
@@ -32,6 +33,14 @@ class ModelDiplome extends Model
     public function getCodeDepartement()
     {
         return $this->codeDepartement;
+    }
+
+    /**
+     * @param mixed $codeDepartement
+     */
+    public function setCodeDepartement($codeDepartement)
+    {
+        $this->codeDepartement = $codeDepartement;
     }
 
     /**
@@ -69,11 +78,20 @@ class ModelDiplome extends Model
             $retourne = $rep->fetchAll();
             foreach ($retourne as $cle => $item) {
                 $retourne[$cle]->setTypeDiplome(self::$typesDiplome[$item->getTypeDiplome()]);
+                $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
             }
             return $retourne;
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    public static function select($primary_value)
+    {
+        $retourne=parent::select($primary_value);
+        $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()]);
+        $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
+        return $retourne;
     }
 
 }

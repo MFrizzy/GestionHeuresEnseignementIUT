@@ -7,6 +7,7 @@ require_once File::build_path(array('controller', 'ControllerBatiment.php'));
 require_once File::build_path(array('controller', 'ControllerSalle.php'));
 require_once File::build_path(array('controller', 'ControllerEnseignant.php'));
 require_once File::build_path(array('controller', 'ControllerDepartement.php'));
+require_once File::build_path(array('controller', 'ControllerDiplome.php'));
 
 if (isset($_GET['controller'])) {
     $controller_class = 'Controller' . ucfirst($_GET['controller']);

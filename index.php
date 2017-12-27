@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tangu
- * Date: 06/10/2017
- * Time: 12:06
- */
 
 session_start();
 

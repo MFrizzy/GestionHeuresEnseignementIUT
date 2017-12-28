@@ -7,6 +7,7 @@
             <th class="mdl-data-table__cell--non-numeric">Code Enseignant</th>
             <th class="mdl-data-table__cell--non-numeric">Nom</th>
             <th class="mdl-data-table__cell--non-numeric">Prénom</th>
+            <th class="mdl-data-table__cell--non-numeric">Département</th>
             <th class="mdl-data-table__cell--non-numeric">Statut 1</th>
             <th class="mdl-data-table__cell--non-numeric">Statut 2</th>
             <th class="mdl-data-table__cell--non-numeric">Etat service</th>
@@ -22,6 +23,7 @@
                         <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getCodeEns()) . '</th>
                         <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getNomEns()) . '</th>
                         <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getPrenomEns()) . '</th>
+                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getCodeDepartement()->getNomDepartement()) . '</th>
                         <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($statut->getStatut()) . '</th>
                         <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($statut->getTypeStatut()) . '</th>
                         <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getEtatService()) . '</th>
@@ -32,3 +34,9 @@
         </tbody>
     </table>
 </div>
+
+<a href="index.php?controller=enseignant&action=create" class="new">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
+        <i class="material-icons">add</i>
+    </button>
+</a>

@@ -1,6 +1,7 @@
 <?php
 require_once File::build_path(array('model', 'Model.php'));
 require_once File::build_path(array('model', 'ModelStatutEnseignant.php'));
+require_once File::build_path(array('model', 'ModelDepartement.php'));
 
 class ModelEnseignant extends Model
 {
@@ -14,6 +15,23 @@ class ModelEnseignant extends Model
     private $nomEns;
     private $prenomEns;
     private $etatService;
+    private $codeDepartement;
+
+    /**
+     * @return mixed
+     */
+    public function getCodeDepartement()
+    {
+        return $this->codeDepartement;
+    }
+
+    /**
+     * @param mixed $codeDepartement
+     */
+    public function setCodeDepartement($codeDepartement)
+    {
+        $this->codeDepartement = $codeDepartement;
+    }
 
     /**
      * @return mixed
@@ -63,9 +81,6 @@ class ModelEnseignant extends Model
         return $this->etatService;
     }
 
-
-    //TODO Tester
-
     /**
      * @param $primary_value
      * @return bool
@@ -74,15 +89,16 @@ class ModelEnseignant extends Model
     {
         $retourne = parent::select($primary_value);
         $retourne->setCodeStatut(ModelStatutEnseignant::select($retourne->getCodeStatut()));
+        $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
         return $retourne;
     }
 
-    //TODO MARCHE PAS
     public static function selectAll()
     {
         $retourne = parent::selectAll();
         foreach ($retourne as $cle => $item) {
             $retourne[$cle]->setCodeStatut(ModelStatutEnseignant::select($retourne[$cle]->getCodeStatut()));
+            $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
         }
         return $retourne;
     }

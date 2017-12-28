@@ -186,6 +186,18 @@ a {
     height: 110px;
 }
 
+/* Bouton New */
+
+.new {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.select {
+    color:rgb(0,188,212);
+}
+
 /* Importation de fichier material design
    Source : https://codepen.io/alexandergaziev/pen/JdVQQm
 */

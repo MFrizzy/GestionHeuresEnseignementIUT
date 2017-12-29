@@ -5,9 +5,12 @@ class Conf
 
     static private $databases = array(
         'hostname' => 'webinfo.iutmontp.univ-montp2.fr',
-        'database' => 'thomast',
-        'login' => 'thomast',
-        'password' => 'IUT'
+        //'database' => 'thomast',
+        //'login' => 'thomast',
+        //'password' => 'IUT'
+        'database' => 'legallon',
+        'login' => 'legallon',
+        'password' => 'setopslegallo'
     );
 
     static private $debug = False;

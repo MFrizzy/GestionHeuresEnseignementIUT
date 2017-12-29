@@ -186,6 +186,10 @@ a {
     height: 110px;
 }
 
+table{
+    width: auto;
+}
+
 /* Bouton New */
 
 .new {

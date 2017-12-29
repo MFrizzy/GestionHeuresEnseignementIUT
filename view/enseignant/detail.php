@@ -17,6 +17,11 @@
                     <i class="material-icons">edit</i>
                 </button>
             </a>
+            <a href="index.php?controller=enseignant&action=delete&codeEns=<?php echo htmlspecialchars($ens->getCodeEns()) ?>">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">delete</i>
+                </button>
+            </a>
         </div>
     </div>
 

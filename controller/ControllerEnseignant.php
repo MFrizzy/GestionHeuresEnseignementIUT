@@ -66,4 +66,16 @@ class ControllerEnseignant
             } else ControllerMain::erreur("Il manque des informations");
         } else ControllerUser::connect();
     }
+
+    public static function delete() {
+        if(isset($_SESSION['login'])) {
+            if(isset($_GET['codeEns'])) {
+                if(!ModelEnseignant::delete($_GET["codeEns"])) ControllerMain::erreur("Impossible de supprime l'enseignant");
+                else {
+                    ControllerEnseignant::readAll();
+                }
+            }
+            else ControllerMain::erreur("Il manque des informations");
+        }else ControllerUser::connect();
+    }
 }

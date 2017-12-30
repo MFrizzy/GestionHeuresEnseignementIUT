@@ -16,6 +16,15 @@ class ModelEnseignant extends Model
     private $prenomEns;
     private $etatService;
     private $codeDepartement;
+    private $remarque;
+
+    /**
+     * @return mixed
+     */
+    public function getRemarque()
+    {
+        return $this->remarque;
+    }
 
     /**
      * @return mixed

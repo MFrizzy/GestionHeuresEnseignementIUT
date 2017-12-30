@@ -3,6 +3,9 @@
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text"><?php echo htmlspecialchars($dep->getNomDepartement()) ?></h2>
         </div>
+        <div class="mdl-card__supporting-text">
+            Batiment : <?php echo $dep->getNomBatiment()->getNomBatiment() ?>
+        </div>
         <div class="mdl-card__menu">
             <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                 <a href="index.php?controller=departement&action=update&codeDepartement=<?php echo htmlspecialchars($dep->getCodeDepartement()) ?>"><i
@@ -15,7 +18,7 @@
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp detailBatiment3">
         <thead>
         <tr>
-            <th></th>
+            <th>Details</th>
             <th class="mdl-data-table__cell--non-numeric">Diplome</th>
         </tr>
         </thead>

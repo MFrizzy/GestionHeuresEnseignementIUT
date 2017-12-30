@@ -3,7 +3,7 @@
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp users">
         <thead>
         <tr>
-            <th></th>
+            <th>Details</th>
             <th class="mdl-data-table__cell--non-numeric">Mail</th>
             <th class="mdl-data-table__cell--non-numeric">Admin</th>
             <th></th>

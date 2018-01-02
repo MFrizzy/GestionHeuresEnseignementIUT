@@ -16,7 +16,7 @@ class ControllerDiplome
                 else {
                     $tab = ModelUniteDEnseignement::selectAllByDiplome($_GET['codeDiplome']);
                     $view = 'detail';
-                    $pagetitle = '' . $diplome->getTypeDiplome() . ' ' . $diplome->getCodeDepartement()->getNomDepartement();
+                    $pagetitle = '' . $diplome->getTypeDiplome() . ' ' . $diplome->getCodeDepartement()->getNomDepartement(). ' ' .$diplome->getNomDiplome();
                     $pagetitle = htmlspecialchars($pagetitle);
                     require_once File::build_path(array('view', 'view.php'));
                 }

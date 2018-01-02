@@ -28,7 +28,7 @@
         foreach ($tab as $value) {
             echo '<tr>
                         <th class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=diplome&action=read&codeDiplome=' . htmlspecialchars($value->getCodeDiplome()) . '">' . '<i class="material-icons">expand_more</i></a></th>
-                        <th>' . htmlspecialchars($value->getTypeDiplome()) . '</th>
+                        <th>' . htmlspecialchars($value->getTypeDiplome()) . ' ' .htmlspecialchars($value->getNomDiplome()). '</th>
                     </tr>
             ';
         }

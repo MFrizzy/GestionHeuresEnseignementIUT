@@ -1,6 +1,6 @@
 <?php
-require_once File::build_path(array('model','Model.php'));
-require_once File::build_path(array('model','ModelDepartement.php'));
+require_once File::build_path(array('model', 'Model.php'));
+require_once File::build_path(array('model', 'ModelDepartement.php'));
 
 class ModelDiplome extends Model
 {
@@ -11,9 +11,14 @@ class ModelDiplome extends Model
     private $codeDiplome;
     private $codeDepartement;
     private $typeDiplome;
-    private $volumeHoraire;
+    private $nomDiplome;
+    private $heuresTP;
+    private $heuresTD;
+    private $heuresCM;
+    private $heuresProjet;
+    private $heuresStage;
 
-    private static $typesDiplome=array(
+    private static $typesDiplome = array(
         "D" => "DUT",
         "U" => "DU",
         "P" => "Licence Pro"
@@ -62,10 +67,51 @@ class ModelDiplome extends Model
     /**
      * @return mixed
      */
-    public function getVolumeHoraire()
+    public function getNomDiplome()
     {
-        return $this->volumeHoraire;
+        return $this->nomDiplome;
     }
+
+    /**
+     * @return int
+     */
+    public function getHeuresTP()
+    {
+        return (int)$this->heuresTP;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeuresTD()
+    {
+        return (int)$this->heuresTD;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeuresCM()
+    {
+        return (int)$this->heuresCM;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeuresProjet()
+    {
+        return (int)$this->heuresProjet;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeuresStage()
+    {
+        return (int)$this->heuresStage;
+    }
+
 
     public static function selectAllByDepartement($codeDepartement)
     {
@@ -88,10 +134,21 @@ class ModelDiplome extends Model
 
     public static function select($primary_value)
     {
-        $retourne=parent::select($primary_value);
+        $retourne = parent::select($primary_value);
         $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()]);
         $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
         return $retourne;
+    }
+
+    public function getVolumeHoraire()
+    {
+        $heuresTP = (int)$this->heuresTP;
+        $heuresTD = (int)$this->heuresTD;
+        $heuresCM = (int)$this->heuresCM;
+        $heuresProjet = (int)$this->heuresProjet;
+        $heuresStage = (int)$this->heuresStage;
+        $total = $heuresTP+$heuresProjet+$heuresStage+$heuresCM+$heuresTD;
+        return $total;
     }
 
 }

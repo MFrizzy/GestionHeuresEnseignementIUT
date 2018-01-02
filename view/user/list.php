@@ -23,12 +23,12 @@
                 $setAdmin = '<a href="index.php?controller=user&action=setAdmin&mailUser=' . htmlspecialchars($value->getMailUser()) . '"><i class="material-icons">person_add</i></a>';
             }
             echo '<tr>
-                        <th><a href="index.php?controller=user&action=read&mailUser=' . htmlspecialchars($value->getMailUser()) . '">' . '<i class="material-icons">expand_more</i></a></th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getMailUser()) . '</th>
-                        <th class="mdl-data-table__cell--non-numeric">' . $activated . '</th>
-                        <th class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=user&action=update&mailUser=' . htmlspecialchars($value->getMailUser()) . '"><i class="material-icons">mode_edit</i></a></th>
-                        <th class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=user&action=delete&mailUser=' . htmlspecialchars($value->getMailUser()) . '"><i class="material-icons">delete</i></a></th>
-                        <th class="mdl-data-table__cell--non-numeric">' . $setAdmin . '</th>
+                        <td><a href="index.php?controller=user&action=read&mailUser=' . htmlspecialchars($value->getMailUser()) . '">' . '<i class="material-icons">expand_more</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getMailUser()) . '</td>
+                        <td class="mdl-data-table__cell--non-numeric">' . $activated . '</td>
+                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=user&action=update&mailUser=' . htmlspecialchars($value->getMailUser()) . '"><i class="material-icons">mode_edit</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=user&action=delete&mailUser=' . htmlspecialchars($value->getMailUser()) . '"><i class="material-icons">delete</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric">' . $setAdmin . '</td>
                     </tr>
             ';
         }

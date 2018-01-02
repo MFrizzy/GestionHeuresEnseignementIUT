@@ -13,9 +13,9 @@
 
         foreach ($tab as $value) {
             echo '<tr>
-                        <th><a href="index.php?controller=departement&action=read&codeDepartement=' . htmlspecialchars($value->getCodeDepartement()) . '">' . '<i class="material-icons">expand_more</i></a></th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getNomDepartement()) . '</th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getNomBatiment()->getNomBatiment()).'</th>
+                        <td><a href="index.php?controller=departement&action=read&codeDepartement=' . htmlspecialchars($value->getCodeDepartement()) . '">' . '<i class="material-icons">expand_more</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getNomDepartement()) . '</td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getNomBatiment()->getNomBatiment()).'</td>
                     </tr>
             ';
         }

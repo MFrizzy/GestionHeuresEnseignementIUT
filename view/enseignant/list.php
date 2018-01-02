@@ -17,14 +17,14 @@
     foreach ($tab as $value) {
         $statut = $value->getCodeStatut();
         echo '<tr>
-                        <th><a href="index.php?controller=enseignant&action=read&codeEns=' . htmlspecialchars($value->getCodeEns()) . '">' . '<i class="material-icons">expand_more</i></a></th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getCodeEns()) . '</th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getNomEns()) . '</th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getPrenomEns()) . '</th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getCodeDepartement()->getNomDepartement()) . '</th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($statut->getStatut()) . '</th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($statut->getTypeStatut()) . '</th>
-                        <th class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getEtatService()) . '</th>
+                        <td><a href="index.php?controller=enseignant&action=read&codeEns=' . htmlspecialchars($value->getCodeEns()) . '">' . '<i class="material-icons">expand_more</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getCodeEns()) . '</td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getNomEns()) . '</td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getPrenomEns()) . '</td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getCodeDepartement()->getNomDepartement()) . '</td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($statut->getStatut()) . '</td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($statut->getTypeStatut()) . '</td>
+                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getEtatService()) . '</td>
                     </tr>
             ';
     }

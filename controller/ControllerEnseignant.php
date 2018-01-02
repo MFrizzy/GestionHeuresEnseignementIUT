@@ -14,7 +14,7 @@ class ControllerEnseignant
             else {
                 $departements = ModelDepartement::selectAll();
                 $statuts = ModelStatutEnseignant::selectAll();
-                $view = 'list';
+                $view = 'home';
                 $pagetitle = 'Enseignants';
                 require_once File::build_path(array('view', 'view.php'));
             }
@@ -115,12 +115,71 @@ class ControllerEnseignant
                     'codeStatut' => $_POST['codeStatut'],
                     'remarque' => $_POST['remarque']
                 );
-                if(!ModelEnseignant::update($data)) ControllerMain::erreur("Impossible de modifier l'enseignant");
+                if (!ModelEnseignant::update($data)) ControllerMain::erreur("Impossible de modifier l'enseignant");
                 else {
-                    header("location: index.php?controller=enseignant&action=read&codeEns=".$_POST['codeEns']);
+                    header("location: index.php?controller=enseignant&action=read&codeEns=" . $_POST['codeEns']);
                 }
             } else ControllerMain::erreur("Il manque des informations");
         } else ControllerUser::connect();
     }
 
+    public static function searchByDep()
+    {
+        if (isset($_SESSION['login'])) {
+            if (isset($_POST['codeDepartement'])) {
+                $tab = ModelEnseignant::selectAllByDepartement($_POST['codeDepartement']);
+                if (!$tab) ControllerMain::erreur("Il n'y a aucun professeurs dans ce département");
+                else {
+                    $view = 'list';
+                    $pagetitle = 'Enseignants';
+                    require_once File::build_path(array('view', 'view.php'));
+                }
+            } else ControllerMain::erreur("Il manque des informations");
+        } else ControllerUser::connect();
+    }
+
+    public static function searchByStatut()
+    {
+        if (isset($_SESSION['login'])) {
+            if (isset($_POST['codeStatut'])) {
+                $tab = ModelEnseignant::selectAllByStatut($_POST['codeStatut']);
+                if (!$tab) ControllerMain::erreur("Il n'y a aucun professeurs avec ce statut");
+                else {
+                    $view = 'list';
+                    $pagetitle = 'Enseignants';
+                    require_once File::build_path(array('view', 'view.php'));
+                }
+            }
+        } else ControllerUser::connect();
+    }
+
+    public static function searchByCode()
+    {
+        if (isset($_SESSION['login'])) {
+            if (isset($_POST['codeEns'])) {
+                $ens = ModelEnseignant::select($_POST['codeEns']);
+                if(!$ens) ControllerMain::erreur("Cet enseigant n'existe pas");
+                else {
+                    $view = 'detail';
+                    $pagetitle = 'Enseignant : ' . $_POST['codeEns'];
+                    require_once File::build_path(array('view', 'view.php'));
+                }
+            } else ControllerMain::erreur("Il manque des informations");
+        } else ControllerUser::connect();
+    }
+
+    public static function searchByName()
+    {
+        if (isset($_SESSION['login'])) {
+            if (isset($_POST['npEns'])) {
+                $tab = ModelEnseignant::selectAllByName($_POST['npEns']);
+                if (!$tab) ControllerMain::erreur("Il n'y a aucun professeurs avec ce statut");
+                else {
+                    $view = 'list';
+                    $pagetitle = 'Enseignants';
+                    require_once File::build_path(array('view', 'view.php'));
+                }
+            }
+        } else ControllerUser::connect();
+    }
 }

@@ -112,4 +112,63 @@ class ModelEnseignant extends Model
         return $retourne;
     }
 
+    public static function selectAllByDepartement($codeDepartement)
+    {
+        try {
+            $sql = 'SELECT * FROM '.self::$object.' WHERE codeDepartement=:codeDepartement';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array('codeDepartement' => $codeDepartement);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelEnseignant');
+            $retourne = $rep->fetchAll();
+            foreach ($retourne as $cle => $item) {
+                $retourne[$cle]->setCodeStatut(ModelStatutEnseignant::select($retourne[$cle]->getCodeStatut()));
+                $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
+            }
+            return $retourne;
+        }
+        catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public static function selectAllByStatut($codeStatut)
+    {
+        try {
+            $sql = 'SELECT * FROM '.self::$object.' WHERE codeStatut=:codeStatut';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array('codeStatut' => $codeStatut);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelEnseignant');
+            $retourne = $rep->fetchAll();
+            foreach ($retourne as $cle => $item) {
+                $retourne[$cle]->setCodeStatut(ModelStatutEnseignant::select($retourne[$cle]->getCodeStatut()));
+                $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
+            }
+            return $retourne;
+        }
+        catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public static function selectAllByName($npEns)
+    {
+        try {
+            $sql = 'SELECT * FROM '.self::$object.' WHERE nomEns OR prenomEns LIKE CONCAT(\'%\',:npEns,\'%\')';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array('npEns' => $npEns);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelEnseignant');
+            $retourne = $rep->fetchAll();
+            foreach ($retourne as $cle => $item) {
+                $retourne[$cle]->setCodeStatut(ModelStatutEnseignant::select($retourne[$cle]->getCodeStatut()));
+                $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
+            }
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 }

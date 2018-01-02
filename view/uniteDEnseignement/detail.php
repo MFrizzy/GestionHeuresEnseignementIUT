@@ -44,6 +44,7 @@
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp detailBatiment3">
         <thead>
         <tr>
+            <th>Details</th>
             <th class="mdl-data-table__cell--non-numeric">Code du module</th>
             <th class="mdl-data-table__cell--non-numeric">Nom du module</th>
         </tr>
@@ -52,6 +53,7 @@
         <?php
         foreach ($modules as $module) {
             echo '    <tr>
+                        <th class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=module&action=read&codeModule='.$module->getCodeModule().'"><i class="material-icons">expand_more</i></a></th>
                         <th class="mdl-data-table__cell--non-numeric">'.$module->getCodeModule().'</th>
                         <th class="mdl-data-table__cell--non-numeric">'.$module->getNomModule().'</th>
                   </tr>';

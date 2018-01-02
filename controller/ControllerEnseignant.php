@@ -12,6 +12,8 @@ class ControllerEnseignant
             $tab = ModelEnseignant::selectAll();
             if (!$tab) ControllerMain::erreur("Il n'y a pas d'enseignants");
             else {
+                $departements = ModelDepartement::selectAll();
+                $statuts = ModelStatutEnseignant::selectAll();
                 $view = 'list';
                 $pagetitle = 'Enseignants';
                 require_once File::build_path(array('view', 'view.php'));

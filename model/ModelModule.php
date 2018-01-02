@@ -52,7 +52,7 @@ class ModelModule extends Model
      */
     public function getHeuresTP()
     {
-        return $this->heuresTP;
+        return (int)$this->heuresTP;
     }
 
     /**
@@ -60,7 +60,7 @@ class ModelModule extends Model
      */
     public function getHeuresTD()
     {
-        return $this->heuresTD;
+        return (int)$this->heuresTD;
     }
 
     /**
@@ -68,7 +68,7 @@ class ModelModule extends Model
      */
     public function getHeuresCM()
     {
-        return $this->heuresCM;
+        return (int)$this->heuresCM;
     }
 
     public static function select($primary_value)
@@ -94,7 +94,7 @@ class ModelModule extends Model
             $rep = Model::$pdo->prepare($sql);
             $values=array('nUE' => $nue);
             $rep->execute($values);
-            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDiplome');
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelModule');
             $retourne = $rep->fetchAll();
             foreach ($retourne as $cle => $item) {
                 $retourne[$cle]->setNUE(ModelUniteDEnseignement::select($item->getNUE()));
@@ -104,5 +104,10 @@ class ModelModule extends Model
         catch (Exception $e) {
             return false;
         }
+    }
+
+    public function getVolumeHoraire()
+    {
+        return $this->getHeuresTD()+$this->getHeuresCM()+$this->getHeuresTP();
     }
 }

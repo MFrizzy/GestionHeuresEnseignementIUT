@@ -9,6 +9,42 @@ class ModelUniteDEnseignement extends Model
 
     private $nUE;
     private $codeDiplome;
+    private $semestre;
+    private $heuresTP;
+    private $heuresTD;
+    private $heuresCM;
+
+    /**
+     * @return mixed
+     */
+    public function getSemestre()
+    {
+        return (int)$this->semestre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeuresTP()
+    {
+        return (int)$this->heuresTP;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeuresTD()
+    {
+        return (int)$this->heuresTD;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeuresCM()
+    {
+        return (int)$this->heuresCM;
+    }
 
     /**
      * @return mixed
@@ -67,5 +103,10 @@ class ModelUniteDEnseignement extends Model
             return false;
         }
     }
+
+    public function getVolumeHoraire() {
+        return $this->getHeuresCM()+$this->getHeuresTD()+$this->getHeuresTP();
+    }
+
 
 }

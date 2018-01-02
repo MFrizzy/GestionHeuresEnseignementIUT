@@ -147,8 +147,12 @@ class ModelDiplome extends Model
         $heuresCM = (int)$this->heuresCM;
         $heuresProjet = (int)$this->heuresProjet;
         $heuresStage = (int)$this->heuresStage;
-        $total = $heuresTP+$heuresProjet+$heuresStage+$heuresCM+$heuresTD;
+        $total = $heuresTP + $heuresProjet + $heuresStage + $heuresCM + $heuresTD;
         return $total;
     }
 
+    public function nommer()
+    {
+        return $this->getTypeDiplome() . ' ' . $this->getCodeDepartement()->getNomDepartement() . ' ' . $this->getNomDiplome();
+    }
 }

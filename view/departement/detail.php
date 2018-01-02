@@ -9,7 +9,7 @@
         <div class="mdl-card__menu">
             <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                 <a href="index.php?controller=departement&action=update&codeDepartement=<?php echo htmlspecialchars($dep->getCodeDepartement()) ?>"><i
-                        class="material-icons">edit</i></button>
+                            class="material-icons">edit</i></button>
             </a>
         </div>
     </div>
@@ -28,7 +28,7 @@
         foreach ($tab as $value) {
             echo '<tr>
                         <th class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=diplome&action=read&codeDiplome=' . htmlspecialchars($value->getCodeDiplome()) . '">' . '<i class="material-icons">expand_more</i></a></th>
-                        <th>' . htmlspecialchars($value->getTypeDiplome()) . ' ' .htmlspecialchars($value->getNomDiplome()). '</th>
+                        <th>' . htmlspecialchars($value->nommer()) . '</th>
                     </tr>
             ';
         }

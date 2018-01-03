@@ -8,4 +8,12 @@
 
 require_once 'lib/Security.php';
 
-echo Security::chiffrer("root");
+//echo Security::chiffrer("root");
+
+
+$a = 'MID3322';
+
+echo $a;
+$a = substr($a,3);
+echo '<br>'.$a;
+echo '<br>'.substr($a,2);

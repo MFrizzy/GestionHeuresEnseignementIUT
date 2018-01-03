@@ -55,7 +55,9 @@ class ModelStatutEnseignant extends Model
                 'typeStatut' => $typeStatut);
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelStatutEnseignant');
-            return $rep->fetchAll()[0];
+            $retourne=$rep->fetchAll();
+            if(empty($retourne)) return false;
+            return $retourne[0];
         } catch (Exception $e) {
             return false;
 

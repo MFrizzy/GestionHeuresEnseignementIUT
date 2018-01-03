@@ -123,7 +123,7 @@ class ModelDiplome extends Model
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDiplome');
             $retourne = $rep->fetchAll();
             foreach ($retourne as $cle => $item) {
-                $retourne[$cle]->setTypeDiplome(self::$typesDiplome[$item->getTypeDiplome()]); // TODO A MODIFIER POUR LP
+                $retourne[$cle]->setTypeDiplome(self::$typesDiplome[$item->getTypeDiplome()[0]]);
                 $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
             }
             return $retourne;
@@ -135,7 +135,7 @@ class ModelDiplome extends Model
     public static function select($primary_value)
     {
         $retourne = parent::select($primary_value);
-        $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()]); // TODO A MODIFIER POUR LP
+        $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
         $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
         return $retourne;
     }
@@ -152,7 +152,7 @@ class ModelDiplome extends Model
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDiplome');
             $retourne = $rep->fetchAll();
             $retourne = $retourne[0];
-            $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()]); // TODO A MODIFIER POUR LP
+            $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
             $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
             return $retourne;
         } catch (Exception $e) {

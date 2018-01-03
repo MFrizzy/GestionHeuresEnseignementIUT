@@ -10,10 +10,19 @@ class ModelModule extends Model
 
     private $codeModule;
     private $nUE;
+    private $numModule;
     private $nomModule;
     private $heuresTP;
     private $heuresTD;
     private $heuresCM;
+
+    /**
+     * @return mixed
+     */
+    public function getNumModule()
+    {
+        return $this->numModule;
+    }
 
     /**
      * @return mixed

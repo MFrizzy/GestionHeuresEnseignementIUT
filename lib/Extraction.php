@@ -33,7 +33,7 @@ class Extraction
         foreach ($matrice as $cle => $item) {
             if (Extraction::verifEnseignant($item)) {
                 $codeActivite=$item[7];
-                
+
             }
 
 

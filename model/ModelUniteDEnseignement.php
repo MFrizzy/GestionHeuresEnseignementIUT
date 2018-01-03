@@ -9,10 +9,19 @@ class ModelUniteDEnseignement extends Model
 
     private $nUE;
     private $codeDiplome;
+    private $idUE;
     private $semestre;
     private $heuresTP;
     private $heuresTD;
     private $heuresCM;
+
+    /**
+     * @return mixed
+     */
+    public function getIdUE()
+    {
+        return $this->idUE;
+    }
 
     /**
      * @return mixed

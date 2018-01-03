@@ -1,5 +1,5 @@
 <?php
-require_once File::build_path(array('model','Model.php'));
+require_once File::build_path(array('model', 'Model.php'));
 
 class ModelStatutEnseignant extends Model
 {
@@ -45,7 +45,22 @@ class ModelStatutEnseignant extends Model
         return $this->nombresHeures;
     }
 
+    public static function selectByStatutType($codeStatut, $typeStatut)
+    {
+        try {
+            $sql = 'SELECT * FROM '.self::$object.' WHERE codeStatut=:codeStatut AND typeStatut=:typeStatut';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array(
+                'codeStatut' => $codeStatut,
+                'typeStatut' => $typeStatut);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelStatutEnseignant');
+            return $rep->fetchAll()[0];
+        } catch (Exception $e) {
+            return false;
 
+        }
+    }
 
 
 }

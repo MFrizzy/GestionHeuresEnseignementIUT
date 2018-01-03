@@ -60,4 +60,19 @@ class ModelDepartement extends Model
         return $retourne;
     }
 
+    public static function selectByName($nomDepartement)
+    {
+        try {
+            $sql = 'SELECT * FROM '.self::$object.' WHERE nomDepartement=:nomDepartement';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array(
+                'nomDepartement' => $nomDepartement);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDepartement');
+            return $rep->fetchAll()[0];
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 }

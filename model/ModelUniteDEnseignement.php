@@ -113,8 +113,28 @@ class ModelUniteDEnseignement extends Model
         }
     }
 
-    public function getVolumeHoraire() {
-        return $this->getHeuresCM()+$this->getHeuresTD()+$this->getHeuresTP();
+    public static function selectBy($codeDiplome, $semestre, $idUE)
+    {
+        try {
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE codeDiplome=:codeDiplome AND semestre=:semestre AND idUE=:idUE';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array(
+                'codeDiplome' => $codeDiplome,
+                'semestre' => $semestre,
+                'idUE' => $idUE);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUniteDEnseignement');
+            $retourne = $rep->fetchAll()[0];
+            $retourne->setCodeDiplome(ModelDiplome::select($retourne->getCodeDiplome()));
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public function getVolumeHoraire()
+    {
+        return $this->getHeuresCM() + $this->getHeuresTD() + $this->getHeuresTP();
     }
 
 

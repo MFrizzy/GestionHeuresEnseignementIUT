@@ -99,9 +99,9 @@ class ModelModule extends Model
     public static function selectAllByNUE($nue)
     {
         try {
-            $sql='SELECT * FROM '.self::$object.' WHERE nUE=:nUE';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE nUE=:nUE';
             $rep = Model::$pdo->prepare($sql);
-            $values=array('nUE' => $nue);
+            $values = array('nUE' => $nue);
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelModule');
             $retourne = $rep->fetchAll();
@@ -109,14 +109,29 @@ class ModelModule extends Model
                 $retourne[$cle]->setNUE(ModelUniteDEnseignement::select($item->getNUE()));
             }
             return $retourne;
+        } catch (Exception $e) {
+            return false;
         }
-        catch (Exception $e) {
+    }
+
+    public static function selectBy($nUE, $numModule)
+    {
+        try {
+            $sql = 'SELECT * FROM '.self::$object.' WHERE nUE=:nUE AND numModule=:numModule';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array('nUE' => $nue);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelModule');
+            $retourne = $rep->fetchAll()[0];
+            $retourne->setNUE(ModelUniteDEnseignement::select($retourne->getNUE()));
+            return $retourne;
+        } catch (Exception $e) {
             return false;
         }
     }
 
     public function getVolumeHoraire()
     {
-        return $this->getHeuresTD()+$this->getHeuresCM()+$this->getHeuresTP();
+        return $this->getHeuresTD() + $this->getHeuresCM() + $this->getHeuresTP();
     }
 }

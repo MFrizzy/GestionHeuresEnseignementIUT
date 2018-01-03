@@ -140,6 +140,26 @@ class ModelDiplome extends Model
         return $retourne;
     }
 
+    public static function selectBy($codeDepartement, $typeDiplome)
+    {
+        try {
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE codeDepartement=:codeDepartement AND typeDiplome=:typeDiplome';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array(
+                'codeDepartement' => $codeDepartement,
+                'typeDiplome' => $typeDiplome);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDiplome');
+            $retourne = $rep->fetchAll();
+            $retourne = $retourne[0];
+            $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()]); // TODO A MODIFIER POUR LP
+            $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     public function getVolumeHoraire()
     {
         $heuresTP = (int)$this->heuresTP;

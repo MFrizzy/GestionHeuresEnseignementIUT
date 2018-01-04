@@ -47,6 +47,7 @@ class ModelDepartement extends Model
     public static function select($primary_value)
     {
         $retourne = parent::select($primary_value);
+        if(!$retourne) return false;
         $retourne->setNomBatiment(ModelBatiment::select($retourne->getNomBatiment()));
         return $retourne;
     }

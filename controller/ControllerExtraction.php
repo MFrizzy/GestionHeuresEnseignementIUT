@@ -24,11 +24,24 @@ class ControllerExtraction
             if (isset($_FILES['extract'])) {
                 $array = Extraction::csvToArray($_FILES['extract']["tmp_name"]);
                 Extraction::ArrayToBDD($array);
-                $error = ModelErreurExport::selectAll();
-                $view = 'error';
-                $pagetitle = 'Erreur';
-                //require_once File::build_path(array("view","view.php"));
+                ControllerExtraction::readAll();
+                require_once File::build_path(array("view","view.php"));
             } else ControllerMain::erreur("Veuillez fournir un fichier");
+        } else ControllerUser::connect();
+    }
+
+    public static function readAll()
+    {
+        if(isset($_SESSION['login'])) {
+            if(isset($_GET['p'])) {
+                $p=intval($_GET['p']);
+                if($p>ModelErreurExport::getNbP()) $p = ModelErreurExport::getNbP();
+            }
+            else $p=1;
+            $tab = ModelErreurExport::selectByPage($p);
+            $view = 'error';
+            $pagetitle = 'Erreur';
+            require_once File::build_path(array("view","view.php"));
         } else ControllerUser::connect();
     }
 

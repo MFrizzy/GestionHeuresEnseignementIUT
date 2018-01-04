@@ -59,6 +59,7 @@
                 echo '<a class="mdl-navigation__link" href="index.php?controller=batiment&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">business</i>Bâtiments</a>';
                 echo '<a class="mdl-navigation__link" href="index.php?controller=enseignant&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Enseignants</a>';
                 echo '<a class="mdl-navigation__link" href="index.php?controller=extraction&action=extract"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">file_upload</i>Extraction</a>';
+                echo '<a class="mdl-navigation__link" href="index.php?controller=extraction&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">error</i>Erreurs</a>';
             }
             ?>
 

@@ -151,6 +151,7 @@ class ModelDiplome extends Model
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDiplome');
             $retourne = $rep->fetchAll();
+            if(!$retourne) return false;
             $retourne = $retourne[0];
             $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
             $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));

@@ -24,7 +24,6 @@ class Extraction
 
     /**
      * @param array $matrice
-     * @return boolean
      */
     public static function ArrayToBDD($matrice)
     {
@@ -101,7 +100,6 @@ class Extraction
     public static function verifDepartement($codeActivite)
     {
         if (!ModelDepartement::select($codeActivite[1])) {
-            //TODO ENTREE DANS ERREUR
             return false;
         } else {
             return true;

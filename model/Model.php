@@ -106,7 +106,7 @@ class Model
             $req_prep->execute($data);
         }
         catch (Exception $e) {
-            if($e->getCode()==23000) return false;
+            if($e->getCode()==23000) {echo $e;return false;}
             else ControllerMain::erreur(27);
         }
         return true;

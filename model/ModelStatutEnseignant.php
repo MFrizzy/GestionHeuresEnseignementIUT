@@ -45,13 +45,13 @@ class ModelStatutEnseignant extends Model
         return $this->nombresHeures;
     }
 
-    public static function selectByStatutType($codeStatut, $typeStatut)
+    public static function selectByStatutType($statut, $typeStatut)
     {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE codeStatut=:codeStatut AND typeStatut=:typeStatut';
+            $sql = 'SELECT * FROM '.self::$object.' WHERE statut=:statut AND typeStatut=:typeStatut';
             $rep = Model::$pdo->prepare($sql);
             $values = array(
-                'codeStatut' => $codeStatut,
+                'statut' => $statut,
                 'typeStatut' => $typeStatut);
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelStatutEnseignant');

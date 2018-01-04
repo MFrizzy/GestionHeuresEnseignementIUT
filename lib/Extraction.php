@@ -1,7 +1,7 @@
 <?php
 
 // Temporaire
-require_once File::build_path(array('model','ModelCours.php'));
+require_once File::build_path(array('model', 'ModelCours.php'));
 
 class Extraction
 {
@@ -41,8 +41,9 @@ class Extraction
          *              9 : TODO SUITE
          */
         foreach ($matrice as $cle => $item) {
-            switch (Extraction::verifEnseignant($item)) {
-                case true:
+            $verif=Extraction::verifEnseignant($item);
+            switch ($verif) {
+                case 1:
                     $codeActivite = $item[7];
                     if (Extraction::verifDepartement($codeActivite)) {
                         $diplome = Extraction::verifDiplome($codeActivite);
@@ -50,13 +51,13 @@ class Extraction
                         else $preCodeActivite = substr($codeActivite, 3);
                         $ue = Extraction::verifUE($preCodeActivite, $diplome);
                         $module = Extraction::verifModule($preCodeActivite, $ue);
-                        ModelCours::save(array(
+                        if(!ModelCours::save(array(
                             'codeEns' => $item[1],
                             'dateCours' => $item[5],
                             'codeModule' => $module->getCodeModule(),
                             'duree' => $item[6],
                             'typeCours' => $item[8]
-                        ));
+                        ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
                     } else Extraction::erreur($item, 'Département invalide');
                     break;
                 case 2:
@@ -67,7 +68,9 @@ class Extraction
                     break;
                 default:
                     Extraction::erreur($item, '');
+                    break;
             }
+            echo'<br><br>';
         }
 
     }
@@ -88,11 +91,11 @@ class Extraction
                         'nomEns' => $item[0],
                         'codeDepartement' => $codeDepartement->getCodeDepartement(),
                         'codeStatut' => $statut->getCodeStatut()
-                    ))) return true;
+                    ))) return 1;
                     else return false;
                 }
             }
-        } else return true;
+        } else return 1;
     }
 
     public static function verifDepartement($codeActivite)

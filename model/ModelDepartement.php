@@ -69,7 +69,9 @@ class ModelDepartement extends Model
                 'nomDepartement' => $nomDepartement);
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDepartement');
-            return $rep->fetchAll()[0];
+            $retourne = $rep->fetchAll();
+            if(empty($retourne)) return false;
+            return $retourne[0];
         } catch (Exception $e) {
             return false;
         }

@@ -27,7 +27,7 @@ class ControllerExtraction
                 $error = ModelErreurExport::selectAll();
                 $view = 'error';
                 $pagetitle = 'Erreur';
-                require_once File::build_path(array("view","view.php"));
+                //require_once File::build_path(array("view","view.php"));
             } else ControllerMain::erreur("Veuillez fournir un fichier");
         } else ControllerUser::connect();
     }

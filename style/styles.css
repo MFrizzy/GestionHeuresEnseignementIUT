@@ -79,9 +79,9 @@ h5 {
     height:100%;
 }
 
-.mdl-layout__content {
+/*.mdl-layout__content {
     min-height: fit-content;
-}
+}*/
 
 button {
     margin-bottom: 15px;

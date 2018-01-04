@@ -38,3 +38,14 @@
     ?>
     </tbody>
 </table>
+
+<div style="margin: auto; text-align: center; margin-bottom: 15px">
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
+       href="index.php?controller=extraction&action=readAll&p=<?php echo intval($p) - 1 ?>" <?php if ($p <= 1) echo 'disabled' ?>>
+        <i class="material-icons">navigate_before</i>
+    </a>
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
+       href="index.php?controller=extraction&action=readAll&p=<?php echo intval($p) + 1; ?>" <?php if ($p >= $max) echo 'disabled' ?>>
+        <i class="material-icons">navigate_next</i>
+    </a>
+</div>

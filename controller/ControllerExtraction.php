@@ -25,23 +25,23 @@ class ControllerExtraction
                 $array = Extraction::csvToArray($_FILES['extract']["tmp_name"]);
                 Extraction::ArrayToBDD($array);
                 ControllerExtraction::readAll();
-                require_once File::build_path(array("view","view.php"));
+                require_once File::build_path(array("view", "view.php"));
             } else ControllerMain::erreur("Veuillez fournir un fichier");
         } else ControllerUser::connect();
     }
 
     public static function readAll()
     {
-        if(isset($_SESSION['login'])) {
-            if(isset($_GET['p'])) {
-                $p=intval($_GET['p']);
-                if($p>ModelErreurExport::getNbP()) $p = ModelErreurExport::getNbP();
-            }
-            else $p=1;
+        if (isset($_SESSION['login'])) {
+            if (isset($_GET['p'])) {
+                $p = intval($_GET['p']);
+                if ($p > ModelErreurExport::getNbP()) $p = ModelErreurExport::getNbP();
+            } else $p = 1;
+            $max = ModelErreurExport::getNbP();
             $tab = ModelErreurExport::selectByPage($p);
             $view = 'error';
             $pagetitle = 'Erreur';
-            require_once File::build_path(array("view","view.php"));
+            require_once File::build_path(array("view", "view.php"));
         } else ControllerUser::connect();
     }
 

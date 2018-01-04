@@ -130,7 +130,7 @@ class ModelErreurExport extends Model
             $rep = Model::$pdo->prepare($sql);
             $rep->execute();
             $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
-            return $retourne['total'];
+            return $retourne[0]['total'];
         } catch (Exception $e) {
             return 0;
         }

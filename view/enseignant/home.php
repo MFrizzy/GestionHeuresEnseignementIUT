@@ -78,4 +78,4 @@
     </div>
 </div>
 
-<?php require_once File::build_path(array('view','enseignant','list.php'))?>
+<?php //require_once File::build_path(array('view','enseignant','list.php'))?>

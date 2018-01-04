@@ -61,7 +61,7 @@
         foreach ($tab as $value) {
             echo '<tr>
                         <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=uniteDEnseignement&action=read&nUE=' . htmlspecialchars($value->getNUE()) . '">' . '<i class="material-icons">expand_more</i></a></td>
-                        <td>' . htmlspecialchars($value->getNUE()) . '</td>
+                        <td>UE' . htmlspecialchars($value->nommer()) . '</td>
                     </tr>
             ';
         }

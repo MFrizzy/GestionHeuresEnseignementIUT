@@ -5,7 +5,8 @@
         </div>
         <div class="mdl-card__supporting-text">
             Diplome : <?php echo $module->getNUE()->getCodeDiplome()->nommer() ?><br>
-            Semestre : <?php echo $module->getNUE()->getSemestre() ?>
+            Semestre : <?php echo $module->getNUE()->getSemestre() ?><br>
+            UE : <?php echo $module->getNUE()->nommer() ?>
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp detailBatiment3">
                 <thead>
                 <tr>

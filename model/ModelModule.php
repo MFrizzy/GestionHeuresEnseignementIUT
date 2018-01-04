@@ -21,7 +21,7 @@ class ModelModule extends Model
      */
     public function getNumModule()
     {
-        return $this->numModule;
+        return (int)$this->numModule;
     }
 
     /**
@@ -119,12 +119,15 @@ class ModelModule extends Model
         try {
             $sql = 'SELECT * FROM '.self::$object.' WHERE nUE=:nUE AND numModule=:numModule';
             $rep = Model::$pdo->prepare($sql);
-            $values = array('nUE' => $nue);
+            $values = array(
+                'nUE' => $nUE,
+                'numModule' => $numModule);
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelModule');
-            $retourne = $rep->fetchAll()[0];
-            $retourne->setNUE(ModelUniteDEnseignement::select($retourne->getNUE()));
-            return $retourne;
+            $retourne = $rep->fetchAll();
+            if(empty($retourne)) return false;
+            $retourne[0]->setNUE(ModelUniteDEnseignement::select($retourne[0]->getNUE()));
+            return $retourne[0];
         } catch (Exception $e) {
             return false;
         }
@@ -133,5 +136,12 @@ class ModelModule extends Model
     public function getVolumeHoraire()
     {
         return $this->getHeuresTD() + $this->getHeuresCM() + $this->getHeuresTP();
+    }
+
+    public function nommer()
+    {
+        if($this->getNumModule()<10) $nM='0'.$this->getNumModule();
+        else $nM = $this->getNumModule();
+        return 'M'.$this->getNUE()->nommer().$nM;
     }
 }

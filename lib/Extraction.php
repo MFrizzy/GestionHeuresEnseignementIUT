@@ -1,5 +1,8 @@
 <?php
 
+// Temporaire
+require_once File::build_path(array('model','ModelCours.php'));
+
 class Extraction
 {
 
@@ -38,23 +41,33 @@ class Extraction
          *              9 : TODO SUITE
          */
         foreach ($matrice as $cle => $item) {
-            if (Extraction::verifEnseignant($item)) {
-                $codeActivite = $item[7];
-                if (Extraction::verifDepartement($codeActivite)) {
-                    $diplome = Extraction::verifDiplome();
-                    if ($diplome->getTypeDiplome()[0] == 'P') $preCodeActivite = substr($codeActivite, 4);
-                    else $preCodeActivite = substr($codeActivite, 3);
-                    $ue = Extraction::verifUE($preCodeActivite, $diplome);
-                    $module= Extraction::verifModule($preCodeActivite,$ue);
-                    ModelCours::save(array(
-                        'codeEns' => $item[1],
-                        'dateCours' => $item[5],
-                        'codeModule' => $module->getCodeModule(),
-                        'duree' => $item[6],
-                        'typeCours' => $item[8]
-                    ));
-                } else Extraction::erreur($item);
-            } else Extraction::erreur($item);
+            switch (Extraction::verifEnseignant($item)) {
+                case true:
+                    $codeActivite = $item[7];
+                    if (Extraction::verifDepartement($codeActivite)) {
+                        $diplome = Extraction::verifDiplome($codeActivite);
+                        if ($diplome->getTypeDiplome()[0] == 'P') $preCodeActivite = substr($codeActivite, 4);
+                        else $preCodeActivite = substr($codeActivite, 3);
+                        $ue = Extraction::verifUE($preCodeActivite, $diplome);
+                        $module = Extraction::verifModule($preCodeActivite, $ue);
+                        ModelCours::save(array(
+                            'codeEns' => $item[1],
+                            'dateCours' => $item[5],
+                            'codeModule' => $module->getCodeModule(),
+                            'duree' => $item[6],
+                            'typeCours' => $item[8]
+                        ));
+                    } else Extraction::erreur($item, 'Département invalide');
+                    break;
+                case 2:
+                    Extraction::erreur($item, 'statut');
+                    break;
+                case 3:
+                    Extraction::erreur($item, 'departementEns');
+                    break;
+                default:
+                    Extraction::erreur($item, '');
+            }
         }
 
     }
@@ -64,13 +77,11 @@ class Extraction
         if (!ModelEnseignant::select($item[1])) {
             $statut = ModelStatutEnseignant::selectByStatutType($item[3], $item[4]);
             if (!$statut) {
-                //TODO ENTREE dans erreur
-                return false;
+                return 2;
             } else {
                 $codeDepartement = ModelDepartement::selectByName($item[2]);
                 if (!$codeDepartement) {
-                    // TODO ENTREE DANS ERREUR + GRAPH
-                    return false;
+                    return 3;
                 } else {
                     if (ModelEnseignant::save(array(
                         'codeEns' => $item[1],
@@ -128,14 +139,14 @@ class Extraction
         if (!$module) {
             ModelModule::save(array(
                 'nUE' => $ue->getNUE(),
-                'numModule' => substr($precodeActivite,2)
+                'numModule' => substr($precodeActivite, 2)
             ));
             $module = ModelModule::selectBy($ue->getNUE(), substr($precodeActivite, 2));
         }
         return $module;
     }
 
-    public static function erreur($item)
+    public static function erreur($item, $typeErreur)
     {
         ModelErreurExport::save(array(
             'nomEns' => $item[0],
@@ -146,7 +157,8 @@ class Extraction
             'dateCours' => $item[5],
             'duree' => $item[6],
             'activitee' => $item[7],
-            'typeActivitee' => $item[8]
+            'typeActivitee' => $item[8],
+            'typeErreur' => $typeErreur
         ));
     }
 

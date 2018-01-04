@@ -124,9 +124,10 @@ class ModelUniteDEnseignement extends Model
                 'idUE' => $idUE);
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUniteDEnseignement');
-            $retourne = $rep->fetchAll()[0];
-            $retourne->setCodeDiplome(ModelDiplome::select($retourne->getCodeDiplome()));
-            return $retourne;
+            $retourne = $rep->fetchAll();
+            if(empty($retourne)) return false;
+            $retourne[0]->setCodeDiplome(ModelDiplome::select($retourne[0]->getCodeDiplome()));
+            return $retourne[0];
         } catch (Exception $e) {
             return false;
         }
@@ -135,6 +136,11 @@ class ModelUniteDEnseignement extends Model
     public function getVolumeHoraire()
     {
         return $this->getHeuresCM() + $this->getHeuresTD() + $this->getHeuresTP();
+    }
+
+    public function nommer()
+    {
+        return $this->getSemestre().$this->getIdUE();
     }
 
 

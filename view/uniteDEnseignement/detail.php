@@ -5,7 +5,8 @@
         </div>
         <div class="mdl-card__supporting-text">
             Diplome : <?php echo $ue->getCodeDiplome()->nommer() ?><br>
-            Semestre : <?php echo $ue->getSemestre() ?>
+            Semestre : <?php echo $ue->getSemestre() ?><br>
+            Numéro d'UE : <?php echo $ue->getIdUE() ?>
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp detailBatiment3">
                 <thead>
                 <tr>
@@ -54,7 +55,7 @@
         foreach ($modules as $module) {
             echo '    <tr>
                         <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=module&action=read&codeModule='.$module->getCodeModule().'"><i class="material-icons">expand_more</i></a></td>
-                        <td class="mdl-data-table__cell--non-numeric">'.$module->getCodeModule().'</td>
+                        <td class="mdl-data-table__cell--non-numeric">'.$module->nommer().'</td>
                         <td class="mdl-data-table__cell--non-numeric">'.$module->getNomModule().'</td>
                   </tr>';
         }

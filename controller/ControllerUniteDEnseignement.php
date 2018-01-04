@@ -16,7 +16,7 @@ class ControllerUniteDEnseignement
                 else {
                     $modules=ModelModule::selectAllByNUE($ue->getNUE());
                     $view='detail';
-                    $pagetitle='UE : '.$ue->getNUE();
+                    $pagetitle='UE : '.$ue->nommer();
                     require_once File::build_path(array('view','view.php'));
                 }
             } else ControllerMain::erreur("Il manque des informations");

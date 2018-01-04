@@ -14,7 +14,7 @@ class ControllerModule
                 if(!$module) ControllerMain::erreur("Le module n'existe pas");
                 else {
                     $view='detail';
-                    $pagetitle='Module : '.$module->getNomModule();
+                    $pagetitle='Module : '.$module->nommer().' : '.$module->getNomModule();
                     require_once File::build_path(array('view','view.php'));
                 }
             } else ControllerMain::erreur("Il manque des informations");

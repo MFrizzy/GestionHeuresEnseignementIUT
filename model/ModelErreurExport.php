@@ -17,6 +17,15 @@ class ModelErreurExport extends Model
     private $duree;
     private $activitee;
     private $typeActivitee;
+    private $typeErreur;
+
+    /**
+     * @return mixed
+     */
+    public function getTypeErreur()
+    {
+        return $this->typeErreur;
+    }
 
     /**
      * @return mixed

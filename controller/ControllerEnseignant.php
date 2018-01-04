@@ -173,7 +173,7 @@ class ControllerEnseignant
         if (isset($_SESSION['login'])) {
             if (isset($_POST['npEns'])) {
                 $tab = ModelEnseignant::selectAllByName($_POST['npEns']);
-                if (!$tab) ControllerMain::erreur("Il n'y a aucun professeurs avec ce statut");
+                if (!$tab) ControllerMain::erreur("Il n'y a aucun professeurs avec ce nom");
                 else {
                     $view = 'list';
                     $pagetitle = 'Enseignants';

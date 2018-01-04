@@ -156,7 +156,7 @@ class ModelEnseignant extends Model
     public static function selectAllByName($npEns)
     {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE nomEns OR prenomEns LIKE CONCAT(\'%\',:npEns,\'%\')';
+            $sql = 'SELECT * FROM '.self::$object.' WHERE nomEns LIKE CONCAT(\'%\',:npEns,\'%\') OR prenomEns LIKE CONCAT(\'%\',:npEns,\'%\')';
             $rep = Model::$pdo->prepare($sql);
             $values = array('npEns' => $npEns);
             $rep->execute($values);

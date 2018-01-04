@@ -108,12 +108,15 @@ class Extraction
 
     public static function verifDiplome($codeActivite)
     {
-        if ($codeActivite[2] == 'P') $diplome = ModelDiplome::selectBy($codeActivite[1], $codeActivite[2] . $codeActivite[3]);
-        else $diplome = ModelDiplome::selectBy($codeActivite[1], $codeActivite[2]);
+        $numDiplome = $codeActivite[2];
+        if ($numDiplome == 'P'){
+            $numDiplome = $codeActivite[2].$codeActivite[3];
+        }
+        $diplome = ModelDiplome::selectBy($codeActivite[1], $numDiplome);
         if (!$diplome) {
             ModelDiplome::save(array(
                 'codeDepartement' => $codeActivite[1],
-                'typeDiplome' => $codeActivite[2]
+                'typeDiplome' => $numDiplome
             ));
             $diplome = ModelDiplome::selectBy($codeActivite[1], $codeActivite[2]);
         }

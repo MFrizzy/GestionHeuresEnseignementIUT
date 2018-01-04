@@ -3,14 +3,15 @@
     <tr>
         <th class="mdl-data-table__cell--non-numeric">Nom Enseignant</th>
         <th class="mdl-data-table__cell--non-numeric">Code Enseignant</th>
-        <th class="mdl-data-table__cell--non-numeric">Département Enseignant</th>
+        <th class="mdl-data-table__cell--non-numeric">Département Ens</th>
         <th class="mdl-data-table__cell--non-numeric">Statut Enseignant</th>
-        <th class="mdl-data-table__cell--non-numeric">Type Statut Enseignant</th>
+        <th class="mdl-data-table__cell--non-numeric">Type Statut</th>
         <th class="mdl-data-table__cell--non-numeric">Date</th>
         <th class="mdl-data-table__cell--non-numeric">Durée</th>
         <th class="mdl-data-table__cell--non-numeric">Code Activité</th>
         <th class="mdl-data-table__cell--non-numeric">Type Activité</th>
-        <th class="mdl-data-table__cell--non-numeric">Emplacement erreur</th>
+        <th class="mdl-data-table__cell--non-numeric"><i class="material-icons">report_problem</i></th>
+        <th></th>
         <th></th>
         <th></th>
     </tr>
@@ -30,8 +31,9 @@
                         <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getActivitee()) . '</td>
                         <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getTypeActivitee()) . '</td>
                         <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getTypeErreur()) . '</td>
-                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=extraction&action=update&mailUser=' . htmlspecialchars($value->getIdErreur()) . '"><i class="material-icons">mode_edit</i></a></td>
-                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=extraction&action=delete&mailUser=' . htmlspecialchars($value->getIdErreur()) . '"><i class="material-icons">delete</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=extraction&action=update&idErreur=' . htmlspecialchars($value->getIdErreur()) . '"><i class="material-icons">mode_edit</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=extraction&action=delete&idErreur=' . htmlspecialchars($value->getIdErreur()) . '"><i class="material-icons">delete</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=extraction&action=tentative&idErreur=' . htmlspecialchars($value->getIdErreur()) . '"><i class="material-icons">send</i></a></td>
                     </tr>
             ';
     }

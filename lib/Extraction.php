@@ -40,7 +40,7 @@ class Extraction
          *              9 : TODO SUITE
          */
         foreach ($matrice as $cle => $item) {
-            $verif=Extraction::verifEnseignant($item);
+            $verif = Extraction::verifEnseignant($item);
             switch ($verif) {
                 case 1:
                     $codeActivite = $item[7];
@@ -50,7 +50,7 @@ class Extraction
                         else $preCodeActivite = substr($codeActivite, 3);
                         $ue = Extraction::verifUE($preCodeActivite, $diplome);
                         $module = Extraction::verifModule($preCodeActivite, $ue);
-                        if(!ModelCours::save(array(
+                        if (!ModelCours::save(array(
                             'codeEns' => $item[1],
                             'dateCours' => $item[5],
                             'codeModule' => $module->getCodeModule(),
@@ -69,9 +69,67 @@ class Extraction
                     Extraction::erreur($item, '');
                     break;
             }
-            echo'<br><br>';
         }
 
+    }
+
+    public static function erreurToBD($erreur)
+    {
+        $item = array(
+            $erreur->getNomEns(),
+            $erreur->getCodeEns(),
+            $erreur->getDepartementEns(),
+            $erreur->getStatut(),
+            $erreur->getTypeStatut(),
+            $erreur->getDateCours(),
+            $erreur->getDuree(),
+            $erreur->getActivitee(),
+            $erreur->getTypeActivitee()
+        );
+        //ModelErreurExport::delete($erreur->getIdErreur());
+        $verif = Extraction::verifEnseignant($item);
+        switch ($verif) {
+            case 1:
+                $codeActivite = $item[7];
+                if (Extraction::verifDepartement($codeActivite)) {
+                    $diplome = Extraction::verifDiplome($codeActivite);
+                    if ($diplome->getTypeDiplome()[0] == 'P') $preCodeActivite = substr($codeActivite, 4);
+                    else $preCodeActivite = substr($codeActivite, 3);
+                    $ue = Extraction::verifUE($preCodeActivite, $diplome);
+                    $module = Extraction::verifModule($preCodeActivite, $ue);
+                    if (!ModelCours::save(array(
+                        'codeEns' => $item[1],
+                        'dateCours' => $item[5],
+                        'codeModule' => $module->getCodeModule(),
+                        'duree' => $item[6],
+                        'typeCours' => $item[8]
+                    ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
+                    else return true;
+                } else ModelErreurExport::update(array(
+                    'idErreur' => $erreur->getIdErreur() ,
+                    'typeErreur' => 'Département invalide'
+                ));
+                break;
+            case 2:
+                ModelErreurExport::update(array(
+                    'idErreur' => $erreur->getIdErreur(),
+                    'typeErreur' => 'statut'
+                ));
+                break;
+            case 3:
+                ModelErreurExport::update(array(
+                    'idErreur' => $erreur->getIdErreur(),
+                    'typeErreur' => 'departementEns'
+                ));
+                break;
+            default:
+                ModelErreurExport::update(array(
+                    'idErreur' => $erreur->getIdErreur(),
+                    'typeErreur' => ''
+                ));
+                break;
+        }
+        return false;
     }
 
     public static function verifEnseignant($item)
@@ -109,8 +167,8 @@ class Extraction
     public static function verifDiplome($codeActivite)
     {
         $numDiplome = $codeActivite[2];
-        if ($numDiplome == 'P'){
-            $numDiplome = $codeActivite[2].$codeActivite[3];
+        if ($numDiplome == 'P') {
+            $numDiplome = $codeActivite[2] . $codeActivite[3];
         }
         $diplome = ModelDiplome::selectBy($codeActivite[1], $numDiplome);
         if (!$diplome) {

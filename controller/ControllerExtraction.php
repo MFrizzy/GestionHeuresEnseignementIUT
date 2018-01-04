@@ -45,4 +45,22 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    public static function tentative()
+    {
+        if (isset($_SESSION['login'])) {
+            if (isset($_GET['idErreur'])) {
+                $erreur=ModelErreurExport::select($_GET['idErreur']);
+                if(!$erreur) ControllerMain::erreur("L'erreur n'exite pas..");
+                else {
+                    if(Extraction::erreurToBD($erreur)) {
+                        echo "cban";
+                    }
+                    else {
+                        echo ')=';
+                    }
+                }
+            }
+        } else ControllerUser::connect();
+    }
+
 }

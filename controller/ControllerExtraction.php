@@ -30,6 +30,15 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    public static function home()
+    {
+        if (isset($_SESSION['login'])) {
+            $view = 'home';
+            $pagetitle = 'Erreurs';
+            require_once File::build_path(array('view', 'view.php'));
+        } else ControllerUser::connect();
+    }
+
     public static function readAll()
     {
         if (isset($_SESSION['login'])) {
@@ -49,17 +58,31 @@ class ControllerExtraction
     {
         if (isset($_SESSION['login'])) {
             if (isset($_GET['idErreur'])) {
-                $erreur=ModelErreurExport::select($_GET['idErreur']);
-                if(!$erreur) ControllerMain::erreur("L'erreur n'exite pas..");
+                $erreur = ModelErreurExport::select($_GET['idErreur']);
+                if (!$erreur) ControllerMain::erreur("L'erreur n'exite pas..");
                 else {
-                    if(Extraction::erreurToBD($erreur)) {
+                    if (Extraction::erreurToBD($erreur)) {
                         echo "cban";
-                    }
-                    else {
+                    } else {
                         echo ')=';
                     }
                 }
             }
+        } else ControllerUser::connect();
+    }
+
+    public static function readAllType()
+    {
+        if(isset($_SESSION['login'])) {
+            if(isset($_POST['typeErreur'])) {
+                $tab=ModelErreurExport::selectByType($_POST['typeErreur']);
+                if(!$tab) ControllerMain::erreur("Il n'y a pas d'erreur du type : ".$_POST['typeErreur']);
+                else {
+                    $view='error';
+                    $pagetitle='Erreur : '.$_POST['typeErreur'];
+                    require_once File::build_path(array('view','view.php'));
+                }
+            } else ControllerMain::erreur("Il manque des informations");
         } else ControllerUser::connect();
     }
 

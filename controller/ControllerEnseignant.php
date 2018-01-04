@@ -9,15 +9,15 @@ class ControllerEnseignant
     public static function readAll()
     {
         if (isset($_SESSION['login'])) {
-            $tab = ModelEnseignant::selectAll();
-            if (!$tab) ControllerMain::erreur("Il n'y a pas d'enseignants");
-            else {
+            //$tab = ModelEnseignant::selectAll();
+            //if (!$tab) ControllerMain::erreur("Il n'y a pas d'enseignants");
+            //else {
                 $departements = ModelDepartement::selectAll();
                 $statuts = ModelStatutEnseignant::selectAll();
                 $view = 'home';
                 $pagetitle = 'Enseignants';
                 require_once File::build_path(array('view', 'view.php'));
-            }
+            //}
         } else ControllerUser::connect();
     }
 

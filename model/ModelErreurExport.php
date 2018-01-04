@@ -141,4 +141,18 @@ class ModelErreurExport extends Model
         return ceil(self::getNbErr() / self::$valeursParPage);
     }
 
+    public static function selectByType($typeErreur) {
+        try {
+            $sql = 'SELECT * FROM '.self::$object.' WHERE typeErreur=:typeErreur';
+            $rep = Model::$pdo->prepare($sql);
+            $value=['typeErreur' => $typeErreur];
+            $rep->execute($value);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelErreurExport');
+            $retourne = $rep->fetchAll();
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 }

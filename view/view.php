@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="./style/material.min.css">
     <script src="./style/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <link rel="stylesheet" href="./style/materialize.css">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
@@ -59,7 +58,7 @@
                 echo '<a class="mdl-navigation__link" href="index.php?controller=batiment&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">business</i>Bâtiments</a>';
                 echo '<a class="mdl-navigation__link" href="index.php?controller=enseignant&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Enseignants</a>';
                 echo '<a class="mdl-navigation__link" href="index.php?controller=extraction&action=extract"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">file_upload</i>Extraction</a>';
-                echo '<a class="mdl-navigation__link" href="index.php?controller=extraction&action=readAll"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">error</i>Erreurs</a>';
+                echo '<a class="mdl-navigation__link" href="index.php?controller=extraction&action=home"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">error</i>Erreurs</a>';
             }
             ?>
 

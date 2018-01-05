@@ -111,8 +111,8 @@ class ModelErreurExport extends Model
     public static function selectByPage($p)
     {
         try {
-            $debut = ($p-1)*self::$valeursParPage;
-            $sql = 'SELECT * FROM '.self::$object.' ORDER BY '.self::$primary.' DESC LIMIT '.$debut.' , '.self::$valeursParPage;
+            $debut = ($p - 1) * self::$valeursParPage;
+            $sql = 'SELECT * FROM ' . self::$object . ' ORDER BY ' . self::$primary . ' DESC LIMIT ' . $debut . ' , ' . self::$valeursParPage;
             $rep = Model::$pdo->prepare($sql);
             $rep->execute();
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelErreurExport');
@@ -141,11 +141,12 @@ class ModelErreurExport extends Model
         return ceil(self::getNbErr() / self::$valeursParPage);
     }
 
-    public static function selectByType($typeErreur) {
+    public static function selectByType($typeErreur)
+    {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE typeErreur=:typeErreur';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE typeErreur=:typeErreur';
             $rep = Model::$pdo->prepare($sql);
-            $value=['typeErreur' => $typeErreur];
+            $value = ['typeErreur' => $typeErreur];
             $rep->execute($value);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelErreurExport');
             $retourne = $rep->fetchAll();
@@ -155,4 +156,42 @@ class ModelErreurExport extends Model
         }
     }
 
+    public static function selectAllStatuts()
+    {
+        try {
+            $sql = 'SELECT DISTINCT statut,typeStatut FROM ' . self::$object . ' WHERE typeErreur="statut"';
+            $rep = Model::$pdo->prepare($sql);
+            $rep->execute();
+            $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public static function selectAllDepEns()
+    {
+        try {
+            $sql ='SELECT DISTINCT departementEns FROM '.self::$object.' WHERE typeErreur="departementEns"';
+            $rep = Model::$pdo->prepare($sql);
+            $rep->execute();
+            $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public static function selectAllDepInv()
+    {
+        try {
+            $sql ='SELECT DISTINCT activitee FROM '.self::$object.' WHERE typeErreur="Département invalide"';
+            $rep = Model::$pdo->prepare($sql);
+            $rep->execute();
+            $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

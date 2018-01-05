@@ -71,18 +71,61 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    //TODO Verifier utilitée
     public static function readAllType()
     {
-        if(isset($_SESSION['login'])) {
-            if(isset($_POST['typeErreur'])) {
-                $tab=ModelErreurExport::selectByType($_POST['typeErreur']);
-                if(!$tab) ControllerMain::erreur("Il n'y a pas d'erreur du type : ".$_POST['typeErreur']);
+        if (isset($_SESSION['login'])) {
+            if (isset($_POST['typeErreur'])) {
+                $tab = ModelErreurExport::selectByType($_POST['typeErreur']);
+                if (!$tab) ControllerMain::erreur("Il n'y a pas d'erreur du type : " . $_POST['typeErreur']);
                 else {
-                    $view='error';
-                    $pagetitle='Erreur : '.$_POST['typeErreur'];
-                    require_once File::build_path(array('view','view.php'));
+                    $view = 'error';
+                    $pagetitle = 'Erreur : ' . $_POST['typeErreur'];
+                    require_once File::build_path(array('view', 'view.php'));
                 }
             } else ControllerMain::erreur("Il manque des informations");
+        } else ControllerUser::connect();
+    }
+
+    public static function solveStatut()
+    {
+        if (isset($_SESSION['login'])) {
+            $statuts = ModelErreurExport::selectAllStatuts();
+            if (!$statuts) ControllerMain::erreur("Il n'y a pas de statuts invalides");
+            else {
+                $modelStatuts = ModelStatutEnseignant::selectAll();
+                $view = 'solveStatut';
+                $pagetitle = 'Resolution erreurs de statuts';
+                require_once File::build_path(array('view', 'view.php'));
+            }
+        } else ControllerUser::connect();
+    }
+
+    public static function solveDepEns()
+    {
+        if (isset($_SESSION['login'])) {
+            $depEns = ModelErreurExport::selectAllDepEns();
+            if (!$depEns) ControllerMain::erreur("Il n'y a pas de départements d'enseignant invalides");
+            else {
+                $dep = ModelDepartement::selectAll();
+                $view = 'solveDepEns';
+                $pagetitle = 'Resolution erreurs de statuts';
+                require_once File::build_path(array('view', 'view.php'));
+            }
+        } else ControllerUser::connect();
+    }
+
+    public static function solveDepInv()
+    {
+        if (isset($_SESSION['login'])) {
+            $depInv = ModelErreurExport::selectAllDepInv();
+            if (!$depInv) ControllerMain::erreur("Il n'y a pas de départements invalides");
+            else {
+                $dep = ModelDepartement::selectAll();
+                $view = 'solveDepInv';
+                $pagetitle = 'Resolution erreurs de statuts';
+                require_once File::build_path(array('view', 'view.php'));
+            }
         } else ControllerUser::connect();
     }
 

@@ -86,7 +86,7 @@ class Extraction
             $erreur->getActivitee(),
             $erreur->getTypeActivitee()
         );
-        //ModelErreurExport::delete($erreur->getIdErreur());
+        ModelErreurExport::delete($erreur->getIdErreur());
         $verif = Extraction::verifEnseignant($item);
         switch ($verif) {
             case 1:

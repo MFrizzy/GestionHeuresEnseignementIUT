@@ -129,4 +129,33 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    public static function solvedStatuts()
+    {
+        if (isset($_SESSION['login'])) {
+            foreach ($_POST as $cle => $item) {
+                /**
+                 * @var $statut[0] est le statut
+                 * @var $statut[1] est le type statut
+                 */
+                $statut=explode('/',$cle);
+                if($item!= 'rien') {
+                    if ($item == 'nouveau') {
+                        // Créer nouveau statut
+                        ModelStatutEnseignant::save(array(
+                           'statut' => $statut[0],
+                           'typeStatut' => $statut[1]
+                        ));
+                    }
+                    else {
+                        // analyser le code statut correspondant et
+                        // changer ça dans la bd
+                        /*
+                         * update modelErreur
+                         */
+                    }
+                    // Refaire entrer les valeurs dans la bdd
+                }
+            }
+        } else ControllerUser::connect();
+    }
 }

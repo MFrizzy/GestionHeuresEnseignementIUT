@@ -1,6 +1,6 @@
 <?php
 
-echo '<form method="post" action="index.php?controller=enseignant&action=searchByCode">';
+echo '<form method="post" action="index.php?controller=extraction&action=solvedStatuts">';
 
 echo '
 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp users">
@@ -24,7 +24,7 @@ foreach ($statuts as $cle => $statut) {
 // DropDown statuts existants
 
     echo '<div>
-            <select style="display: block;" required name="codeStatut">';
+            <select style="display: block;" required name="'.$statut["statut"].'/'.$statut["typeStatut"].'">';
     echo '<option value="rien" selected>Ne rien faire</option>';
     echo '<option value="nouveau">Créer un nouveau statut correspondant</option>';
     echo '<optgroup label="Statuts existants">';
@@ -46,11 +46,11 @@ foreach ($statuts as $cle => $statut) {
 echo '</tbody>
 </table>
 ';
-echo '<a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
-       href="index.php?controller=extraction&action=solvedStatut"
+echo '<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
+       type="submit"
        style="margin-bottom: 15px">
         <i class="material-icons">send</i>
-    </a>';
+    </button>';
 echo '</form>';
 
 ?>

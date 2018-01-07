@@ -17,14 +17,14 @@ echo '
 foreach ($statuts as $cle => $statut) {
     echo '
         <tr>
-            <td class="mdl-data-table__cell--non-numeric">'.$statut["statut"].'</td>
-            <td class="mdl-data-table__cell--non-numeric">'.$statut["typeStatut"].'</td>
+            <td class="mdl-data-table__cell--non-numeric">' . $statut["statut"] . '</td>
+            <td class="mdl-data-table__cell--non-numeric">' . $statut["typeStatut"] . '</td>
             <td class="mdl-data-table__cell--non-numeric">
      ';
 // DropDown statuts existants
 
     echo '<div>
-            <select style="display: block;" required name="'.$statut["statut"].'/'.$statut["typeStatut"].'">';
+            <select style="display: block;" required name="' . $statut["statut"] . '/' . $statut["typeStatut"] . '">';
     echo '<option value="rien" selected>Ne rien faire</option>';
     echo '<option value="nouveau">Créer un nouveau statut correspondant</option>';
     echo '<optgroup label="Statuts existants">';

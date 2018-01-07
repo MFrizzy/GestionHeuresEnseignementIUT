@@ -10,7 +10,7 @@
                     <option value="statut">Statut</option>
                     <option value="departementEns">Département Enseignant</option>
                     <option value="Département invalide">Département invalide</option>
-                    <option value="">Autre</option>
+                    <option value="autre">Autre</option>
                 </select>
                 <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect bouton" type="submits">
                     <i class="material-icons">send</i>

@@ -76,18 +76,26 @@ class ControllerExtraction
     {
         if (isset($_SESSION['login'])) {
             if (isset($_POST['typeErreur'])) {
-                $tab = ModelErreurExport::selectByType($_POST['typeErreur']);
-                if (!$tab) ControllerMain::erreur("Il n'y a pas d'erreur du type : " . $_POST['typeErreur']);
-                else {
-                    $view = 'error';
-                    $pagetitle = 'Erreur : ' . $_POST['typeErreur'];
-                    require_once File::build_path(array('view', 'view.php'));
+                $redirct = $_POST['typeErreur'];
+                switch ($redirct) {
+                    case 'statut':
+                        ControllerExtraction::solveStatuts();
+                        break;
+                    case 'departementEns':
+                        ControllerExtraction::solveDepEns();
+                        break;
+                    case 'Département invalide':
+                        ControllerExtraction::solveDepInv();
+                        break;
+                    case 'autre':
+                        ControllerMain::erreur("En cours d'implémentation");
+                        break;
                 }
             } else ControllerMain::erreur("Il manque des informations");
         } else ControllerUser::connect();
     }
 
-    public static function solveStatut()
+    public static function solveStatuts()
     {
         if (isset($_SESSION['login'])) {
             $statuts = ModelErreurExport::selectAllStatuts();
@@ -134,28 +142,39 @@ class ControllerExtraction
         if (isset($_SESSION['login'])) {
             foreach ($_POST as $cle => $item) {
                 /**
-                 * @var $statut[0] est le statut
-                 * @var $statut[1] est le type statut
+                 * @var $statut [0] est le statut
+                 * @var $statut [1] est le type statut
                  */
-                $statut=explode('/',$cle);
-                if($item!= 'rien') {
-                    if ($item == 'nouveau') {
-                        // Créer nouveau statut
-                        ModelStatutEnseignant::save(array(
-                           'statut' => $statut[0],
-                           'typeStatut' => $statut[1]
-                        ));
-                    }
+                $cle = str_replace("_", " ", $cle);
+                $statut = explode('/', $cle);
+                if ($item != 'rien') {
+                    $idErreurs = ModelErreurExport::selectIdErreurStatut($statut[0], $statut[1]);
+                    if (!$idErreurs) echo 'crack';
                     else {
-                        // analyser le code statut correspondant et
-                        // changer ça dans la bd
-                        /*
-                         * update modelErreur
-                         */
+                        if ($item == 'nouveau') {
+                            // Créer nouveau statut
+                            ModelStatutEnseignant::save(array(
+                                'statut' => $statut[0],
+                                'typeStatut' => $statut[1]
+                            ));
+                        } else {
+                            // Changer le statut des erreurs par celui selectionné par l'utilisateur
+                            foreach ($idErreurs as $idErreur) {
+                                ModelErreurExport::update(array(
+                                    'idErreur' => $idErreur['idErreur'],
+                                    'statut' => $statut[0],
+                                    'typeStatut' => $statut[1]
+                                ));
+                            }
+                        }
+                        // Refaire entrer les valeurs dans la bdd
+                        foreach ($idErreurs as $idErreur) {
+                            Extraction::erreurToBD(ModelErreurExport::select($idErreur['idErreur']));
+                        }
                     }
-                    // Refaire entrer les valeurs dans la bdd
                 }
             }
+            ControllerExtraction::solveStatuts();
         } else ControllerUser::connect();
     }
 }

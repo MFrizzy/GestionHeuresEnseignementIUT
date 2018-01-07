@@ -157,11 +157,13 @@ class Extraction
 
     public static function verifDepartement($codeActivite)
     {
-        if (!ModelDepartement::select($codeActivite[1])) {
-            return false;
-        } else {
-            return true;
-        }
+        if(isset($codeActivite[1])) {
+            if (!ModelDepartement::select($codeActivite[1])) {
+                return false;
+            } else {
+                return true;
+            }
+        } else return false;
     }
 
     public static function verifDiplome($codeActivite)
@@ -176,7 +178,7 @@ class Extraction
                 'codeDepartement' => $codeActivite[1],
                 'typeDiplome' => $numDiplome
             ));
-            $diplome = ModelDiplome::selectBy($codeActivite[1], $codeActivite[2]);
+            $diplome = ModelDiplome::selectBy($codeActivite[1], $numDiplome);
         }
         return $diplome;
     }

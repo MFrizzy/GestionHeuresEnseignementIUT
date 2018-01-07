@@ -1,19 +1,19 @@
-<form method="post" action="index.php?controller=extraction&action=solvedDepInv">
+<form method="post" action="index.php?controller=extraction&action=solvedDepEns">
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp users">
         <thead>
         <tr>
-            <th class="mdl-data-table__cell--non-numeric">Code d'activitée</th>
+            <th class="mdl-data-table__cell--non-numeric">Département</th>
             <th class="mdl-data-table__cell--non-numeric">Solution</th>
         </tr>
         </thead>
         <tbody>
         <?php
-        foreach ($depInv as $item) {
+        foreach ($depEns as $item) {
             echo '
 <tr>
-    <td class="mdl-data-table__cell--non-numeric">'.$item['activitee'].'</td>
+    <td class="mdl-data-table__cell--non-numeric">'.$item['departementEns'].'</td>
     <td class="mdl-data-table__cell--non-numeric">';
-            echo '<div><select style="display: block;" name="'.$item['activitee'].'">';
+            echo '<div><select style="display: block;" name="'.$item['departementEns'].'">';
             echo '<option value="rien">Ne rien faire</option>';
             echo '<option value="nouveau">Créer un nouveau département</option>';
             echo '<optgroup label="Départements existants">';
@@ -26,7 +26,7 @@
 </tr>
 ';
         }
-
+        
         ?>
         </tbody>
     </table>

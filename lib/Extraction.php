@@ -7,6 +7,8 @@ class Extraction
 {
 
     /**
+     * Lit le fichier à l'adresse donnée en paramètre et le transforme en tableau php
+     *
      * @param string $adresseFile
      * @return array
      */
@@ -23,6 +25,8 @@ class Extraction
     }
 
     /**
+     * Lit le tableau donné en paramètre, l'analyse et l'envoie dans la BDD
+     *
      * @param array $matrice
      */
     public static function ArrayToBDD($matrice)
@@ -70,9 +74,15 @@ class Extraction
                     break;
             }
         }
-
     }
 
+
+    /**
+     * Analyse l'objet @see ModelErreurExport et l'enregistre dans la bdd
+     *
+     * @param $erreur ModelErreurExport
+     * @return bool vrai si l'erreur est résolue, faux sinon
+     */
     public static function erreurToBD($erreur)
     {
         $item = array(
@@ -132,6 +142,16 @@ class Extraction
         return false;
     }
 
+    /**
+     * Vérifie à partir d'un tableau si l'enseignant existe
+     *
+     * @param $item array
+     * @return bool|int
+     *      - bool si la création de l'enseignant échoue
+     *      - int : - 1 : l'enseigant existe déjà
+     *              - 2 : le statut de l'enseigant n'existe pas
+     *              - 3 : le département de l'enseignant n'existe pas
+     */
     public static function verifEnseignant($item)
     {
         if (!ModelEnseignant::select($item[1])) {
@@ -155,6 +175,12 @@ class Extraction
         } else return 1;
     }
 
+    /**
+     * Vérifie si le département du code d'activité existe
+     *
+     * @param $codeActivite
+     * @return bool : true si le département existe, non sinon
+     */
     public static function verifDepartement($codeActivite)
     {
         if(isset($codeActivite[1])) {
@@ -166,6 +192,15 @@ class Extraction
         } else return false;
     }
 
+    /**
+     * Vérifie l'existance du Diplome dans le code d'acitivité
+     *
+     * Si le diplome existe, il le renvoie
+     * Sinon, il le créé et le renvoie
+     *
+     * @param $codeActivite
+     * @return ModelDiplome
+     */
     public static function verifDiplome($codeActivite)
     {
         $numDiplome = $codeActivite[2];
@@ -183,6 +218,16 @@ class Extraction
         return $diplome;
     }
 
+    /**
+     * Vérifie l'existance de l'unité d'enseignement
+     *
+     * Si l'unité d'enseignement existe, il le renvoie
+     * Sinon, il le créé et le renvoie
+     *
+     * @param $precodeActivite string : morceau du code d'activité
+     * @param $diplome ModelDiplome
+     * @return ModelUniteDEnseignement
+     */
     public static function verifUE($precodeActivite, $diplome)
     {
         $ue = ModelUniteDEnseignement::selectBy($diplome->getCodeDiplome(), $precodeActivite[0], $precodeActivite[1]);
@@ -197,6 +242,16 @@ class Extraction
         return $ue;
     }
 
+    /**
+     * Vérifie l'existance du Module
+     *
+     * Si le module existe, il le renvoie
+     * Sinon, il le créé et le renvoie
+     *
+     * @param $precodeActivite string
+     * @param $ue ModelUniteDEnseignement
+     * @return ModelModule
+     */
     public static function verifModule($precodeActivite, $ue)
     {
         $module = ModelModule::selectBy($ue->getNUE(), substr($precodeActivite, 2));
@@ -210,6 +265,12 @@ class Extraction
         return $module;
     }
 
+    /**
+     * Enregistre dans la table ErreurExport la ligne posant problème ainsi que l'erreur
+     *
+     * @param $item array
+     * @param $typeErreur string
+     */
     public static function erreur($item, $typeErreur)
     {
         ModelErreurExport::save(array(

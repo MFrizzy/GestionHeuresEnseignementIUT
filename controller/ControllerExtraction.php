@@ -3,11 +3,20 @@
 require_once File::build_path(array('lib', 'Extraction.php'));
 require_once File::build_path(array('model', 'ModelErreurExport.php'));
 
+/**
+ * Class ControllerExtraction
+ */
 class ControllerExtraction
 {
 
+    /**
+     * @var string
+     */
     protected static $object = 'extraction';
 
+    /**
+     * Envoie vers la page d'importation du fichier .csv
+     */
     public static function extract()
     {
         if (isset($_SESSION['login'])) {
@@ -18,18 +27,35 @@ class ControllerExtraction
 
     }
 
+    /**
+     * Recupere le fichier .csv envoyé par @see ControllerExtraction::extract()
+     *
+     * Le fichier récupéré est lu, transformé en array @see Extraction::csvToArray()
+     * Puis on rentre les valeurs dans la BDD @see Extraction::ArrayToBDD()
+     * Finalement on affiche l'interface de résolution des erreurs @see ControllerExtraction::home()
+     */
     public static function extracted()
     {
         if (isset($_SESSION['login'])) {
             if (isset($_FILES['extract'])) {
                 $array = Extraction::csvToArray($_FILES['extract']["tmp_name"]);
                 Extraction::ArrayToBDD($array);
-                ControllerExtraction::readAll();
-                require_once File::build_path(array("view", "view.php"));
+                ControllerExtraction::home();
             } else ControllerMain::erreur("Veuillez fournir un fichier");
         } else ControllerUser::connect();
     }
 
+    /**
+     * Affiche l'interface de résolution des erreurs d'importation
+     *
+     * Dans cette interface il y a 4 possibilités :
+     *
+     * - Statut : @see ControllerExtraction::solveStatuts()
+     * - Departement Enseignant @see ControllerExtraction::solveDepEns()
+     * - Departement Invalide @see ControllerExtraction::solveDepInv()
+     * - Autre : TODO
+     *
+     */
     public static function home()
     {
         if (isset($_SESSION['login'])) {
@@ -39,6 +65,10 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    /**
+     * @deprecated
+     *
+     */
     public static function readAll()
     {
         if (isset($_SESSION['login'])) {
@@ -54,6 +84,9 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    /**
+     * @deprecated
+     */
     public static function tentative()
     {
         if (isset($_SESSION['login'])) {
@@ -71,7 +104,16 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
-    //TODO Verifier utilitée
+    /**
+     * Redirection vers les 3 types d'erreurs @see ControllerExtraction::home()
+     *
+     * Dans cette interface il y a 4 possibilités :
+     *
+     * - Statut : @see ControllerExtraction::solveStatuts()
+     * - Departement Enseignant @see ControllerExtraction::solveDepEns()
+     * - Departement Invalide @see ControllerExtraction::solveDepInv()
+     * - Autre : TODO
+     */
     public static function readAllType()
     {
         if (isset($_SESSION['login'])) {
@@ -95,6 +137,9 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    /**
+     * Affiche les erreurs liées aux statuts invalides/inexistants
+     */
     public static function solveStatuts()
     {
         if (isset($_SESSION['login'])) {
@@ -109,6 +154,9 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    /**
+     * Affiche les erreurs liées aux Départements des enseignants invalide
+     */
     public static function solveDepEns()
     {
         if (isset($_SESSION['login'])) {
@@ -123,6 +171,9 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+    /**
+     * Affiche les erreurs liées aux Département invalides dans les code d'activitées
+     */
     public static function solveDepInv()
     {
         if (isset($_SESSION['login'])) {
@@ -137,6 +188,12 @@ class ControllerExtraction
         } else ControllerUser::connect();
     }
 
+
+    /**
+     * Résout les erreurs liées aux stage
+     *
+     * Récupére les informations du formulaire de @see ControllerExtraction::solveStatuts()
+     */
     public static function solvedStatuts()
     {
         if (isset($_SESSION['login'])) {

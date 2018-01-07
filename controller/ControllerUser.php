@@ -3,11 +3,20 @@
 require_once File::build_path(array('model', 'ModelUser.php'));
 require_once File::build_path(array('lib', 'Security.php'));
 
+/**
+ * Class ControllerUser
+ */
 class ControllerUser
 {
 
+    /**
+     * @var string
+     */
     protected static $object = 'user';
 
+    /**
+     * Affiche tous les utilisateurs
+     */
     public static function readAll()
     {
         if (isset($_SESSION['login']) && $_SESSION['is_admin']) {
@@ -24,6 +33,9 @@ class ControllerUser
         }
     }
 
+    /**
+     * Affiche les details d'un utilisateur
+     */
     public static function read()
     {
         if (isset($_GET['mailUser']) && isset($_SESSION['login']) && $_SESSION['is_admin']) {
@@ -49,6 +61,9 @@ class ControllerUser
         } else ControllerMain::erreur("Vous n'avez pas le droit de voir cette page");
     }
 
+    /**
+     * Affiche la page de confirmation de suppression
+     */
     public static function delete()
     {
         if (isset($_GET['mailUser']) &&
@@ -67,6 +82,9 @@ class ControllerUser
 
     }
 
+    /**
+     * Supprime l'utilisateur
+     */
     public static function deleted()
     {
         if (isset($_GET['mailUser']) &&
@@ -84,6 +102,9 @@ class ControllerUser
         }
     }
 
+    /**
+     * Affiche le formulaire de création d'un utilisateur
+     */
     public static function create()
     {
         if (isset($_SESSION['login']) &&
@@ -95,6 +116,9 @@ class ControllerUser
         } else ControllerMain::erreur("Vous n'avez pas le droit de voir cette page");
     }
 
+    /**
+     * Créé l'utilisateur
+     */
     public static function created()
     {
         if (isset($_POST['mailUser']) &&
@@ -131,6 +155,9 @@ class ControllerUser
         }
     }
 
+    /**
+     * Affiche le formulaire pour mettre à jour les informations d'un utilisateur
+     */
     public static function update()
     {
         if (isset($_GET['mailUser']) &&
@@ -146,6 +173,9 @@ class ControllerUser
         } else ControllerMain::erreur("Vous n'avez pas le droit de voir cette page");
     }
 
+    /**
+     * Met à jour les informations d'un utilisateur
+     */
     public static function updated()
     {
         if (isset($_POST['mailUser']) &&
@@ -176,6 +206,9 @@ class ControllerUser
         } else ControllerMain::erreur("Il manque des informations");
     }
 
+    /**
+     * Affiche le formulaire de connexion
+     */
     public static function connect()
     {
         if (!isset($_SESSION['login'])) {
@@ -187,6 +220,9 @@ class ControllerUser
     }
 
 
+    /**
+     * Connecte l'utilisateur s'il a donné les bons identifiants
+     */
     public static function connected()
     {
         if (isset($_POST['login']) &&
@@ -211,12 +247,18 @@ class ControllerUser
         } else ControllerMain::erreur("Il manque des informations");
     }
 
+    /**
+     * Déconnecte un utilisateur
+     */
     public static function deconnect()
     {
         session_destroy();
         header('Location: index.php');
     }
 
+    /**
+     * Met à jour un utilisateur
+     */
     public static function setAdmin()
     {
         if (isset($_GET['mailUser']) &&

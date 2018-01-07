@@ -108,6 +108,13 @@ class ModelErreurExport extends Model
         return $this->typeActivitee;
     }
 
+    /**
+     * @deprecated
+     * renvoie @see ModelErreurExport::$valeursParPage de la page donnée en paramètre
+     *
+     * @param $p int
+     * @return bool|array(ModelErreurExport)
+     */
     public static function selectByPage($p)
     {
         try {
@@ -123,6 +130,11 @@ class ModelErreurExport extends Model
         }
     }
 
+    /**
+     * Renvoie le nombre d'erreurs
+     *
+     * @return int
+     */
     public static function getNbErr()
     {
         try {
@@ -136,11 +148,24 @@ class ModelErreurExport extends Model
         }
     }
 
+    /**
+     * Renvoie le nombre de page maximales (calculé avec @see ModelErreurExport::$valeursParPage
+     *
+     * @return float
+     */
     public static function getNbP()
     {
         return ceil(self::getNbErr() / self::$valeursParPage);
     }
 
+    /**
+     * @deprecated
+     *
+     * Renvoie toutes les erreurs par type d'erreur, false s'il y a une erreur
+     *
+     * @param $typeErreur string
+     * @return bool|array(ModelErreurExport)
+     */
     public static function selectByType($typeErreur)
     {
         try {
@@ -156,6 +181,11 @@ class ModelErreurExport extends Model
         }
     }
 
+    /**
+     * Renvoie tous les status posant problèmes, false s'il y a une erreur
+     *
+     * @return bool|array(statut,typeStatut)
+     */
     public static function selectAllStatuts()
     {
         try {
@@ -169,6 +199,13 @@ class ModelErreurExport extends Model
         }
     }
 
+    /**
+     * Renvoie les idErreurs liées au statut donné en paramètre, false s'il y a une erreur
+     *
+     * @param $statut string
+     * @param $typeStatut string
+     * @return bool|array(idErreur)
+     */
     public static function selectIdErreurStatut($statut, $typeStatut)
     {
         try {
@@ -187,6 +224,11 @@ class ModelErreurExport extends Model
         }
     }
 
+    /**
+     * Renvoie les nom des départements invalides des enseignants, false s'il y a une erreur
+     *
+     * @return bool|array(departementEns)
+     */
     public static function selectAllDepEns()
     {
         try {
@@ -200,6 +242,12 @@ class ModelErreurExport extends Model
         }
     }
 
+    /**
+     * Renvoie les idErreurs liées au départementEns donné en paramètre, false s'il y a une erreur
+     *
+     * @param $departementEns string
+     * @return bool|array(idErreur)
+     */
     public static function selectIdErreurDepEns($departementEns)
     {
         try {
@@ -215,6 +263,11 @@ class ModelErreurExport extends Model
         }
     }
 
+    /**
+     * Renvoie les codes d'activité qui posent problème, false s'il y a une erreur
+     *
+     * @return bool|array(activitee)
+     */
     public static function selectAllDepInv()
     {
         try {
@@ -228,6 +281,12 @@ class ModelErreurExport extends Model
         }
     }
 
+    /**
+     * Renvoie les idErreurs liées aux département invalides dans les codes d'activité, false s'il y a une erreur
+     *
+     * @param $codeActivite
+     * @return bool|array(idErreur)
+     */
     public static function selectIdErreursDepInv($codeActivite) {
         try {
             $sql = 'SELECT idErreur FROM ' . self::$object . ' WHERE activitee=:activitee';

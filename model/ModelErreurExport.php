@@ -145,7 +145,7 @@ class ModelErreurExport extends Model
             $rep = Model::$pdo->prepare($sql);
             $rep->execute();
             $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
-            return $retourne[0]['total'];
+            return (int)$retourne[0]['total'];
         } catch (Exception $e) {
             return 0;
         }
@@ -220,7 +220,7 @@ class ModelErreurExport extends Model
             );
             $rep->execute($values);
             $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
-            if(empty($retourne)) return false;
+            if (empty($retourne)) return false;
             return $retourne;
         } catch (Exception $e) {
             return false;
@@ -259,9 +259,9 @@ class ModelErreurExport extends Model
             $values = ['departementEns' => $departementEns];
             $rep->execute($values);
             $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
-            if(empty($retourne)) return false;
+            if (empty($retourne)) return false;
             return $retourne;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -290,17 +290,28 @@ class ModelErreurExport extends Model
      * @param $codeActivite
      * @return bool|array(idErreur)
      */
-    public static function selectIdErreursDepInv($codeActivite) {
+    public static function selectIdErreursDepInv($codeActivite)
+    {
         try {
             $sql = 'SELECT idErreur FROM ' . self::$object . ' WHERE activitee=:activitee';
             $rep = Model::$pdo->prepare($sql);
             $values = ['activitee' => $codeActivite];
             $rep->execute($values);
             $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
-            if(empty($retourne)) return false;
+            if (empty($retourne)) return false;
             return $retourne;
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    /**
+     *
+     */
+    public static function getBadge()
+    {
+        $nbErr=ModelErreurExport::getNbErr();
+        if($nbErr>9) return '+9';
+        return $nbErr;
     }
 }

@@ -20,7 +20,7 @@ if (isset($_GET['controller'])) {
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 } else {
-    $action = 'erreur';
+    $action = 'home';
 }
 
 if (class_exists($controller_class)) {

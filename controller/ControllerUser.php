@@ -249,6 +249,8 @@ class ControllerUser
 
     /**
      * Déconnecte un utilisateur
+     *
+     * Redirige vers l'accueil du site (Inteface de connexion)
      */
     public static function deconnect()
     {
@@ -258,6 +260,8 @@ class ControllerUser
 
     /**
      * Met à jour un utilisateur
+     *
+     * Redirige vers la liste des utilisateurs
      */
     public static function setAdmin()
     {

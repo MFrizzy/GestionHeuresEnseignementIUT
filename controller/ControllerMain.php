@@ -15,4 +15,12 @@ class ControllerMain
         }
 
     }
+
+    public static function home() {
+        if(isset($_SESSION['login'])) {
+            $view = 'home';
+            $pagetitle='Accueil';
+            require_once File::build_path(array('view', 'view.php'));
+        } else ControllerUser::connect();
+    }
 }

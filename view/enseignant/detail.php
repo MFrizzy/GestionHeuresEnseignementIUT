@@ -1,7 +1,7 @@
 <div class="detailBatiment1">
     <div class="mdl-card mdl-shadow--2dp import">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text"><?php echo htmlspecialchars($ens->getNomEns() . ' ' . $ens->getPrenomEns()) ?></h2>
+            <h2 class="mdl-card__title-text"><?php echo htmlspecialchars($ens->getNomEns()) ?></h2>
         </div>
         <div class="mdl-card__supporting-text mdl-card--border">
             Code Enseignant : <?php echo htmlspecialchars($ens->getCodeEns()) ?><br>

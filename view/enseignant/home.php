@@ -22,7 +22,6 @@
         </div>
         <div class="mdl-card__supporting-text">
             <form method="post" action="index.php?controller=enseignant&action=searchByName">
-                (renseigner un nom ou un prenom)
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="npEns" name="npEns">
                     <label class="mdl-textfield__label" for="npEns">Nom / Prenom Enseignant</label>

@@ -15,7 +15,6 @@ class ModelEnseignant extends Model
      */
     private $codeStatut;
     private $nomEns;
-    private $prenomEns;
     private $etatService;
     /**
      * @var $codeDepartement ModelDepartement
@@ -77,14 +76,6 @@ class ModelEnseignant extends Model
     public function getNomEns()
     {
         return $this->nomEns;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrenomEns()
-    {
-        return $this->prenomEns;
     }
 
     /**
@@ -193,7 +184,7 @@ class ModelEnseignant extends Model
     public static function selectAllByName($npEns)
     {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE nomEns LIKE CONCAT(\'%\',:npEns,\'%\') OR prenomEns LIKE CONCAT(\'%\',:npEns,\'%\')';
+            $sql = 'SELECT * FROM '.self::$object.' WHERE nomEns LIKE CONCAT(\'%\',:npEns,\'%\')';
             $rep = Model::$pdo->prepare($sql);
             $values = array('npEns' => $npEns);
             $rep->execute($values);

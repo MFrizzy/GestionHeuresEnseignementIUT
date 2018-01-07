@@ -9,15 +9,11 @@ class ControllerEnseignant
     public static function readAll()
     {
         if (isset($_SESSION['login'])) {
-            //$tab = ModelEnseignant::selectAll();
-            //if (!$tab) ControllerMain::erreur("Il n'y a pas d'enseignants");
-            //else {
-                $departements = ModelDepartement::selectAll();
-                $statuts = ModelStatutEnseignant::selectAll();
-                $view = 'home';
-                $pagetitle = 'Enseignants';
-                require_once File::build_path(array('view', 'view.php'));
-            //}
+            $departements = ModelDepartement::selectAll();
+            $statuts = ModelStatutEnseignant::selectAll();
+            $view = 'home';
+            $pagetitle = 'Enseignants';
+            require_once File::build_path(array('view', 'view.php'));
         } else ControllerUser::connect();
     }
 
@@ -53,13 +49,11 @@ class ControllerEnseignant
         if (isset($_SESSION['login'])) {
             if (isset($_POST['codeEns']) &&
                 isset($_POST['nomEns']) &&
-                isset($_POST['prenomEns']) &&
                 isset($_POST['codeDepartement']) &&
                 isset($_POST['codeStatut'])) {
                 $data = array(
                     'codeEns' => $_POST['codeEns'],
                     'nomEns' => $_POST['nomEns'],
-                    'prenomEns' => $_POST['prenomEns'],
                     'codeDepartement' => $_POST['codeDepartement'],
                     'codeStatut' => $_POST['codeStatut'],
                     'remarque' => $_POST['remarque']
@@ -104,13 +98,11 @@ class ControllerEnseignant
         if (isset($_SESSION['login'])) {
             if (isset($_POST['codeEns']) &&
                 isset($_POST['nomEns']) &&
-                isset($_POST['prenomEns']) &&
                 isset($_POST['codeDepartement']) &&
                 isset($_POST['codeStatut'])) {
                 $data = array(
                     'codeEns' => $_POST['codeEns'],
                     'nomEns' => $_POST['nomEns'],
-                    'prenomEns' => $_POST['prenomEns'],
                     'codeDepartement' => $_POST['codeDepartement'],
                     'codeStatut' => $_POST['codeStatut'],
                     'remarque' => $_POST['remarque']
@@ -158,7 +150,7 @@ class ControllerEnseignant
         if (isset($_SESSION['login'])) {
             if (isset($_POST['codeEns'])) {
                 $ens = ModelEnseignant::select($_POST['codeEns']);
-                if(!$ens) ControllerMain::erreur("Cet enseigant n'existe pas");
+                if (!$ens) ControllerMain::erreur("Cet enseigant n'existe pas");
                 else {
                     $view = 'detail';
                     $pagetitle = 'Enseignant : ' . $_POST['codeEns'];

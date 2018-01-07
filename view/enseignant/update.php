@@ -22,13 +22,6 @@
                 <label class="mdl-textfield__label" for="nomEns">Nom</label>
             </div>
 
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input"
-                       value="<?php echo htmlspecialchars($ens->getPrenomEns()) ?>"
-                       type="text" id="prenomEns" name="prenomEns" required>
-                <label class="mdl-textfield__label" for="prenomEns">Prenom</label>
-            </div>
-
             <label class="select">Département</label>
             <select style="display: block;" required name="codeDepartement">
                 <?php foreach ($departements as $departement) {

@@ -4,7 +4,6 @@
         <th>Details</th>
         <th class="mdl-data-table__cell--non-numeric">Code Enseignant</th>
         <th class="mdl-data-table__cell--non-numeric">Nom</th>
-        <th class="mdl-data-table__cell--non-numeric">Prénom</th>
         <th class="mdl-data-table__cell--non-numeric">Département</th>
         <th class="mdl-data-table__cell--non-numeric">Statut 1</th>
         <th class="mdl-data-table__cell--non-numeric">Statut 2</th>
@@ -20,7 +19,6 @@
                         <td><a href="index.php?controller=enseignant&action=read&codeEns=' . htmlspecialchars($value->getCodeEns()) . '">' . '<i class="material-icons">expand_more</i></a></td>
                         <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getCodeEns()) . '</td>
                         <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getNomEns()) . '</td>
-                        <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getPrenomEns()) . '</td>
                         <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($value->getCodeDepartement()->getNomDepartement()) . '</td>
                         <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($statut->getStatut()) . '</td>
                         <td class="mdl-data-table__cell--non-numeric">' . htmlspecialchars($statut->getTypeStatut()) . '</td>

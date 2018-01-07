@@ -6,6 +6,14 @@ class ControllerModule
 
     protected static $object = 'module';
 
+    /**
+     * Affiche les details d'un module identifié grace à @var $_GET['codeModule']
+     *
+     * S'il n'y a pas de codeModule, l'utilisateur est redirigé vers une erreur
+     * Si le module n'existe pas, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelModule::select()
+     */
     public static function read()
     {
         if (isset($_SESSION['login'])) {

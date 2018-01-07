@@ -6,6 +6,12 @@ class ControllerEnseignant
 
     protected static $object = 'enseignant';
 
+    /**
+     * Redirige vers le centre de recherche des enseignants
+     *
+     * @uses ModelDepartement::selectAll()
+     * @uses ModelEnseignant::selectAll()
+     */
     public static function readAll()
     {
         if (isset($_SESSION['login'])) {
@@ -17,6 +23,11 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Redirige vers la fiche détaillé d'un enseignant désigné par @var $_GET['codeEns']
+     *
+     * @uses ModelEnseignant::select()
+     */
     public static function read()
     {
         if (isset($_SESSION['login'])) {
@@ -32,6 +43,12 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Redirige vers le formulaire de création d'un enseignant
+     *
+     * @uses ModelDepartement::selectAll()
+     * @uses ModelStatutEnseignant::selectAll()
+     */
     public static function create()
     {
         if (isset($_SESSION['login'])) {
@@ -44,6 +61,12 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Crée un enseignant en récupérant les données du formulaire passé en méthode POST
+     *
+     * @uses ModelEnseignant::save()
+     * @see ControllerEnseignant::create()
+     */
     public static function created()
     {
         if (isset($_SESSION['login'])) {
@@ -64,6 +87,11 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Supprime l'enseignant désigné par @var $_GET['codeEns']
+     *
+     * @uses ModelEnseignant::delete()
+     */
     public static function delete()
     {
         if (isset($_SESSION['login'])) {
@@ -76,6 +104,15 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Redirige vers le formulaire de mise à jour des informations d'un enseignant
+     *
+     * Si l'enseignant n'existe pas, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelEnseignant::select();
+     * @uses ModelDepartement::selectAll()
+     * @uses ModelStatutEnseignant::selectAll()
+     */
     public static function update()
     {
         if (isset($_SESSION['login'])) {
@@ -93,6 +130,15 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Met à jour les informations d'un enseignant avec les informations fournies via la méthode POST
+     *
+     * S'il manque des information, l'utilisateur est redirigé vers une erreur
+     * Si la maj ne marche pas, l'utilisateur est redirigé vers une erreur
+     *
+     * @see ControllerEnseignant::update()
+     * @uses ModelEnseignant::update()
+     */
     public static function updated()
     {
         if (isset($_SESSION['login'])) {
@@ -115,6 +161,14 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Affiche la liste des enseignants appartenant à un département (@var $_POST['codeDepartement'])
+     *
+     * S'il manque le codeDepartement, l'utilisateur est redirigé vers une erreur
+     * S'il n'y a aucun professeurs dans ce département, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelEnseignant::selectAllByDepartement()
+     */
     public static function searchByDep()
     {
         if (isset($_SESSION['login'])) {
@@ -130,6 +184,14 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Affiche la liste des enseignants appartenant à un statut (@var $_POST['codeStatut'])
+     *
+     * S'il manque le codeStatut, l'utilisateur est redirigé vers une erreur
+     * S'il n'y a aucun professeurs dans ce département, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelEnseignant::selectAllByStatut()
+     */
     public static function searchByStatut()
     {
         if (isset($_SESSION['login'])) {
@@ -145,6 +207,14 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Affiche les details de l'enseignant grâce son code (@var $_POST['codeEns'])
+     *
+     * S'il manque le codeEns, l'utilisateur est redirigé vers une erreur
+     * S'il l'enseignant n'existe pas, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelEnseignant::select()
+     */
     public static function searchByCode()
     {
         if (isset($_SESSION['login'])) {
@@ -160,6 +230,14 @@ class ControllerEnseignant
         } else ControllerUser::connect();
     }
 
+    /**
+     * Affiche la liste des enseignants ayant (@var $_POST['npEns']) dans leur nom
+     *
+     * S'il manque le npEns, l'utilisateur est redirigé vers une erreur
+     * S'il n'y a aucun professeurs avec ce nom, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelEnseignant::selectAllByName()
+     */
     public static function searchByName()
     {
         if (isset($_SESSION['login'])) {

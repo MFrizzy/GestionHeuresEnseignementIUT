@@ -306,12 +306,19 @@ class ModelErreurExport extends Model
     }
 
     /**
+     * Retourne le nombre d'erreur formaté pour le badge dans la nav
      *
+     * Le badge ne peut pas avoir plus de 2 caractères, donc si le nombre d'erreurs
+     * est supérieur à 9, je return +9, sinon je return le nombre d'erreurs
+     *
+     * @return int|string
+     *
+     * @uses ModelErreurExport::getNbErr()
      */
     public static function getBadge()
     {
-        $nbErr=ModelErreurExport::getNbErr();
-        if($nbErr>9) return '+9';
+        $nbErr = ModelErreurExport::getNbErr();
+        if ($nbErr > 9) return '+9';
         return $nbErr;
     }
 }

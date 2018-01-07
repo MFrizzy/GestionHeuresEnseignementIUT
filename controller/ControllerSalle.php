@@ -7,6 +7,14 @@ class ControllerSalle
 
     protected static $object = 'salle';
 
+    /**
+     * Affiche les détails d'une salle de classe grace à @var$_GET['nomBatiment'] et @var $_GET['numSalle']
+     *
+     * S'il n'y a pas le nomBatiment ou le numSalle, l'utilisateur est redirigé vers une erreur
+     * Si la salle n'existe pas, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelSalle::select()
+     */
     public static function read()
     {
         if (isset($_SESSION['login'])) {

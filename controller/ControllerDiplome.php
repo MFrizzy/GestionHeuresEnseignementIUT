@@ -7,6 +7,17 @@ class ControllerDiplome
 
     protected static $object = 'diplome';
 
+    /**
+     * Affiche les détails d'un diplome identifié grace à @var $_GET['codeDiplome']
+     *
+     * Affiche aussi les UE appartenant à ce diplome
+     * 
+     * S'il n'y a pas de codeDiplome, l'utilisateur est redirigé vers une erreur
+     * Si le diplome n'existe pas, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelDiplome::select()
+     * @uses ModelUniteDEnseignement::selectAllByDiplome();
+     */
     public static function read()
     {
         if (isset($_SESSION['login'])) {

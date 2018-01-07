@@ -2,6 +2,9 @@
 require_once File::build_path(array('model', 'Model.php'));
 require_once File::build_path(array('model', 'ModelDepartement.php'));
 
+/**
+ * Class ModelDiplome
+ */
 class ModelDiplome extends Model
 {
 
@@ -18,6 +21,9 @@ class ModelDiplome extends Model
     private $heuresProjet;
     private $heuresStage;
 
+    /**
+     * @var array associe la lettre qui désigne le type diplome au nom du diplome
+     */
     private static $typesDiplome = array(
         "D" => "DUT",
         "U" => "DU",
@@ -113,6 +119,12 @@ class ModelDiplome extends Model
     }
 
 
+    /**
+     * Renvoie les Diplomes d'un département dont le code est donné en paramètre, false s'il y a une erreur
+     *
+     * @param $codeDepartement string(1)
+     * @return bool|array(ModelDiplome)
+     */
     public static function selectAllByDepartement($codeDepartement)
     {
         try {
@@ -132,14 +144,28 @@ class ModelDiplome extends Model
         }
     }
 
+    /**
+     * Renvoie le diplome lié à son code Diplome donné en paramètre, false s'il y a une erreur ou qu'il n'existe pas
+     *
+     * @param $primary_value string(1) : codeDiplome
+     * @return bool|ModelDiplome
+     */
     public static function select($primary_value)
     {
         $retourne = parent::select($primary_value);
+        if(!$retourne) return false;
         $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
         $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
         return $retourne;
     }
 
+    /**
+     * Renvoie le diplome lié à son codeDépartement et son typeDiplome, false s'il y a une erreur ou qu'il n'existe pas
+     *
+     * @param $codeDepartement string(1)
+     * @param $typeDiplome string
+     * @return bool|ModelDiplome
+     */
     public static function selectBy($codeDepartement, $typeDiplome)
     {
         try {
@@ -161,6 +187,18 @@ class ModelDiplome extends Model
         }
     }
 
+    /**
+     * Renvoie le volume horaire total du diplome @var $this
+     *
+     * Additionne les volumes horaires par type d'activité
+     * - TP
+     * - TD
+     * - CM
+     * - Projet
+     * - Stage
+     *
+     * @return int
+     */
     public function getVolumeHoraire()
     {
         $heuresTP = (int)$this->heuresTP;
@@ -172,6 +210,12 @@ class ModelDiplome extends Model
         return $total;
     }
 
+    /**
+     * Renvoie le nom du diplome de format : 'typeDiplome NomDépartememt'
+     *
+     * @return string
+     * @example DUT Informatique
+     */
     public function nommer()
     {
         return $this->getTypeDiplome() . ' ' . $this->getCodeDepartement()->getNomDepartement() . ' ' . $this->getNomDiplome();

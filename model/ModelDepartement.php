@@ -10,6 +10,9 @@ class ModelDepartement extends Model
 
     private $codeDepartement;
     private $nomDepartement;
+    /**
+     * @var $nomBatiment ModelBatiment
+     */
     private $nomBatiment;
 
     /**
@@ -44,6 +47,12 @@ class ModelDepartement extends Model
         $this->nomBatiment = $nomBatiment;
     }
 
+    /**
+     * Renvoie le Département avec son code donné en paramètre, false s'il y a une erreur
+     *
+     * @param $primary_value string codeDepartement
+     * @return bool|ModelDepartement
+     */
     public static function select($primary_value)
     {
         $retourne = parent::select($primary_value);
@@ -52,6 +61,11 @@ class ModelDepartement extends Model
         return $retourne;
     }
 
+    /**
+     * Retourne tous les Départements, false s'il y a une erreur
+     *
+     * @return bool|array(ModelDepartement)
+     */
     public static function selectAll()
     {
         $retourne= parent::selectAll();
@@ -61,6 +75,12 @@ class ModelDepartement extends Model
         return $retourne;
     }
 
+    /**
+     * Retourne l'objet Département avec son nom donné en paramètre, false s'il y a une erreur ou qu'il n'existe pas
+     *
+     * @param $nomDepartement string
+     * @return bool|ModelDepartement
+     */
     public static function selectByName($nomDepartement)
     {
         try {

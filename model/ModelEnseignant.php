@@ -6,15 +6,20 @@ require_once File::build_path(array('model', 'ModelDepartement.php'));
 class ModelEnseignant extends Model
 {
 
-    // Nom de la table
     protected static $object = 'Enseignant';
     protected static $primary = 'codeEns';
 
     private $codeEns;
+    /**
+     * @var $codeStatut ModelStatutEnseignant
+     */
     private $codeStatut;
     private $nomEns;
     private $prenomEns;
     private $etatService;
+    /**
+     * @var $codeDepartement ModelDepartement
+     */
     private $codeDepartement;
     private $remarque;
 
@@ -91,8 +96,12 @@ class ModelEnseignant extends Model
     }
 
     /**
+     * Retourne l'enseignant désigné par son code Enseignant, false s'il y a une erreur ou qu'il n'existe pas
+     *
      * @param $primary_value
-     * @return bool
+     * @return bool|ModelEnseignant
+     *
+     * @uses  Model::select()
      */
     public static function select($primary_value)
     {
@@ -103,6 +112,15 @@ class ModelEnseignant extends Model
         return $retourne;
     }
 
+    /**
+     * @deprecated
+     * Renvoie la liste des tous les enseignants
+     * TODO implémenter une fonction de page ?
+     *
+     * @return bool|array(ModelEnseigant)
+     *
+     * @uses  Model::selectAll()
+     */
     public static function selectAll()
     {
         $retourne = parent::selectAll();
@@ -113,6 +131,12 @@ class ModelEnseignant extends Model
         return $retourne;
     }
 
+    /**
+     * Renvoie tous les enseignants appartenant à un département, false s'il y a une erreur
+     *
+     * @param $codeDepartement string(1)
+     * @return bool|array(ModelEnseignant)
+     */
     public static function selectAllByDepartement($codeDepartement)
     {
         try {
@@ -133,6 +157,12 @@ class ModelEnseignant extends Model
         }
     }
 
+    /**
+     * Renvoie tous les enseignant appartenant à un statut, false s'il y a une erreur
+     *
+     * @param $codeStatut string (techniquement c'est un string mais c'est un nombre)
+     * @return bool|array(ModelEnseigant)
+     */
     public static function selectAllByStatut($codeStatut)
     {
         try {
@@ -153,6 +183,13 @@ class ModelEnseignant extends Model
         }
     }
 
+    /**
+     * Retourne tous les enseignants avec un nom/prenom proche de $npEns
+     * TODO supprimer l'attribut prénom
+     *
+     * @param $npEns string nom/prenom d'un enseigant
+     * @return bool|array(ModelEnseignant)
+     */
     public static function selectAllByName($npEns)
     {
         try {

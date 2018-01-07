@@ -5,6 +5,9 @@ require_once File::build_path(array('model', 'ModelSalle.php'));
 require_once File::build_path(array('model', 'ModelModule.php'));
 require_once File::build_path(array('model', 'ModelSalle.php'));
 
+/**
+ * Class ModelCours
+ */
 class ModelCours extends Model
 {
 
@@ -12,19 +15,31 @@ class ModelCours extends Model
     protected static $primary = 'idCours';
 
     private $idCours;
-    private $codeEns; // Objet Enseignant
-    private $nomClasse; // Objet Classe
+    /**
+     * @var $codeEns ModelEnseignant
+     */
+    private $codeEns;
+    /**
+     * @var $nomClasse ModelClasse
+     */
+    private $nomClasse;
     private $dateCours;
     private $heureDebut;
-    private $numSalle; // Objet Salle
+    /**
+     * @var $numSalle ModelSalle
+     */
+    private $numSalle;
     private $nomBatiment;
-    private $codeModule; // Objet Module
+    /**
+     * @var $codeModule ModelModule
+     */
+    private $codeModule;
     private $duree;
     private $typeCours;
     private $remarque;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getIdCours()
     {
@@ -143,6 +158,12 @@ class ModelCours extends Model
         $this->codeModule = $codeModule;
     }
 
+    /**
+     * Renvoie les Cours liés à un enseignant, false s'il y a une erreur
+     *
+     * @param $codeEns string
+     * @return bool|array(ModelCours)
+     */
     public static function selectAllByEns($codeEns)
     {
         try {

@@ -30,9 +30,13 @@ class ControllerExtraction
     /**
      * Recupere le fichier .csv envoyé par @see ControllerExtraction::extract()
      *
-     * Le fichier récupéré est lu, transformé en array @see Extraction::csvToArray()
-     * Puis on rentre les valeurs dans la BDD @see Extraction::ArrayToBDD()
-     * Finalement on affiche l'interface de résolution des erreurs @see ControllerExtraction::home()
+     * Le fichier récupéré est lu, transformé en array
+     * Puis on rentre les valeurs dans la BDD
+     * Finalement on affiche l'interface de résolution des erreurs
+     *
+     * @uses  Extraction::csvToArray()
+     * @uses  Extraction::ArrayToBDD()
+     * @uses  ControllerExtraction::home()
      */
     public static function extracted()
     {
@@ -109,10 +113,14 @@ class ControllerExtraction
      *
      * Dans cette interface il y a 4 possibilités :
      *
-     * - Statut : @see ControllerExtraction::solveStatuts()
-     * - Departement Enseignant @see ControllerExtraction::solveDepEns()
-     * - Departement Invalide @see ControllerExtraction::solveDepInv()
+     * - Statut :
+     * - Departement Enseignant
+     * - Departement Invalide
      * - Autre : TODO
+     *
+     * @uses  ControllerExtraction::solveStatuts()
+     * @uses  ControllerExtraction::solveDepEns()
+     * @uses  ControllerExtraction::solveDepInv()
      */
     public static function readAllType()
     {
@@ -139,6 +147,9 @@ class ControllerExtraction
 
     /**
      * Affiche les erreurs liées aux statuts invalides/inexistants
+     *
+     * @uses ModelErreurExport::selectAllStatuts()
+     * @uses ModelStatutEnseignant::selectAll()
      */
     public static function solveStatuts()
     {
@@ -156,6 +167,9 @@ class ControllerExtraction
 
     /**
      * Affiche les erreurs liées aux Départements des enseignants invalide
+     *
+     * @uses ModelErreurExport::selectAllDepEns()
+     * @uses ModelDepartement::selectAll()
      */
     public static function solveDepEns()
     {
@@ -173,6 +187,9 @@ class ControllerExtraction
 
     /**
      * Affiche les erreurs liées aux Département invalides dans les code d'activitées
+     *
+     * @uses ModelErreurExport::selectIdErreursDepInv()
+     * @uses ModelDepartement::selectAll()
      */
     public static function solveDepInv()
     {
@@ -193,6 +210,12 @@ class ControllerExtraction
      * Résout les erreurs liées aux stage
      *
      * Récupére les informations du formulaire de @see ControllerExtraction::solveStatuts()
+     *
+     * @uses ModelErreurExport::selectIdErreurStatut()
+     * @uses ModelStatutEnseignant::save()
+     * @uses ModelErreurExport::update()
+     * @uses Extraction::erreurToBD()
+     * @uses ControllerExtraction::solveStatuts()
      */
     public static function solvedStatuts()
     {
@@ -239,6 +262,11 @@ class ControllerExtraction
      * Résout les erreurs liées aux département des enseignants qui n'existent pas
      *
      * Récupére les informations du formulaire de @see ControllerExtraction::solveDepEns()
+     *
+     * @uses ModelErreurExport::selectIdErreurDepEns()
+     * @uses ModelErreurExport::update()
+     * @uses Extraction::erreurToBD()
+     * @uses ControllerExtraction::solveDepEns()
      */
     public static function solvedDepEns()
     {
@@ -277,6 +305,11 @@ class ControllerExtraction
      * Résout les erreurs liées aux département des codes d'activités qui n'existent pas
      *
      * Récupére les informations du formulaire de @see ControllerExtraction::solveDepInv()
+     *
+     * @uses ModelErreurExport::selectIdErreursDepInv()
+     * @uses ModelErreurExport::update()
+     * @uses Extraction::erreurToBD()
+     * @uses ControllerExtraction::solveDepInv()
      */
     public static function solvedDepInv()
     {

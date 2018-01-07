@@ -2,14 +2,32 @@
 
 require_once File::build_path(array('model', 'Model.php'));
 
+/**
+ * Class ModelUser
+ */
 class ModelUser extends Model
 {
 
+    /**
+     * @var string
+     */
     protected static $object = 'User';
+    /**
+     * @var string
+     */
     protected static $primary = 'mailUser';
 
+    /**
+     * @var null
+     */
     private $mailUser;
+    /**
+     * @var null
+     */
     private $passwordUser;
+    /**
+     * @var null
+     */
     private $admin;
 
     /**
@@ -52,6 +70,12 @@ class ModelUser extends Model
         $this->activated = $activated;
     }
 
+    /**
+     * ModelUser constructor.
+     * @param null $mail
+     * @param null $password
+     * @param null $admin
+     */
     public function __construct($mail = null, $password = null, $admin = null)
     {
         if (!is_null($admin) && !is_null($mail) && !is_null($password)) {
@@ -61,6 +85,14 @@ class ModelUser extends Model
         }
     }
 
+    /**
+     * Vérifie la correspondance de login/mdp_chiffré avec les informations de la BDD
+     * true si les valeurs correspondent, false sinon
+     *
+     * @param $login string
+     * @param $mot_de_passe_chiffre string
+     * @return bool
+     */
     public static function checkPassword($login, $mot_de_passe_chiffre)
     {
         $user = ModelUser::select($login);
@@ -71,6 +103,12 @@ class ModelUser extends Model
         return false;
     }
 
+    /**
+     * Met à jour les informations de l'utilisateur, return true si ça marche, false sinon
+     *
+     * @param $data array avec les inforamtions à maj
+     * @return bool
+     */
     public static function update($data)
     {
         try {
@@ -83,6 +121,12 @@ class ModelUser extends Model
         }
     }
 
+    /**
+     * Met un utilisateur (identifié par son mail) administrateur, à utiliser avec précaution
+     *
+     * @param $mailUser string
+     * @return bool
+     */
     public static function setAdmin($mailUser)
     {
         try {

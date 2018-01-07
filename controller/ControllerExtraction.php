@@ -206,7 +206,7 @@ class ControllerExtraction
                 $statut = explode('/', $cle);
                 if ($item != 'rien') {
                     $idErreurs = ModelErreurExport::selectIdErreurStatut($statut[0], $statut[1]);
-                    if (!$idErreurs) echo 'crack';
+                    if (!$idErreurs) ;
                     else {
                         if ($item == 'nouveau') {
                             // Créer nouveau statut
@@ -232,6 +232,84 @@ class ControllerExtraction
                 }
             }
             ControllerExtraction::solveStatuts();
+        } else ControllerUser::connect();
+    }
+
+    /**
+     * Résout les erreurs liées aux département des enseignants qui n'existent pas
+     *
+     * Récupére les informations du formulaire de @see ControllerExtraction::solveDepEns()
+     */
+    public static function solvedDepEns()
+    {
+        if (isset($_SESSION['login'])) {
+            foreach ($_POST as $cle => $item) {
+                /**
+                 * @var $cle string : departementEns
+                 * @var $item string : a pour valeurs
+                 * - rien
+                 * - un code Département
+                 */
+                $cle = str_replace("_", " ", $cle);
+                if ($item != 'rien') {
+                    $idErreurs = ModelErreurExport::selectIdErreurDepEns($cle);
+                    if (!$idErreurs) ;
+                    else {
+                        // Changer le département des enseignants concernés
+                        foreach ($idErreurs as $idErreur) {
+                            ModelErreurExport::update(array(
+                                'idErreur' => $idErreur['idErreur'],
+                                'departementEns' => $item
+                            ));
+                        }
+                        // Refaire entrer les valeurs dans la bdd
+                        foreach ($idErreurs as $idErreur) {
+                            Extraction::erreurToBD(ModelErreurExport::select($idErreur['idErreur']));
+                        }
+                    }
+                }
+            }
+            ControllerExtraction::solveDepEns();
+        } else ControllerUser::connect();
+    }
+
+    /**
+     * Résout les erreurs liées aux département des codes d'activités qui n'existent pas
+     *
+     * Récupére les informations du formulaire de @see ControllerExtraction::solveDepInv()
+     */
+    public static function solvedDepInv()
+    {
+        if(isset($_SESSION['login'])) {
+            foreach ($_POST as $item) {
+                /**
+                 * @var $cle string : code d'activité
+                 * @var $item string : a pour valeurs
+                 * - rien
+                 * - un code Département
+                 */
+                $cle = str_replace("_", " ", $cle);
+                if ($item != 'rien') {
+                    $idErreurs=ModelErreurExport::selectIdErreursDepInv($cle);
+                    if(!$idErreurs);
+                    else {
+                        // Changer le code d'activité
+                        if(isset($cle[2]))
+                        $cle[2]=$item; // Changement du code Département
+                        foreach ($idErreurs as $idErreur) {
+                            ModelErreurExport::update(array(
+                                'idErreur' => $idErreur['idErreur'],
+                                'activitee' => $cle
+                            ));
+                        }
+                        // Refaire entrer les valeurs dans la bdd
+                        foreach ($idErreurs as $idErreur) {
+                            Extraction::erreurToBD(ModelErreurExport::select($idErreur['idErreur']));
+                        }
+                    }
+                }
+            }
+            ControllerExtraction::solveDepInv();
         } else ControllerUser::connect();
     }
 }

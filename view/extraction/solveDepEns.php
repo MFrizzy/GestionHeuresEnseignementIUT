@@ -15,10 +15,9 @@
     <td class="mdl-data-table__cell--non-numeric">';
             echo '<div><select style="display: block;" name="'.$item['departementEns'].'">';
             echo '<option value="rien">Ne rien faire</option>';
-            echo '<option value="nouveau">Créer un nouveau département</option>';
             echo '<optgroup label="Départements existants">';
             foreach ($dep as $value) {
-                echo '<option value="'.$value->getCodeDepartement().'">'.$value->getNomDepartement().'</option>';
+                echo '<option value="'.$value->getNomDepartement().'">'.$value->getNomDepartement().'</option>';
             }
             echo '</optgroup>';
             echo '</select></div>';

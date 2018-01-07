@@ -200,6 +200,21 @@ class ModelErreurExport extends Model
         }
     }
 
+    public static function selectIdErreurDepEns($departementEns)
+    {
+        try {
+            $sql = 'SELECT idErreur FROM ' . self::$object . ' WHERE departementEns=:departementEns';
+            $rep = Model::$pdo->prepare($sql);
+            $values = ['departementEns' => $departementEns];
+            $rep->execute($values);
+            $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+            if(empty($retourne)) return false;
+            return $retourne;
+        } catch(Exception $e) {
+            return false;
+        }
+    }
+
     public static function selectAllDepInv()
     {
         try {
@@ -207,6 +222,20 @@ class ModelErreurExport extends Model
             $rep = Model::$pdo->prepare($sql);
             $rep->execute();
             $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public static function selectIdErreursDepInv($codeActivite) {
+        try {
+            $sql = 'SELECT idErreur FROM ' . self::$object . ' WHERE activitee=:activitee';
+            $rep = Model::$pdo->prepare($sql);
+            $values = ['activitee' => $codeActivite];
+            $rep->execute($values);
+            $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+            if(empty($retourne)) return false;
             return $retourne;
         } catch (Exception $e) {
             return false;

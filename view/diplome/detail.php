@@ -40,9 +40,15 @@
             </table>
         </div>
         <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <a href="index.php?controller=diplome&action=update&codeDiplome=<?php echo htmlspecialchars($diplome->getCodeDiplome()) ?>"><i
-                            class="material-icons">edit</i></button>
+            <a href="index.php?controller=diplome&action=update&codeDiplome=<?php echo htmlspecialchars($diplome->getCodeDiplome()) ?>">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">edit</i>
+                </button>
+            </a>
+            <a href="index.php?controller=diplome&action=delete&codeDiplome=<?php echo htmlspecialchars($diplome->getCodeDiplome()) ?>">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">delete</i>
+                </button>
             </a>
         </div>
     </div>

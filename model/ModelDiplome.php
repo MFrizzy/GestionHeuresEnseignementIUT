@@ -220,4 +220,18 @@ class ModelDiplome extends Model
     {
         return $this->getTypeDiplome() . ' ' . $this->getCodeDepartement()->getNomDepartement() . ' ' . $this->getNomDiplome();
     }
+
+    public static function selectAllOrganizedByDep()
+    {
+        try{
+            $departements = ModelDepartement::selectAll();
+            $resultat = array();
+            foreach ($departements as $departement) {
+                $resultat[$departement->getNomDepartement()]=ModelDiplome::selectAllByDepartement($departement->getCodeDepartement());
+            }
+            return $resultat;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

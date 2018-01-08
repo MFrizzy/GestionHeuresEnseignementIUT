@@ -23,7 +23,7 @@ class ModelUniteDEnseignement extends Model
      */
     public function getIdUE()
     {
-        return $this->idUE;
+        return (int)$this->idUE;
     }
 
     /**
@@ -35,7 +35,7 @@ class ModelUniteDEnseignement extends Model
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getHeuresTP()
     {
@@ -43,7 +43,7 @@ class ModelUniteDEnseignement extends Model
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getHeuresTD()
     {
@@ -51,7 +51,7 @@ class ModelUniteDEnseignement extends Model
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getHeuresCM()
     {

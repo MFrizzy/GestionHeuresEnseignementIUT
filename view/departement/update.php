@@ -43,11 +43,3 @@
 
 </form>
 
-<?php
-if (isset($_GET['action']) && $_GET['action'] == 'connected') {
-    echo '<div class="snackbar">
-    <div class="snackbar__text">Mauvais mot de passe</div>
-</div>';
-}
-?>
-

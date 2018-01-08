@@ -42,7 +42,7 @@
                 <label class="select">Département</label>
                 <select style="display: block;" required name="codeDepartement">
                     <?php foreach ($departements as $departement) {
-                        echo '<option value="' . $departement->getCodeDepartement().'"';
+                        echo '<option value="' . $departement->getCodeDepartement() . '"';
                         echo '>' . $departement->getNomDepartement() . '</option>';
                     }
                     ?>
@@ -64,8 +64,8 @@
                 <select style="display: block;" required name="codeStatut">
                     <?php
                     foreach ($statuts as $statut) {
-                        echo '<option value="' . $statut->getCodeStatut() . '"' ;
-                        echo '>'. $statut->getStatut() . " " . $statut->getTypeStatut() . '</option>';
+                        echo '<option value="' . $statut->getCodeStatut() . '"';
+                        echo '>' . $statut->getStatut() . " " . $statut->getTypeStatut() . '</option>';
                     }
                     ?>
                 </select>
@@ -73,6 +73,17 @@
                     <i class="material-icons">send</i>
                 </button>
             </form>
+        </div>
+    </div>
+
+    <div class="mdl-card mdl-shadow--2dp detailBatiment2">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Statuts enseignants</h2>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="index.php?controller=statutEnseignant&action=readAll">
+                Voir les status Enseignants
+            </a>
         </div>
     </div>
 </div>

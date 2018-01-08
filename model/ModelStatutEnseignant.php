@@ -38,30 +38,48 @@ class ModelStatutEnseignant extends Model
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getNombresHeures()
     {
-        return $this->nombresHeures;
+        return (int)$this->nombresHeures;
     }
 
+    /**
+     * Retourne le statut désigné par son statut et son typeStatut, false s'il y a une erreur ou qu'il n'existe pas
+     *
+     * @param $statut string
+     * @param $typeStatut string
+     * @return bool|ModelStatutEnseignant
+     */
     public static function selectByStatutType($statut, $typeStatut)
     {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE statut=:statut AND typeStatut=:typeStatut';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE statut=:statut AND typeStatut=:typeStatut';
             $rep = Model::$pdo->prepare($sql);
             $values = array(
                 'statut' => $statut,
                 'typeStatut' => $typeStatut);
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelStatutEnseignant');
-            $retourne=$rep->fetchAll();
-            if(empty($retourne)) return false;
+            $retourne = $rep->fetchAll();
+            if (empty($retourne)) return false;
             return $retourne[0];
         } catch (Exception $e) {
             return false;
 
         }
+    }
+
+    /**
+     * Retourne le nom du statut au format : 'statut typeStatut'
+     *
+     * @return string
+     * @example 'TITULAIRES IUT PRAG'
+     */
+    public function nommer()
+    {
+        return $this->getStatut().' '.$this->getTypeStatut();
     }
 
 

@@ -7,9 +7,15 @@
             Batiment : <?php echo $dep->getNomBatiment()->getNomBatiment() ?>
         </div>
         <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <a href="index.php?controller=departement&action=update&codeDepartement=<?php echo htmlspecialchars($dep->getCodeDepartement()) ?>"><i
-                            class="material-icons">edit</i></button>
+            <a href="index.php?controller=departement&action=update&codeDepartement=<?php echo htmlspecialchars($dep->getCodeDepartement()) ?>">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">edit</i>
+                </button>
+            </a>
+            <a href="index.php?controller=departement&action=delete&codeDepartement=<?php echo htmlspecialchars($dep->getCodeDepartement()) ?>">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">delete</i>
+                </button>
             </a>
         </div>
     </div>

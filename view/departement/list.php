@@ -24,8 +24,24 @@
     </table>
 </div>
 
+<!--
 <a href="index.php?controller=departement&action=create" class="new">
     <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
         <i class="material-icons">add</i>
     </button>
 </a>
+
+-->
+<div class="new">
+    <button id="demo-menu-top-right"
+            class="mdl-button mdl-js-button mdl-button--fab">
+        <i class="material-icons">more_vert</i>
+    </button>
+
+    <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
+        for="demo-menu-top-right">
+        <a href="index.php?controller=departement&action=create"><li class="mdl-menu__item">Créer un Départment</li></a>
+        <a href="index.php?controller=uniteDEnseignement&action=create"><li class="mdl-menu__item">Créer un Unité d'enseignement</li></a>
+        <a href="index.php?controller=module&action=create"><li class="mdl-menu__item">Créer un Module</li></a>
+    </ul>
+</div>

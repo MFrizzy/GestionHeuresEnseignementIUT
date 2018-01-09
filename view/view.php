@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
     <link rel="stylesheet" href="https://getmdl.io/templates/dashboard/styles.css">
     <link rel="stylesheet" href="./style/styles.css">
+    <?php
+    if(isset($script)) echo $script;
+    ?>
 </head>
 <body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">

@@ -71,7 +71,8 @@ class ControllerUniteDEnseignement
                 else {
                     $ue = ModelUniteDEnseignement::selectBy($_POST['codeDiplome'],$_POST['semestre'],$_POST['idUE']);
                     //TODO BUG REDIRECTION
-                    //header('location : index.php?controller=uniteDEnseignement&action=read&nUE='.$ue->getNUE());
+                    $adresse = 'Location : index.php?controller=uniteDEnseignement&action=read&nUE='.$ue->getNUE();
+                    //header($adresse);
                 }
             } else ControllerMain::erreur("Il manque des informations");
         } else ControllerUser::connect();

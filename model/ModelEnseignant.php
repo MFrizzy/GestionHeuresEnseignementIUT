@@ -97,7 +97,7 @@ class ModelEnseignant extends Model
     public static function select($primary_value)
     {
         $retourne = parent::select($primary_value);
-        if(!$retourne) return false;
+        if (!$retourne) return false;
         $retourne->setCodeStatut(ModelStatutEnseignant::select($retourne->getCodeStatut()));
         $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
         return $retourne;
@@ -131,7 +131,7 @@ class ModelEnseignant extends Model
     public static function selectAllByDepartement($codeDepartement)
     {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE codeDepartement=:codeDepartement';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE codeDepartement=:codeDepartement';
             $rep = Model::$pdo->prepare($sql);
             $values = array('codeDepartement' => $codeDepartement);
             $rep->execute($values);
@@ -142,8 +142,7 @@ class ModelEnseignant extends Model
                 $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
             }
             return $retourne;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -157,7 +156,7 @@ class ModelEnseignant extends Model
     public static function selectAllByStatut($codeStatut)
     {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE codeStatut=:codeStatut';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE codeStatut=:codeStatut';
             $rep = Model::$pdo->prepare($sql);
             $values = array('codeStatut' => $codeStatut);
             $rep->execute($values);
@@ -168,8 +167,7 @@ class ModelEnseignant extends Model
                 $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
             }
             return $retourne;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -184,7 +182,7 @@ class ModelEnseignant extends Model
     public static function selectAllByName($npEns)
     {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE nomEns LIKE CONCAT(\'%\',:npEns,\'%\')';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE nomEns LIKE CONCAT(\'%\',:npEns,\'%\')';
             $rep = Model::$pdo->prepare($sql);
             $values = array('npEns' => $npEns);
             $rep->execute($values);
@@ -197,6 +195,27 @@ class ModelEnseignant extends Model
             return $retourne;
         } catch (Exception $e) {
             return false;
+        }
+    }
+
+    /**
+     * Retourne un tableau avec les statuts et le nombre de professeurs par statuts
+     */
+    public static function statStatutEtEnseignant()
+    {
+        try {
+            $sql = 'SELECT
+                      statut,
+                      count(codeEns) as quantity
+                    FROM StatutEnseignant
+                      JOIN Enseignant E ON StatutEnseignant.codeStatut = E.codeStatut
+                    GROUP BY E.codeStatut,statut;';
+            $rep = Model::$pdo->prepare($sql);
+            $rep->execute();
+            $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+            return $retourne;
+        } catch (Exception $e) {
+            return $e;
         }
     }
 

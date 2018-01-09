@@ -81,11 +81,22 @@
             <h2 class="mdl-card__title-text">Statuts enseignants</h2>
         </div>
         <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="index.php?controller=statutEnseignant&action=readAll">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+               href="index.php?controller=statutEnseignant&action=readAll">
                 Voir les status Enseignants
             </a>
         </div>
     </div>
 </div>
 
-<?php //require_once File::build_path(array('view','enseignant','list.php'))?>
+<div class="mdl-card mdl-shadow--2dp" style="width: auto; margin: 0px 15px 15px 15px">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Répartitions des enseignants par statut</h2>
+    </div>
+    <div class="mdl-card__supporting-text mdl-card--border" id="statut">
+        <div id="statut" style="width: 900px; height: 500px;"></div>
+    </div>
+</div>
+
+
+

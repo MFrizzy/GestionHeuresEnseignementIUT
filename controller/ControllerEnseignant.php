@@ -17,6 +17,36 @@ class ControllerEnseignant
         if (isset($_SESSION['login'])) {
             $departements = ModelDepartement::selectAll();
             $statuts = ModelStatutEnseignant::selectAll();
+            $stats = ModelEnseignant::statStatutEtEnseignant();
+            // Script
+            $script = '
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load(\'current\', {\'packages\': [\'corechart\']});
+    google.charts.setOnLoadCallback(statut);
+
+    function statut() {
+        var data = google.visualization.arrayToDataTable([ [\'Statut Enseignant\',\'Nombres d\\\'enseignants\'],
+            ';
+            $data = '';
+            foreach ($stats as $stat) {
+                $stat['statut'] = addslashes($stat['statut']);
+                $data.= "['" . $stat['statut']."', " . $stat['quantity'] . "],";
+            }
+            $data = rtrim($data,',');
+            $script.=$data;
+            $script.='
+            
+        ]);
+        var options = {
+            title: \'\'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById(\'statut\'));
+        chart.draw(data, options);
+    }
+</script>
+            ';
             $view = 'home';
             $pagetitle = 'Enseignants';
             require_once File::build_path(array('view', 'view.php'));

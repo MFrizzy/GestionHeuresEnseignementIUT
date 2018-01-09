@@ -85,6 +85,8 @@ class ModelUniteDEnseignement extends Model
     /**
      * Retourne tous les ue, false s'il y a une erreur
      *
+     * Return false s'il y a une erreur durant l'execution de la requete SQL
+     *
      * @return bool|array(ModelUniteDEnseignement)
      */
     public static function selectAll()
@@ -100,6 +102,8 @@ class ModelUniteDEnseignement extends Model
     /**
      * Retourne l'ue désigné par son numéro d'UE, false s'il n'existe pas ou qu'il y a une erreur
      *
+     * Return false s'il y a une erreur durant l'execution de la requete SQL
+     *
      * @param $primary_value int nUE
      * @return bool|ModelUniteDEnseignement
      */
@@ -109,6 +113,33 @@ class ModelUniteDEnseignement extends Model
         if (!$retourne) return false;
         $retourne->setCodeDiplome(ModelDiplome::select($retourne->getCodeDiplome()));
         return $retourne;
+    }
+
+    /**
+     * Retourne une liste d'UE appartement à un certain semestre d'un diplome
+     *
+     * Return false s'il y a une erreur durant l'execution de la requete SQL
+     *
+     * @param $semestre int
+     * @param $codeDiplome int
+     * @return bool|array(ModelUniteDEnseignement)
+     */
+    public static function selectBySemestre($semestre, $codeDiplome) {
+        try {
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE codeDiplome=:codeDiplome AND semestre=:semestre';
+            $rep = Model::$pdo->prepare($sql);
+            $values = array('codeDiplome' => $codeDiplome,
+                'semestre' => $semestre);
+            $rep->execute($values);
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUniteDEnseignement');
+            $retourne = $rep->fetchAll();
+            foreach ($retourne as $cle => $item) {
+                $retourne[$cle]->setCodeDiplome(ModelDiplome::select($item->getCodeDiplome()));
+            }
+            return $retourne;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**

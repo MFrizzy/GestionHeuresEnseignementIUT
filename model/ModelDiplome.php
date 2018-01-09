@@ -118,6 +118,21 @@ class ModelDiplome extends Model
         return (int)$this->heuresStage;
     }
 
+    /**
+     * TODO
+     *
+     * @return array
+     */
+    public function getAllSemestres()
+    {
+        $totalUE = ModelUniteDEnseignement::selectAllByDiplome($this->getCodeDiplome());
+        $sem = array();
+        foreach ($totalUE as $ue) {
+            $n = $ue->getSemestre();
+            array_push($sem, $n);
+        }
+        return $sem;
+    }
 
     /**
      * Renvoie les Diplomes d'un département dont le code est donné en paramètre, false s'il y a une erreur

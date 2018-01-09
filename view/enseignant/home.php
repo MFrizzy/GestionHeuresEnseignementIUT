@@ -98,5 +98,10 @@
     </div>
 </div>
 
+<a href="index.php?controller=enseignant&action=create" class="new">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
+        <i class="material-icons">add</i>
+    </button>
+</a>
 
 

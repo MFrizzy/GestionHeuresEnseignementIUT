@@ -119,7 +119,7 @@ class ModelDiplome extends Model
     }
 
     /**
-     * TODO
+     * Return un tableau avec le numéro des semestres existant dans ce diplome
      *
      * @return array
      */
@@ -129,9 +129,27 @@ class ModelDiplome extends Model
         $sem = array();
         foreach ($totalUE as $ue) {
             $n = $ue->getSemestre();
-            array_push($sem, $n);
+            if (!in_array($n, $sem)) array_push($sem, $n);
         }
         return $sem;
+    }
+
+    public function getModulesBySemestre()
+    {
+        $resultat = array();
+        $semestres = $this->getAllSemestres();
+        foreach ($semestres as $semestre) {
+            $ues = ModelUniteDEnseignement::selectBySemestre($semestre,$this->getCodeDiplome());
+            if(is_array($ues)) {
+                $resultat[$semestre] = array();
+                foreach ($ues as $ue) {
+                    $subresultat['ue']= $ue;
+                    $subresultat['modules'] = ModelModule::selectAllByNUE($ue->getNUE());
+                    $resultat[$semestre][]=$subresultat;
+                }
+            }
+        }
+        return $resultat;
     }
 
     /**
@@ -168,7 +186,7 @@ class ModelDiplome extends Model
     public static function select($primary_value)
     {
         $retourne = parent::select($primary_value);
-        if(!$retourne) return false;
+        if (!$retourne) return false;
         $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
         $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
         return $retourne;
@@ -192,7 +210,7 @@ class ModelDiplome extends Model
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDiplome');
             $retourne = $rep->fetchAll();
-            if(!$retourne) return false;
+            if (!$retourne) return false;
             $retourne = $retourne[0];
             $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
             $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
@@ -238,11 +256,11 @@ class ModelDiplome extends Model
 
     public static function selectAllOrganizedByDep()
     {
-        try{
+        try {
             $departements = ModelDepartement::selectAll();
             $resultat = array();
             foreach ($departements as $departement) {
-                $resultat[$departement->getNomDepartement()]=ModelDiplome::selectAllByDepartement($departement->getCodeDepartement());
+                $resultat[$departement->getNomDepartement()] = ModelDiplome::selectAllByDepartement($departement->getCodeDepartement());
             }
             return $resultat;
         } catch (Exception $e) {

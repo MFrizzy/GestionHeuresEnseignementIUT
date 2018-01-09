@@ -40,39 +40,74 @@
             </table>
         </div>
         <div class="mdl-card__menu">
-            <a href="index.php?controller=diplome&action=update&codeDiplome=<?php echo htmlspecialchars($diplome->getCodeDiplome()) ?>">
-                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                    <i class="material-icons">edit</i>
-                </button>
-            </a>
-            <a href="index.php?controller=diplome&action=delete&codeDiplome=<?php echo htmlspecialchars($diplome->getCodeDiplome()) ?>">
-                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                    <i class="material-icons">delete</i>
-                </button>
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <a href="index.php?controller=diplome&action=update&codeDiplome=<?php echo htmlspecialchars($diplome->getCodeDiplome()) ?>"><i
+                            class="material-icons">edit</i></button>
             </a>
         </div>
     </div>
 
-
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp detailBatiment3">
         <thead>
         <tr>
-            <th></th>
-            <th class="mdl-data-table__cell--non-numeric">UE</th>
+            <th class="mdl-data-table__cell--non-numeric">Semestre</th>
+            <th class="mdl-data-table__cell--non-numeric"></th>
         </tr>
         </thead>
         <tbody>
         <?php
 
-        foreach ($tab as $value) {
-            echo '<tr>
-                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=uniteDEnseignement&action=read&nUE=' . htmlspecialchars($value->getNUE()) . '">' . '<i class="material-icons">expand_more</i></a></td>
-                        <td>UE' . htmlspecialchars($value->nommer()) . '</td>
-                    </tr>
-            ';
+        foreach ($tab as $semestre => $ues) {
+            echo '<tr>';
+            echo '<td>' . $semestre . '</td>';
+            echo '<td>';
+            echo '<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp detailBatiment3">';
+            echo '<thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Détails</th>
+                    <th class="mdl-data-table__cell--non-numeric">UE</th>
+                    <th class="mdl-data-table__cell--non-numeric"></th>
+                </tr>
+                </thead>
+                <tbody>';
+            foreach ($ues as $ueModule) {
+                $ue = $ueModule['ue'];
+                $modules = $ueModule['modules'];
+                echo '<tr>';
+                echo '<td><a href="index.php?controller=uniteDEnseignement&action=read&nUE=' . htmlspecialchars($ue->getNUE()) . '">' . '<i class="material-icons">expand_more</i></a></td>';
+                echo '<td>' . $ue->nommer() . '</td>';
+                echo '<td>';
+                echo '<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp detailBatiment3">';
+                echo '<thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Détails</th>
+                    <th class="mdl-data-table__cell--non-numeric">Module</th>
+                    <th class="mdl-data-table__cell--non-numeric">Nom module</th>
+                </tr>
+                </thead>
+                <tbody>';
+                foreach ($modules as $module) {
+                    echo '<tr>';
+                    echo '<td><a href="index.php?controller=module&action=read&codeModule=' . htmlspecialchars($module->getCodeModule()) . '">' . '<i class="material-icons">expand_more</i></a></td>';
+                    echo '<td>'.$module->nommer().'</td>';
+                    echo '<td>'.$module->getNomModule().'</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody>';
+                echo '</table>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody>';
+            echo '</table>';
+            echo '</td>';
+            echo '</tr>';
         }
+
         ?>
         </tbody>
+
     </table>
+
 
 </div>

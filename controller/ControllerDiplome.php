@@ -10,7 +10,7 @@ class ControllerDiplome
     /**
      * Affiche les détails d'un diplome identifié grace à @var $_GET['codeDiplome']
      * 
-     * Affiche aussi les UE appartenant à ce diplome
+     * Affiche aussi les UE et les modules appartenant à ce diplome
      *
      * S'il n'y a pas de codeDiplome, l'utilisateur est redirigé vers une erreur
      * Si le diplome n'existe pas, l'utilisateur est redirigé vers une erreur
@@ -25,7 +25,7 @@ class ControllerDiplome
                 $diplome = ModelDiplome::select($_GET['codeDiplome']);
                 if (!$diplome) ControllerMain::erreur('Le diplome n\' existe pas');
                 else {
-                    $tab = ModelUniteDEnseignement::selectAllByDiplome($_GET['codeDiplome']);
+                    $tab = $diplome->getModulesBySemestre();
                     $view = 'detail';
                     $pagetitle = $diplome->nommer();
                     $pagetitle = htmlspecialchars($pagetitle);

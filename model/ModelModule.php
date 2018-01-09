@@ -36,11 +36,11 @@ class ModelModule extends Model
     }
 
     /**
-     * @return int
+     * @return ModelUniteDEnseignement
      */
     public function getNUE()
     {
-        return (int)$this->nUE;
+        return $this->nUE;
     }
 
     /**

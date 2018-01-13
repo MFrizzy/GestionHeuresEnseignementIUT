@@ -31,9 +31,10 @@ class ModelDiplome extends Model
         "A" => "Année Spéciale"
     );
 
-    public function getNumLP() {
-        if($this->getTypeDiplome() == "Licence Pro") {
-            if(isset($this->getTypeDiplome()[1])) return $this->getTypeDiplome()[1];
+    public function getNumLP()
+    {
+        if ($this->getTypeDiplome() == "Licence Pro") {
+            if (isset($this->getTypeDiplome()[1])) return $this->getTypeDiplome()[1];
         }
         return false;
     }
@@ -68,7 +69,8 @@ class ModelDiplome extends Model
      */
     public function getTypeDiplome()
     {
-        return self::$typesDiplome[$this->typeDiplome[0]];
+        if(isset($this->typeDiplome[0])) return self::$typesDiplome[$this->typeDiplome[0]];
+        return false;
     }
 
     /**
@@ -156,13 +158,13 @@ class ModelDiplome extends Model
         $resultat = array();
         $semestres = $this->getAllSemestres();
         foreach ($semestres as $semestre) {
-            $ues = ModelUniteDEnseignement::selectBySemestre($semestre,$this->getCodeDiplome());
-            if(is_array($ues)) {
+            $ues = ModelUniteDEnseignement::selectBySemestre($semestre, $this->getCodeDiplome());
+            if (is_array($ues)) {
                 $resultat[$semestre] = array();
                 foreach ($ues as $ue) {
-                    $subresultat['ue']= $ue;
+                    $subresultat['ue'] = $ue;
                     $subresultat['modules'] = ModelModule::selectAllByNUE($ue->getNUE());
-                    $resultat[$semestre][]=$subresultat;
+                    $resultat[$semestre][] = $subresultat;
                 }
             }
         }

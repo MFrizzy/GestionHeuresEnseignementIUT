@@ -39,11 +39,16 @@ class ControllerDiplome
      * Renvoie vers le formulaire de création d'un diplome
      *
      * @uses ModelDepartement::selectAll()
+     * @uses ModelDepartement::select()
      */
     public static function create()
     {
         if (isset($_SESSION['login'])) {
             $diplome = new ModelDiplome();
+            if(isset($_GET['codeDepartement'])) {
+                $departement = ModelDepartement::select($_GET['codeDepartement']);
+                if($departement) $diplome->setCodeDepartement($departement);
+            }
             $view = 'update';
             $departements = ModelDepartement::selectAll();
             $pagetitle = 'Création d\'un diplome';

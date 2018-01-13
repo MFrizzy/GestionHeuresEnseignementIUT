@@ -43,7 +43,12 @@ class ControllerUniteDEnseignement
         if (isset($_SESSION['login'])) {
             $departementsXdiplome = ModelDiplome::selectAllOrganizedByDep();
             $ue = new ModelUniteDEnseignement();
-            $ue->setCodeDiplome(new ModelDiplome());
+            if(isset($_GET['codeDiplome'])) {
+                $diplome = ModelDiplome::select($_GET['codeDiplome']);
+                if($diplome) $ue->setCodeDiplome($diplome);
+                else $ue->setCodeDiplome(new ModelDiplome());
+            }
+            else $ue->setCodeDiplome(new ModelDiplome());
             $view = 'update';
             $pagetitle = 'Création d\'une unité d\'enseignement';
             require_once File::build_path(array('view', 'view.php'));

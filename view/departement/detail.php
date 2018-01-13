@@ -43,3 +43,10 @@
     </table>
 
 </div>
+
+<a href="index.php?controller=diplome&action=create&codeDepartement=<?php echo $_GET['codeDepartement'] ?>" class="new">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
+        <i class="material-icons">add</i>
+    </button>
+</a>
+

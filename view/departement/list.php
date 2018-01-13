@@ -40,7 +40,8 @@
 
     <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
         for="demo-menu-top-right">
-        <a href="index.php?controller=departement&action=create"><li class="mdl-menu__item">Créer un Départment</li></a>
-        <a href="index.php?controller=diplome&action=create"><li class="mdl-menu__item">Créer un Diplome</li></a>
+        <a href="index.php?controller=departement&action=create"><li class="mdl-menu__item">Créer un départment</li></a>
+        <a href="index.php?controller=diplome&action=create"><li class="mdl-menu__item">Créer un diplome</li></a>
+        <a href="index.php?controller=uniteDEnseignement&action=create"><li class="mdl-menu__item">Créer une unité d'enseignement</li></a>
     </ul>
 </div>

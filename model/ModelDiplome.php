@@ -27,8 +27,16 @@ class ModelDiplome extends Model
     private static $typesDiplome = array(
         "D" => "DUT",
         "U" => "DU",
-        "P" => "Licence Pro"
+        "P" => "Licence Pro",
+        "A" => "Année Spéciale"
     );
+
+    public function getNumLP() {
+        if($this->getTypeDiplome() == "Licence Pro") {
+            if(isset($this->getTypeDiplome()[1])) return $this->getTypeDiplome()[1];
+        }
+        return false;
+    }
 
     /**
      * @return mixed
@@ -55,9 +63,18 @@ class ModelDiplome extends Model
     }
 
     /**
-     * @return mixed
+     * @return mixed | String décrivant le type de diplome
+     * @uses ModelDiplome::$typesDiplome
      */
     public function getTypeDiplome()
+    {
+        return self::$typesDiplome[$this->typeDiplome[0]];
+    }
+
+    /**
+     * @return mixed : caractère décrivant le diplome (A,U,D,P)
+     */
+    public function getLettreTypeDiplome()
     {
         return $this->typeDiplome;
     }
@@ -168,7 +185,7 @@ class ModelDiplome extends Model
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelDiplome');
             $retourne = $rep->fetchAll();
             foreach ($retourne as $cle => $item) {
-                $retourne[$cle]->setTypeDiplome(self::$typesDiplome[$item->getTypeDiplome()[0]]);
+                //$retourne[$cle]->setTypeDiplome(self::$typesDiplome[$item->getTypeDiplome()[0]]);
                 $retourne[$cle]->setCodeDepartement(ModelDepartement::select($item->getCodeDepartement()));
             }
             return $retourne;
@@ -187,7 +204,7 @@ class ModelDiplome extends Model
     {
         $retourne = parent::select($primary_value);
         if (!$retourne) return false;
-        $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
+        //$retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
         $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
         return $retourne;
     }
@@ -212,7 +229,7 @@ class ModelDiplome extends Model
             $retourne = $rep->fetchAll();
             if (!$retourne) return false;
             $retourne = $retourne[0];
-            $retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
+            //$retourne->setTypeDiplome(self::$typesDiplome[$retourne->getTypeDiplome()[0]]);
             $retourne->setCodeDepartement(ModelDepartement::select($retourne->getCodeDepartement()));
             return $retourne;
         } catch (Exception $e) {

@@ -40,9 +40,10 @@
             </table>
         </div>
         <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <a href="index.php?controller=diplome&action=update&codeDiplome=<?php echo htmlspecialchars($diplome->getCodeDiplome()) ?>"><i
-                            class="material-icons">edit</i></button>
+            <a href="index.php?controller=diplome&action=update&codeDiplome=<?php echo htmlspecialchars($diplome->getCodeDiplome()) ?>">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">edit</i>
+                </button>
             </a>
         </div>
     </div>
@@ -89,8 +90,8 @@
                 foreach ($modules as $module) {
                     echo '<tr>';
                     echo '<td><a href="index.php?controller=module&action=read&codeModule=' . htmlspecialchars($module->getCodeModule()) . '">' . '<i class="material-icons">expand_more</i></a></td>';
-                    echo '<td>'.$module->nommer().'</td>';
-                    echo '<td>'.$module->getNomModule().'</td>';
+                    echo '<td>' . $module->nommer() . '</td>';
+                    echo '<td>' . $module->getNomModule() . '</td>';
                     echo '</tr>';
                 }
                 echo '</tbody>';

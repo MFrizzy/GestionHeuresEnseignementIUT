@@ -57,7 +57,7 @@ class ControllerExtraction
      * - Statut : @see ControllerExtraction::solveStatuts()
      * - Departement Enseignant @see ControllerExtraction::solveDepEns()
      * - Departement Invalide @see ControllerExtraction::solveDepInv()
-     * - Autre : TODO
+     * - Autre : @see ControllerExtraction::readAll()
      *
      */
     public static function home()
@@ -70,8 +70,13 @@ class ControllerExtraction
     }
 
     /**
-     * @deprecated
+     * Affiche toutes les erreurs qui ne corrspondent pas à un des 3 types d'erreurs
      *
+     * - Statut
+     * - Departement Enseignant
+     * - Departemenent invalide
+     *
+     * @see ControllerExtraction::home()
      */
     public static function readAll()
     {
@@ -79,6 +84,7 @@ class ControllerExtraction
             if (isset($_GET['p'])) {
                 $p = intval($_GET['p']);
                 if ($p > ModelErreurExport::getNbP()) $p = ModelErreurExport::getNbP();
+                if ($p <= 0) $p=1;
             } else $p = 1;
             $max = ModelErreurExport::getNbP();
             $tab = ModelErreurExport::selectByPage($p);
@@ -138,7 +144,7 @@ class ControllerExtraction
                         ControllerExtraction::solveDepInv();
                         break;
                     case 'autre':
-                        ControllerMain::erreur("En cours d'implémentation");
+                        ControllerExtraction::readAll();
                         break;
                 }
             } else ControllerMain::erreur("Il manque des informations");
@@ -314,7 +320,7 @@ class ControllerExtraction
     public static function solvedDepInv()
     {
         if(isset($_SESSION['login'])) {
-            foreach ($_POST as $item) {
+            foreach ($_POST as $cle => $item) {
                 /**
                  * @var $cle string : code d'activité
                  * @var $item string : a pour valeurs

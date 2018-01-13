@@ -122,7 +122,7 @@ class ModelErreurExport extends Model
     {
         try {
             $debut = ($p - 1) * self::$valeursParPage;
-            $sql = 'SELECT * FROM ' . self::$object . ' ORDER BY ' . self::$primary . ' DESC LIMIT ' . $debut . ' , ' . self::$valeursParPage;
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE typeErreur != "departementEns" AND typeErreur != "statut" AND typeErreur != "Département invalide" ORDER BY ' . self::$primary . ' DESC LIMIT ' . $debut . ' , ' . self::$valeursParPage;
             $rep = Model::$pdo->prepare($sql);
             $rep->execute();
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelErreurExport');
@@ -151,6 +151,19 @@ class ModelErreurExport extends Model
         }
     }
 
+    public static function getNbErrAutres()
+    {
+        try {
+            $sql = 'SELECT COUNT(*) AS total FROM ' . self::$object . ' WHERE typeErreur != "departementEns" AND typeErreur != "statut" AND typeErreur != "Département invalide"';
+            $rep = Model::$pdo->prepare($sql);
+            $rep->execute();
+            $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+            return (int)$retourne[0]['total'];
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+
     /**
      * Renvoie le nombre de page maximales (calculé avec @see ModelErreurExport::$valeursParPage
      *
@@ -158,7 +171,7 @@ class ModelErreurExport extends Model
      */
     public static function getNbP()
     {
-        return ceil(self::getNbErr() / self::$valeursParPage);
+        return ceil(self::getNbErrAutres() / self::$valeursParPage);
     }
 
     /**

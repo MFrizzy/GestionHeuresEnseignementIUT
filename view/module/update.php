@@ -16,8 +16,9 @@
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input"
                        value="<?php echo htmlspecialchars($module->getNUE()->getSemestre()) ?>"
-                       type="text" id="semestre" name="semestre" disabled>
+                       type="number" id="semestre" name="semestre" disabled>
                 <label class="mdl-textfield__label" for="semestre">Semestre</label>
+                <span class="mdl-textfield__error">Veuillez rentrer un nombre</span>
             </div>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -30,8 +31,9 @@
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input"
                        value="<?php echo htmlspecialchars($module->getNumModule()) ?>"
-                       type="text" id="numModule" name="numModule" required>
+                       type="number" id="numModule" name="numModule" required>
                 <label class="mdl-textfield__label" for="numModule">Numéro du module</label>
+                <span class="mdl-textfield__error">Veuillez rentrer un nombre</span>
             </div>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

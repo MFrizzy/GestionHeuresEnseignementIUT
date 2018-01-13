@@ -126,7 +126,7 @@ class ModelUniteDEnseignement extends Model
      */
     public static function selectBySemestre($semestre, $codeDiplome) {
         try {
-            $sql = 'SELECT * FROM ' . self::$object . ' WHERE codeDiplome=:codeDiplome AND semestre=:semestre';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE codeDiplome=:codeDiplome AND semestre=:semestre ORDER BY idUE';
             $rep = Model::$pdo->prepare($sql);
             $values = array('codeDiplome' => $codeDiplome,
                 'semestre' => $semestre);

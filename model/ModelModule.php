@@ -121,7 +121,7 @@ class ModelModule extends Model
     public static function selectAllByNUE($nue)
     {
         try {
-            $sql = 'SELECT * FROM ' . self::$object . ' WHERE nUE=:nUE';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE nUE=:nUE ORDER BY numModule';
             $rep = Model::$pdo->prepare($sql);
             $values = array('nUE' => $nue);
             $rep->execute($values);

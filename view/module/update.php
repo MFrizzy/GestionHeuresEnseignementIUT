@@ -29,6 +29,13 @@
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input"
+                       value="<?php echo htmlspecialchars($module->getNumModule()) ?>"
+                       type="text" id="numModule" name="numModule" required>
+                <label class="mdl-textfield__label" for="numModule">Numéro du module</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input"
                        value="<?php echo htmlspecialchars($module->getNomModule()) ?>"
                        type="text" id="nomModule" name="nomModule" required>
                 <label class="mdl-textfield__label" for="nomModule">Nom du module</label>
@@ -59,7 +66,8 @@
             </div>
 
             <?php
-            if ($_GET['action'] == 'update') echo '<input type="hidden" name="codeModule" value="' . $_GET['codeModule'] . '">'
+            if ($_GET['action'] == 'update') echo '<input type="hidden" name="codeModule" value="' . $_GET['codeModule'] . '">';
+            if ($_GET['action'] == 'create') echo '<input type="hidden" name="nUE" value="' . $_GET['nUE'] . '">';
             ?>
 
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect bouton" type="submits">

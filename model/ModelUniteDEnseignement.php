@@ -4,7 +4,7 @@ require_once File::build_path(array("model", 'Model.php'));
 class ModelUniteDEnseignement extends Model
 {
 
-    protected static $primary = 'nUe';
+    protected static $primary = 'nUE';
     protected static $object = 'UniteDEnseignement';
 
     private $nUE;

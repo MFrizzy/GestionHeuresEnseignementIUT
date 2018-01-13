@@ -43,12 +43,11 @@ class ControllerUniteDEnseignement
         if (isset($_SESSION['login'])) {
             $departementsXdiplome = ModelDiplome::selectAllOrganizedByDep();
             $ue = new ModelUniteDEnseignement();
-            if(isset($_GET['codeDiplome'])) {
+            if (isset($_GET['codeDiplome'])) {
                 $diplome = ModelDiplome::select($_GET['codeDiplome']);
-                if($diplome) $ue->setCodeDiplome($diplome);
+                if ($diplome) $ue->setCodeDiplome($diplome);
                 else $ue->setCodeDiplome(new ModelDiplome());
-            }
-            else $ue->setCodeDiplome(new ModelDiplome());
+            } else $ue->setCodeDiplome(new ModelDiplome());
             $view = 'update';
             $pagetitle = 'Création d\'une unité d\'enseignement';
             require_once File::build_path(array('view', 'view.php'));
@@ -64,20 +63,27 @@ class ControllerUniteDEnseignement
                 isset($_POST['heuresTD']) &&
                 isset($_POST['heuresTP']) &&
                 isset($_POST['heuresCM'])) {
-                //TODO Verification si il n'existe pas déjà
-                if(!ModelUniteDEnseignement::save(array(
-                    'codeDiplome' => $_POST['codeDiplome'],
-                    'semestre' => $_POST['semestre'],
-                    'idUE' => $_POST['idUE'],
-                    'heuresTD' => $_POST['heuresTD'],
-                    'heuresTP' => $_POST['heuresTP'],
-                    'heuresCM' => $_POST['heuresCM']
-                ))) ;
+                /**
+                 * Vérification existance
+                 */
+                $testUe = ModelUniteDEnseignement::selectBy($_POST['codeDiplome'], $_POST['semestre'], $_POST['idUE']);
+                if ($testUe) ControllerMain::erreur("Cette unité d'enseignement existe déjà");
                 else {
-                    $ue = ModelUniteDEnseignement::selectBy($_POST['codeDiplome'],$_POST['semestre'],$_POST['idUE']);
-                    //TODO BUG REDIRECTION
-                    $adresse = 'Location : index.php?controller=uniteDEnseignement&action=read&nUE='.$ue->getNUE();
-                    //header($adresse);
+                    if (!ModelUniteDEnseignement::save(array(
+                        'codeDiplome' => $_POST['codeDiplome'],
+                        'semestre' => $_POST['semestre'],
+                        'idUE' => $_POST['idUE'],
+                        'heuresTD' => $_POST['heuresTD'],
+                        'heuresTP' => $_POST['heuresTP'],
+                        'heuresCM' => $_POST['heuresCM']
+                    ))) ;
+                    else {
+                        $ue = ModelUniteDEnseignement::selectBy($_POST['codeDiplome'], $_POST['semestre'], $_POST['idUE']);
+                        $modules = ModelModule::selectAllByNUE($ue->getNUE());
+                        $view = 'detail';
+                        $pagetitle = 'UE : ' . $ue->nommer();
+                        require_once File::build_path(array('view', 'view.php'));
+                    }
                 }
             } else ControllerMain::erreur("Il manque des informations");
         } else ControllerUser::connect();
@@ -101,6 +107,43 @@ class ControllerUniteDEnseignement
                     $pagetitle = 'Modification d\'une unité d\'enseignement';
                     require_once File::build_path(array('view', 'view.php'));
                 }
+            } else ControllerMain::erreur("Il manque des informations");
+        } else ControllerUser::connect();
+    }
+
+    public static function updated()
+    {
+        if (isset($_SESSION['login'])) {
+            if (isset($_POST['nUE']) &&
+                isset($_POST['codeDiplome']) &&
+                isset($_POST['semestre']) &&
+                isset($_POST['idUE']) &&
+                isset($_POST['heuresTD']) &&
+                isset($_POST['heuresTP']) &&
+                isset($_POST['heuresCM'])) {
+                /**
+                 * Vérification existance
+                 */
+                $testUe = ModelUniteDEnseignement::selectBy($_POST['codeDiplome'], $_POST['semestre'], $_POST['idUE']);
+                if(!$testUe || (is_a($testUe,'ModelUniteDEnseignement') && $_POST['nUE'] == $testUe->getNUE())) {
+                    $data = array(
+                        'nUE' => $_POST['nUE'],
+                        'codeDiplome' => $_POST['codeDiplome'],
+                        'semestre' => $_POST['semestre'],
+                        'idUE' => $_POST['idUE'],
+                        'heuresTD' => $_POST['heuresTD'],
+                        'heuresTP' => $_POST['heuresTP'],
+                        'heuresCM' => $_POST['heuresCM']
+                    );
+                    if(!ModelUniteDEnseignement::update($data)) ControllerMain::erreur("Impossible de modifier l'unité d'enseignement");
+                    else {
+                        $ue = ModelUniteDEnseignement::select($_POST['nUE']);
+                        $modules = ModelModule::selectAllByNUE($ue->getNUE());
+                        $view = 'detail';
+                        $pagetitle = 'UE : ' . $ue->nommer();
+                        require_once File::build_path(array('view', 'view.php'));
+                    }
+                } else ControllerMain::erreur("Cette unité d'enseignement existe déjà");
             } else ControllerMain::erreur("Il manque des informations");
         } else ControllerUser::connect();
     }

@@ -70,3 +70,9 @@
     </table>
 
 </div>
+
+<a href="index.php?controller=module&action=create&nUE=<?php echo $_GET['nUE'] ?>" class="new">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
+        <i class="material-icons">add</i>
+    </button>
+</a>

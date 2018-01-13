@@ -92,7 +92,7 @@ class ModelModule extends Model
     public static function select($primary_value)
     {
         $retourne = parent::select($primary_value);
-        if(!$retourne) return false;
+        if (!$retourne) return false;
         $retourne->setNUE(ModelUniteDEnseignement::select($retourne->getNUE()));
         return $retourne;
     }
@@ -105,7 +105,7 @@ class ModelModule extends Model
     public static function selectAll()
     {
         $retourne = parent::selectAll();
-        if(!$retourne) return false;
+        if (!$retourne) return false;
         foreach ($retourne as $cle => $item) {
             $retourne[$cle]->setNUE(ModelUniteDEnseignement::select($item->getNUE()));
         }
@@ -146,7 +146,7 @@ class ModelModule extends Model
     public static function selectBy($nUE, $numModule)
     {
         try {
-            $sql = 'SELECT * FROM '.self::$object.' WHERE nUE=:nUE AND numModule=:numModule';
+            $sql = 'SELECT * FROM ' . self::$object . ' WHERE nUE=:nUE AND numModule=:numModule';
             $rep = Model::$pdo->prepare($sql);
             $values = array(
                 'nUE' => $nUE,
@@ -154,7 +154,7 @@ class ModelModule extends Model
             $rep->execute($values);
             $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelModule');
             $retourne = $rep->fetchAll();
-            if(empty($retourne)) return false;
+            if (empty($retourne)) return false;
             $retourne[0]->setNUE(ModelUniteDEnseignement::select($retourne[0]->getNUE()));
             return $retourne[0];
         } catch (Exception $e) {
@@ -176,8 +176,8 @@ class ModelModule extends Model
      */
     public function nommer()
     {
-        if($this->getNumModule()<10) $nM='0'.$this->getNumModule();
+        if ($this->getNumModule() < 10) $nM = '0' . $this->getNumModule();
         else $nM = $this->getNumModule();
-        return 'M'.$this->getNUE()->nommer().$nM;
+        return 'M' . $this->getNUE()->nommer() . $nM;
     }
 }

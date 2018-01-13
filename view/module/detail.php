@@ -35,11 +35,11 @@
             </table>
         </div>
         <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <a href="index.php?controller=module&action=update&codeModule=<?php echo htmlspecialchars($module->getCodeModule()) ?>">
+            <a href="index.php?controller=module&action=update&codeModule=<?php echo htmlspecialchars($module->getCodeModule()) ?>">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                     <i class="material-icons">edit</i>
-                </a>
-            </button>
+                </button>
+            </a>
         </div>
     </div>
 

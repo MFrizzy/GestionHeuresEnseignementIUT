@@ -31,11 +31,11 @@ class ControllerEnseignant
             $data = '';
             foreach ($stats as $stat) {
                 $stat['statut'] = addslashes($stat['statut']);
-                $data.= "['" . $stat['statut']."', " . $stat['quantity'] . "],";
+                $data .= "['" . $stat['statut'] . "', " . $stat['quantity'] . "],";
             }
-            $data = rtrim($data,',');
-            $script.=$data;
-            $script.='
+            $data = rtrim($data, ',');
+            $script .= $data;
+            $script .= '
             
         ]);
         var options = {
@@ -54,7 +54,7 @@ class ControllerEnseignant
     }
 
     /**
-     * Redirige vers la fiche détaillé d'un enseignant désigné par @var $_GET['codeEns']
+     * Redirige vers la fiche détaillé d'un enseignant désigné par @var $_GET ['codeEns']
      *
      * @uses ModelEnseignant::select()
      */
@@ -65,6 +65,7 @@ class ControllerEnseignant
                 $ens = ModelEnseignant::select($_GET['codeEns']);
                 if (!$ens) ControllerMain::erreur("L'enseignant n'existe pas");
                 else {
+                    $modules = ModelModule::selectDepAndModulesByEns($_GET['codeEns']);
                     $view = 'detail';
                     $pagetitle = 'Enseignant : ' . $_GET['codeEns'];
                     require_once File::build_path(array('view', 'view.php'));
@@ -95,7 +96,7 @@ class ControllerEnseignant
      * Crée un enseignant en récupérant les données du formulaire passé en méthode POST
      *
      * @uses ModelEnseignant::save()
-     * @see ControllerEnseignant::create()
+     * @see  ControllerEnseignant::create()
      */
     public static function created()
     {
@@ -118,7 +119,7 @@ class ControllerEnseignant
     }
 
     /**
-     * Supprime l'enseignant désigné par @var $_GET['codeEns']
+     * Supprime l'enseignant désigné par @var $_GET ['codeEns']
      *
      * @uses ModelEnseignant::delete()
      */
@@ -166,7 +167,7 @@ class ControllerEnseignant
      * S'il manque des information, l'utilisateur est redirigé vers une erreur
      * Si la maj ne marche pas, l'utilisateur est redirigé vers une erreur
      *
-     * @see ControllerEnseignant::update()
+     * @see  ControllerEnseignant::update()
      * @uses ModelEnseignant::update()
      */
     public static function updated()
@@ -192,7 +193,7 @@ class ControllerEnseignant
     }
 
     /**
-     * Affiche la liste des enseignants appartenant à un département (@var $_POST['codeDepartement'])
+     * Affiche la liste des enseignants appartenant à un département (@var $_POST ['codeDepartement'])
      *
      * S'il manque le codeDepartement, l'utilisateur est redirigé vers une erreur
      * S'il n'y a aucun professeurs dans ce département, l'utilisateur est redirigé vers une erreur
@@ -215,7 +216,7 @@ class ControllerEnseignant
     }
 
     /**
-     * Affiche la liste des enseignants appartenant à un statut (@var $_POST['codeStatut'])
+     * Affiche la liste des enseignants appartenant à un statut (@var $_POST ['codeStatut'])
      *
      * S'il manque le codeStatut, l'utilisateur est redirigé vers une erreur
      * S'il n'y a aucun professeurs dans ce département, l'utilisateur est redirigé vers une erreur
@@ -238,7 +239,7 @@ class ControllerEnseignant
     }
 
     /**
-     * Affiche les details de l'enseignant grâce son code (@var $_POST['codeEns'])
+     * Affiche les details de l'enseignant grâce son code (@var $_POST ['codeEns'])
      *
      * S'il manque le codeEns, l'utilisateur est redirigé vers une erreur
      * S'il l'enseignant n'existe pas, l'utilisateur est redirigé vers une erreur
@@ -261,7 +262,7 @@ class ControllerEnseignant
     }
 
     /**
-     * Affiche la liste des enseignants ayant (@var $_POST['npEns']) dans leur nom
+     * Affiche la liste des enseignants ayant (@var $_POST ['npEns']) dans leur nom
      *
      * S'il manque le npEns, l'utilisateur est redirigé vers une erreur
      * S'il n'y a aucun professeurs avec ce nom, l'utilisateur est redirigé vers une erreur

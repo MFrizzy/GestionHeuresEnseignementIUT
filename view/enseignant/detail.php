@@ -32,4 +32,53 @@
         </div>
     </div>
 
+    <?php
+
+    foreach ($modules as $module) {
+        echo '
+            <div class="mdl-card mdl-shadow--2dp import" style="width: auto;">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">'.htmlspecialchars($module['nomDepartement']).'</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+        ';
+        // Tableaux modules
+        echo '
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp users">
+        <thead>
+        <tr>
+            <th>Details</th>
+            <th class="mdl-data-table__cell--non-numeric">Code du module</th>
+            <th class="mdl-data-table__cell--non-numeric">Nom du module</th>
+        </tr>
+        </thead>
+        <tbody>
+        ';
+        // BOUCLE FOREACH DES MODULES
+        $tab = $module['modules'];
+        foreach ($tab as $item) {
+            echo '    <tr>
+                        <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=module&action=read&codeModule='.$item->getCodeModule().'"><i class="material-icons">expand_more</i></a></td>
+                        <td class="mdl-data-table__cell--non-numeric">'.$item->nommer().'</td>
+                        <td class="mdl-data-table__cell--non-numeric">'.$item->getNomModule().'</td>
+                  </tr>';
+        }
+        echo '
+        </tbody>
+</table>
+
+<a href="index.php?controller=enseignant&action=create" class="new">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
+        <i class="material-icons">add</i>
+    </button>
+</a>
+        ';
+        echo '
+            </div>
+        </div>
+        ';
+    }
+    
+    ?>
+
 </div>

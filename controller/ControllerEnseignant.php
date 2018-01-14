@@ -56,6 +56,8 @@ class ControllerEnseignant
     /**
      * Redirige vers la fiche détaillé d'un enseignant désigné par @var $_GET ['codeEns']
      *
+     * Affiche aussi tous les modules dans lesquels il a enseigné
+     *
      * @uses ModelEnseignant::select()
      */
     public static function read()

@@ -40,7 +40,7 @@ class ControllerBatiment
                 if ($batiment == false) ControllerMain::erreur("Ce batiment n'existe pas");
                 else {
                     $tab = ModelSalle::selectAllByBatiment($_GET['nomBatiment']);
-                    if ($tab == false) ControllerMain::erreur('Aucune salles dans ce batiment');
+                    if ($tab == false) ControllerMain::erreur('Aucune salle dans ce batiment');
                     else {
                         $pagetitle = 'Batiment ' . $_GET['nomBatiment'];
                         $view = 'detail';

@@ -178,7 +178,7 @@ class ModelCours extends Model
                 $retourne[$cle]->setCodeEns(ModelEnseignant::select($item->getCodeEns()));
                 $retourne[$cle]->setCodeModule(ModelModule::select($item->getCodeModule()));
                 // Setter objet classe
-                $retourne[$cle]->setNomClasse(ModelClasse::select($item->getNomClasse()));
+                //$retourne[$cle]->setNomClasse(ModelClasse::select($item->getNomClasse()));
             }
             return $retourne;
         } catch (Exception $e) {

@@ -8,7 +8,7 @@
             Departement : <?php echo htmlspecialchars($ens->getCodeDepartement()->getNomDepartement()) ?><br>
             Statut v1 : <?php echo htmlspecialchars($ens->getCodeStatut()->getStatut()) ?><br>
             Statut v2 : <?php echo htmlspecialchars($ens->getCodeStatut()->getTypeStatut()) ?><br>
-            Etat Service : <?php echo htmlspecialchars($ens->getEtatService()) ?><br>
+            Etat Service : <?php echo htmlspecialchars($ens->getNbHeuresReal()) ?><br>
             Nombre d'heures à faire : <?php echo htmlspecialchars($ens->getCodeStatut()->getNombresHeures()) ?><br>
         </div>
         <div class="mdl-card__supporting-text mdl-card--border">
@@ -36,11 +36,11 @@
 
     foreach ($modules as $module) {
         echo '
-            <div class="mdl-card mdl-shadow--2dp import" style="width: auto;">
+            <div class="mdl-card mdl-shadow--2dp import" style="width: auto">
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">'.htmlspecialchars($module['nomDepartement']).'</h2>
         </div>
-        <div class="mdl-card__supporting-text">
+        <div class="mdl-card__supporting-text" style="width: 100%; padding-right: 15px">
         ';
         // Tableaux modules
         echo '
@@ -50,6 +50,10 @@
             <th>Details</th>
             <th class="mdl-data-table__cell--non-numeric">Code du module</th>
             <th class="mdl-data-table__cell--non-numeric">Nom du module</th>
+            <th class="mdl-data-table__cell--non-numeric">Heures TD</th>
+            <th class="mdl-data-table__cell--non-numeric">Heures TP</th>
+            <th class="mdl-data-table__cell--non-numeric">Heures CM</th>
+            <th class="mdl-data-table__cell--non-numeric">Autres heures</th>
         </tr>
         </thead>
         <tbody>
@@ -61,6 +65,10 @@
                         <td class="mdl-data-table__cell--non-numeric"><a href="index.php?controller=module&action=read&codeModule='.$item->getCodeModule().'"><i class="material-icons">expand_more</i></a></td>
                         <td class="mdl-data-table__cell--non-numeric">'.$item->nommer().'</td>
                         <td class="mdl-data-table__cell--non-numeric">'.$item->getNomModule().'</td>
+                        <td class="mdl-data-table__cell--non-numeric">'.$ens->getHeuresTD($item->getCodeModule()).'</td>
+                        <td class="mdl-data-table__cell--non-numeric">'.$ens->getHeuresTP($item->getCodeModule()).'</td>
+                        <td class="mdl-data-table__cell--non-numeric">'.$ens->getHeuresCM($item->getCodeModule()).'</td>
+                        <td class="mdl-data-table__cell--non-numeric">'.$ens->getHeuresAutres($item->getCodeModule()).'</td>
                   </tr>';
         }
         echo '

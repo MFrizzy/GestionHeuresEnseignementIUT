@@ -285,4 +285,28 @@ class ControllerEnseignant
             }
         } else ControllerUser::connect();
     }
+
+    /**
+     * Affiche la liste des cours d'un enseignant identifié par @var $_GET['codeEns']
+     *
+     * S'il n'y a pas de codeEns, l'utilisateur est redirigé vers une erreur
+     * Si l'enseignant n'existe pas, l'utilisateur est redirigé vers une erreur
+     *
+     * @uses ModelEnseignant::select()
+     * @uses ModelCours::selectAllByEns()
+     */
+    public static function getListCours() {
+        if (isset($_SESSION['login'])) {
+            if (isset($_GET['codeEns'])) {
+                $ens = ModelEnseignant::select($_GET['codeEns']);
+                if (!$ens) ControllerMain::erreur("L'enseignant n'existe pas");
+                else {
+                    $listCours = ModelCours::selectAllByEns($_GET['codeEns']);
+                    $view = 'coursEnseignant';
+                    $pagetitle = 'Cours effectués par : ' . $ens->getCodeEns();
+                    require_once File::build_path(array('view', 'view.php'));
+                }
+            } else ControllerMain::erreur("Il manque des informations");
+        } else ControllerUser::connect();
+    }
 }

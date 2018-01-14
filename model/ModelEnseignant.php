@@ -219,4 +219,103 @@ class ModelEnseignant extends Model
         }
     }
 
+    /**
+     * @return float : nombres d'heures équivalent TD réalisés par un professeur
+     */
+    public function getNbHeuresReal()
+    {
+        $Tcours = ModelCours::selectAllByEns($this->getCodeEns());
+        if (!$Tcours) {
+            return 0;
+        } else {
+            $r = 0;
+            foreach ($Tcours as $cours) {
+                $t = $cours->getTypeCours();
+                if ($t == 'CM') {
+                    $d = intval($cours->getDuree()) * 2 / 3;
+                } elseif ($t == 'TP') {
+                    $d = intval($cours->getDuree()) * 1.5;
+                } else {
+                    $d = intval($cours->getDuree());
+                }
+                $r = $r + $d;
+            }
+            return $r;
+        }
+    }
+
+    /**
+     * @return int : nombres d'heures de TD réalisés par le professeur
+     */
+    public function getHeuresTD($codeModule)
+    {
+        $sql = 'SELECT COUNT(*) AS heuresTD
+                FROM Cours
+                WHERE codeEns = :codeEns
+                AND typeCours = "TD"
+                AND codeModule = :codeModule';
+        $rep = Model::$pdo->prepare($sql);
+        $rep->execute(array(
+            'codeEns' => $this->getCodeEns(),
+            'codeModule' => $codeModule));
+        $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+        return intval($retourne[0]['heuresTD']);
+    }
+
+    /**
+     * @return int : nombres d'heures de TP réalisés par le professeur
+     */
+    public function getHeuresTP($codeModule)
+    {
+        $sql = 'SELECT COUNT(*) AS heuresTP
+                FROM Cours
+                WHERE codeEns = :codeEns
+                AND typeCours = "TP"
+                AND codeModule = :codeModule';
+        $rep = Model::$pdo->prepare($sql);
+        $rep->execute(array(
+            'codeEns' => $this->getCodeEns(),
+            'codeModule' => $codeModule));
+        $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+        return intval($retourne[0]['heuresTP']);
+    }
+
+    /**
+     * @return int : nombres d'heures de CM réalisés par le professeur
+     */
+    public function getHeuresCM($codeModule)
+    {
+        $sql = 'SELECT COUNT(*) AS heuresCM
+                FROM Cours
+                WHERE codeEns = :codeEns
+                AND typeCours = "CM"
+                AND codeModule = :codeModule';
+        $rep = Model::$pdo->prepare($sql);
+        $rep->execute(array(
+            'codeEns' => $this->getCodeEns(),
+            'codeModule' => $codeModule));
+        $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+        return intval($retourne[0]['heuresCM']);
+    }
+
+    /**
+     * @return int : nombres d'heures hors TD/TP/CM réalisés par le professeur
+     */
+    public function getHeuresAutres($codeModule)
+    {
+        $sql = 'SELECT COUNT(*) AS heuresAutres
+                FROM Cours
+                WHERE codeEns = :codeEns
+                AND typeCours != "TD" 
+                AND typeCours != "TP" 
+                AND typeCours != "CM"
+                AND codeModule = :codeModule';
+        $rep = Model::$pdo->prepare($sql);
+        $rep->execute(array(
+            'codeEns' => $this->getCodeEns(),
+            'codeModule' => $codeModule));
+        $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);
+        return intval($retourne[0]['heuresAutres']);
+    }
+
 }

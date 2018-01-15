@@ -22,7 +22,7 @@
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                Send
+                Importer
             </button>
         </div>
     </div>

@@ -31,7 +31,11 @@
 </table>
 
 <a href="index.php?controller=enseignant&action=create" class="new">
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
+    <button id="create" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
         <i class="material-icons">add</i>
     </button>
 </a>
+
+<div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--top" for="create">
+    Créer un enseignant
+</div>

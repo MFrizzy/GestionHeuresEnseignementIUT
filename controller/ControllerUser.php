@@ -95,7 +95,7 @@ class ControllerUser
             if ($user == false) {
                 ControllerMain::erreur("Cet utilisateur n'existe pas");
             } else {
-                header('Location: index.php');
+                ControllerUser::readAll();
             }
         } else {
             ControllerMain::erreur("Vous n'avez pas le droit de voir cette page");
@@ -141,7 +141,7 @@ class ControllerUser
                         if (!ModelUser::save($data)) {
                             ControllerMain::erreur("Impossible d'inscrire l'utilisateur");
                         } else {
-                            ControllerUser::connect();
+                            ControllerUser::readAll();
                         }
                     } else {
                         ControllerUser::create();

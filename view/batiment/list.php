@@ -25,7 +25,7 @@
         <tfoot>
         <tr>
             <form method="post" action="index.php?controller=batiment&action=created">
-                <th><button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored bouton" type="submits">
+                <th><button id="create" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored bouton" type="submits">
                         <i class="material-icons">add</i>
                     </button></th>
                 <th>
@@ -39,4 +39,8 @@
         </tr>
         </tfoot>
     </table>
+</div>
+
+<div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--top" for="create">
+    Créer un batiment
 </div>

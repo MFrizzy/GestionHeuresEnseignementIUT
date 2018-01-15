@@ -20,7 +20,11 @@
                 $setAdmin = '';
             } else {
                 $activated = '';
-                $setAdmin = '<a href="index.php?controller=user&action=setAdmin&mailUser=' . htmlspecialchars($value->getMailUser()) . '"><i class="material-icons">person_add</i></a>';
+                $setAdmin = '<a href="index.php?controller=user&action=setAdmin&mailUser=' . htmlspecialchars($value->getMailUser()) . '"><i id="' . htmlspecialchars($value->getMailUser()) . '" class="material-icons">person_add</i></a>
+<div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--top" for="' . htmlspecialchars($value->getMailUser()) . '">
+    Donner les droits administrateur
+</div>
+';
             }
             echo '<tr>
                         <td><a href="index.php?controller=user&action=read&mailUser=' . htmlspecialchars($value->getMailUser()) . '">' . '<i class="material-icons">expand_more</i></a></td>
@@ -38,7 +42,10 @@
 </div>
 
 <a href="index.php?controller=user&action=create" class="new">
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
+    <button id="create" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored new">
         <i class="material-icons">add</i>
     </button>
 </a>
+<div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--top" for="create">
+    Créer un utilisateur
+</div>

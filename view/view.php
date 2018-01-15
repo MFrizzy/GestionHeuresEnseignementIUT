@@ -28,7 +28,7 @@
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
                 <li class="mdl-menu__item">Contact</li>
-                <a href="https://github.com/MFrizzy/GestionHeuresEnseignementIUT">
+                <a href="https://github.com/MFrizzy/PONOS">
                     <li class="mdl-menu__item">Github</li>
                 </a>
             </ul>
@@ -36,7 +36,6 @@
     </header>
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
-            <!--<i class="material-icons demo-avatar">person</i>-->
             <?php if (isset($_SESSION['login'])) echo '
             <div class="demo-avatar-dropdown">
                 <span>' . $_SESSION['login'] . '</span>
@@ -48,7 +47,6 @@
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
                     <a href="index.php?controller=user&action=read"><li class="mdl-menu__item">Voir mon profil</li></a>
                     <a href="index.php?controller=user&action=deconnect"><li class="mdl-menu__item">Se déconnecter</li></a>
-                    <!--<li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>-->
                 </ul>
             </div>';
             ?>

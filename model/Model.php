@@ -22,7 +22,7 @@ class Model
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             if (Conf::getDebug()) echo $e->getMessage();
-            else ControllerMain::erreur(26);
+            else ControllerMain::erreur("Impossible d'acceder a l'application, veuillez contacter un administrateur du serveur");
             die();
         }
     }

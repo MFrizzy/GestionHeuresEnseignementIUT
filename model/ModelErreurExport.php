@@ -142,6 +142,7 @@ class ModelErreurExport extends Model
     {
         try {
             $sql = 'SELECT COUNT(*) AS total FROM ' . self::$object;
+            if (Model::$pdo == NULL) return 0;
             $rep = Model::$pdo->prepare($sql);
             $rep->execute();
             $retourne = $rep->fetchAll(PDO::FETCH_ASSOC);

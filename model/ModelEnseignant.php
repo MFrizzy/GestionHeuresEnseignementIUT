@@ -232,11 +232,11 @@ class ModelEnseignant extends Model
             foreach ($Tcours as $cours) {
                 $t = $cours->getTypeCours();
                 if ($t == 'CM') {
-                    $d = intval($cours->getDuree()) * 2 / 3;
+                    $d = floatval($cours->getDuree()) * 2 / 3;
                 } elseif ($t == 'TP') {
-                    $d = intval($cours->getDuree()) * 1.5;
+                    $d = floatval($cours->getDuree()) * 1.5;
                 } else {
-                    $d = intval($cours->getDuree());
+                    $d = floatval($cours->getDuree());
                 }
                 $r = $r + $d;
             }
@@ -249,7 +249,7 @@ class ModelEnseignant extends Model
      */
     public function getHeuresTD($codeModule)
     {
-        $sql = 'SELECT COUNT(*) AS heuresTD
+        $sql = 'SELECT sum(duree) AS heuresTD
                 FROM Cours
                 WHERE codeEns = :codeEns
                 AND typeCours = "TD"
@@ -267,7 +267,7 @@ class ModelEnseignant extends Model
      */
     public function getHeuresTP($codeModule)
     {
-        $sql = 'SELECT COUNT(*) AS heuresTP
+        $sql = 'SELECT sum(duree) AS heuresTP
                 FROM Cours
                 WHERE codeEns = :codeEns
                 AND typeCours = "TP"
@@ -285,7 +285,7 @@ class ModelEnseignant extends Model
      */
     public function getHeuresCM($codeModule)
     {
-        $sql = 'SELECT COUNT(*) AS heuresCM
+        $sql = 'SELECT sum(duree) AS heuresCM
                 FROM Cours
                 WHERE codeEns = :codeEns
                 AND typeCours = "CM"
@@ -303,7 +303,7 @@ class ModelEnseignant extends Model
      */
     public function getHeuresAutres($codeModule)
     {
-        $sql = 'SELECT COUNT(*) AS heuresAutres
+        $sql = 'SELECT sum(duree) AS heuresAutres
                 FROM Cours
                 WHERE codeEns = :codeEns
                 AND typeCours != "TD" 

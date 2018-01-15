@@ -54,13 +54,17 @@ class Extraction
                         else $preCodeActivite = substr($codeActivite, 3);
                         $ue = Extraction::verifUE($preCodeActivite, $diplome);
                         $module = Extraction::verifModule($preCodeActivite, $ue);
-                        if (!ModelCours::save(array(
-                            'codeEns' => $item[1],
-                            'dateCours' => $item[5],
-                            'codeModule' => $module->getCodeModule(),
-                            'duree' => $item[6],
-                            'typeCours' => $item[8]
-                        ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
+                        $date = Extraction::verifDate($item[5]);
+                        if(!$date) Extraction::erreur($item,'date invalide');
+                        else {
+                            if (!ModelCours::save(array(
+                                'codeEns' => $item[1],
+                                'dateCours' => $date,
+                                'codeModule' => $module->getCodeModule(),
+                                'duree' => $item[6],
+                                'typeCours' => $item[8]
+                            ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
+                        }
                     } else Extraction::erreur($item, 'Département invalide');
                     break;
                 case 2:
@@ -107,16 +111,20 @@ class Extraction
                     else $preCodeActivite = substr($codeActivite, 3);
                     $ue = Extraction::verifUE($preCodeActivite, $diplome);
                     $module = Extraction::verifModule($preCodeActivite, $ue);
-                    if (!ModelCours::save(array(
-                        'codeEns' => $item[1],
-                        'dateCours' => $item[5],
-                        'codeModule' => $module->getCodeModule(),
-                        'duree' => $item[6],
-                        'typeCours' => $item[8]
-                    ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
-                    else return true;
+                    $date = Extraction::verifDate($item[5]);
+                    if(!$date) Extraction::erreur($item,'date invalide');
+                    else {
+                        if (!ModelCours::save(array(
+                            'codeEns' => $item[1],
+                            'dateCours' => $item[5],
+                            'codeModule' => $module->getCodeModule(),
+                            'duree' => $item[6],
+                            'typeCours' => $item[8]
+                        ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
+                        else return true;
+                    }
                 } else ModelErreurExport::update(array(
-                    'idErreur' => $erreur->getIdErreur() ,
+                    'idErreur' => $erreur->getIdErreur(),
                     'typeErreur' => 'Département invalide'
                 ));
                 break;
@@ -183,7 +191,7 @@ class Extraction
      */
     public static function verifDepartement($codeActivite)
     {
-        if(isset($codeActivite[1])) {
+        if (isset($codeActivite[1])) {
             if (!ModelDepartement::select($codeActivite[1])) {
                 return false;
             } else {
@@ -285,6 +293,29 @@ class Extraction
             'typeActivitee' => $item[8],
             'typeErreur' => $typeErreur
         ));
+    }
+
+    /**
+     * @param $date | @var $item[5]
+     */
+    public static function verifDate($date)
+    {
+        $date = explode('/', $date);
+        if (count($date) == 3) {
+            switch (strlen($date[2])) {
+                case 2:
+                    $annee = '20'.$date[2];
+                    break;
+                case 4:
+                    $annee = $date[2];
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+            $dateAuBonFormat = $annee.'-'.$date[1].'-'.$date[0];
+            return $dateAuBonFormat;
+        } else return false;
     }
 
 }

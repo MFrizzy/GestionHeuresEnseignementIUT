@@ -9,7 +9,7 @@ class ModelErreurExport extends Model
 
     protected static $object = 'ErreurExport';
     protected static $primary = 'idErreur';
-    protected static $valeursParPage = 100;
+    protected static $valeursParPage = 20;
 
     private $idErreur;
     private $nomEns;

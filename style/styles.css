@@ -203,6 +203,10 @@ table{
     color:rgb(0,188,212);
 }
 
+main.mdl-layout__content {
+    overflow-x: auto;
+}
+
 /* Importation de fichier material design
    Source : https://codepen.io/alexandergaziev/pen/JdVQQm
 */
@@ -230,3 +234,4 @@ body {
 .none {
     display: none;
 }
+

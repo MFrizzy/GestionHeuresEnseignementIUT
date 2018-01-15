@@ -105,9 +105,9 @@ class ControllerExtraction
                 if (!$erreur) ControllerMain::erreur("L'erreur n'exite pas..");
                 else {
                     if (Extraction::erreurToBD($erreur)) {
-                        echo "cban";
+                        ControllerExtraction::readAll();
                     } else {
-                        echo ')=';
+                        ControllerExtraction::readAll();
                     }
                 }
             }

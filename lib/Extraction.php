@@ -48,30 +48,36 @@ class Extraction
             switch ($verif) {
                 case 1:
                     $codeActivite = $item[7];
-                    if (Extraction::verifDepartement($codeActivite)) {
-                        $diplome = Extraction::verifDiplome($codeActivite);
-                        if ($diplome->getTypeDiplome()[0] == 'P') $preCodeActivite = substr($codeActivite, 4);
-                        else $preCodeActivite = substr($codeActivite, 3);
-                        $ue = Extraction::verifUE($preCodeActivite, $diplome);
-                        $module = Extraction::verifModule($preCodeActivite, $ue);
-                        $date = Extraction::verifDate($item[5]);
-                        if(!$date) Extraction::erreur($item,'date invalide');
-                        else {
-                            if (!ModelCours::save(array(
-                                'codeEns' => $item[1],
-                                'dateCours' => $date,
-                                'codeModule' => $module->getCodeModule(),
-                                'duree' => $item[6],
-                                'typeCours' => $item[8]
-                            ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
-                        }
-                    } else Extraction::erreur($item, 'Département invalide');
+                    if(empty($codeActivite)) Extraction::erreur($item,'Code d\'activité');
+                    else{
+                        if (Extraction::verifDepartement($codeActivite)) {
+                            $diplome = Extraction::verifDiplome($codeActivite);
+                            if ($diplome->getTypeDiplome()[0] == 'P') $preCodeActivite = substr($codeActivite, 4);
+                            else $preCodeActivite = substr($codeActivite, 3);
+                            $ue = Extraction::verifUE($preCodeActivite, $diplome);
+                            $module = Extraction::verifModule($preCodeActivite, $ue);
+                            $date = Extraction::verifDate($item[5]);
+                            if(!$date) Extraction::erreur($item,'date invalide');
+                            else {
+                                if (!ModelCours::save(array(
+                                    'codeEns' => $item[1],
+                                    'dateCours' => $date,
+                                    'codeModule' => $module->getCodeModule(),
+                                    'duree' => $item[6],
+                                    'typeCours' => $item[8]
+                                ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
+                            }
+                        } else Extraction::erreur($item, 'Département invalide');
+                    }
                     break;
                 case 2:
                     Extraction::erreur($item, 'statut');
                     break;
                 case 3:
                     Extraction::erreur($item, 'departementEns');
+                    break;
+                case 4:
+                    Extraction::erreur($item, 'Aucun code enseignant');
                     break;
                 default:
                     Extraction::erreur($item, '');
@@ -100,33 +106,35 @@ class Extraction
             $erreur->getActivitee(),
             $erreur->getTypeActivitee()
         );
-        ModelErreurExport::delete($erreur->getIdErreur());
         $verif = Extraction::verifEnseignant($item);
         switch ($verif) {
             case 1:
                 $codeActivite = $item[7];
-                if (Extraction::verifDepartement($codeActivite)) {
-                    $diplome = Extraction::verifDiplome($codeActivite);
-                    if ($diplome->getTypeDiplome()[0] == 'P') $preCodeActivite = substr($codeActivite, 4);
-                    else $preCodeActivite = substr($codeActivite, 3);
-                    $ue = Extraction::verifUE($preCodeActivite, $diplome);
-                    $module = Extraction::verifModule($preCodeActivite, $ue);
-                    $date = Extraction::verifDate($item[5]);
-                    if(!$date) Extraction::erreur($item,'date invalide');
-                    else {
-                        if (!ModelCours::save(array(
-                            'codeEns' => $item[1],
-                            'dateCours' => $item[5],
-                            'codeModule' => $module->getCodeModule(),
-                            'duree' => $item[6],
-                            'typeCours' => $item[8]
-                        ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
-                        else return true;
-                    }
-                } else ModelErreurExport::update(array(
-                    'idErreur' => $erreur->getIdErreur(),
-                    'typeErreur' => 'Département invalide'
-                ));
+                if(empty($codeActivite)) Extraction::erreur($item,'Code d\'activité');
+                else{
+                    if (Extraction::verifDepartement($codeActivite)) {
+                        $diplome = Extraction::verifDiplome($codeActivite);
+                        if ($diplome->getTypeDiplome()[0] == 'P') $preCodeActivite = substr($codeActivite, 4);
+                        else $preCodeActivite = substr($codeActivite, 3);
+                        $ue = Extraction::verifUE($preCodeActivite, $diplome);
+                        $module = Extraction::verifModule($preCodeActivite, $ue);
+                        $date = Extraction::verifDate($item[5]);
+                        if(!$date) Extraction::erreur($item,'date invalide');
+                        else {
+                            if (!ModelCours::save(array(
+                                'codeEns' => $item[1],
+                                'dateCours' => $item[5],
+                                'codeModule' => $module->getCodeModule(),
+                                'duree' => $item[6],
+                                'typeCours' => $item[8]
+                            ))) ControllerMain::erreur("Impossible de sauvegarder le cours");
+                            else echo 'marche'.$erreur->getIdErreur(); return true;
+                        }
+                    } else ModelErreurExport::update(array(
+                        'idErreur' => $erreur->getIdErreur(),
+                        'typeErreur' => 'Département invalide'
+                    ));
+                }
                 break;
             case 2:
                 ModelErreurExport::update(array(
@@ -138,6 +146,12 @@ class Extraction
                 ModelErreurExport::update(array(
                     'idErreur' => $erreur->getIdErreur(),
                     'typeErreur' => 'departementEns'
+                ));
+                break;
+            case 4:
+                ModelErreurExport::update(array(
+                    'idErreur' => $erreur->getIdErreur(),
+                    'typeErreur' => 'Aucun code enseignant'
                 ));
                 break;
             default:
@@ -162,6 +176,7 @@ class Extraction
      */
     public static function verifEnseignant($item)
     {
+        if(empty($item[1])) return 4;
         if (!ModelEnseignant::select($item[1])) {
             $statut = ModelStatutEnseignant::selectByStatutType($item[3], $item[4]);
             if (!$statut) {

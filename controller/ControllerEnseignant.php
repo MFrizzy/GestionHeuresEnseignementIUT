@@ -255,6 +255,8 @@ class ControllerEnseignant
                 $ens = ModelEnseignant::select($_POST['codeEns']);
                 if (!$ens) ControllerMain::erreur("Cet enseigant n'existe pas");
                 else {
+                    $modules = ModelModule::selectDepAndModulesByEns($_POST['codeEns']);
+                    
                     $view = 'detail';
                     $pagetitle = 'Enseignant : ' . $_POST['codeEns'];
                     require_once File::build_path(array('view', 'view.php'));
